@@ -1,6 +1,5 @@
 // Include standard headers
 #include <stdio.h>
-#include <stdlib.h>
 
 // Include GLEW
 #include <GL/glew.h>
@@ -17,6 +16,9 @@ GLFWwindow *window;
 using namespace glm;
 
 #include <common/shader.hpp>
+#include <common/sha256.h>
+#include <cstring>
+#include <common/glhash.h>
 
 int main(void) {
     // Initialise GLFW
@@ -55,9 +57,6 @@ int main(void) {
     // Ensure we can capture the escape key being pressed below
     glfwSetInputMode(window, GLFW_STICKY_KEYS, GL_TRUE);
 
-    // Dark blue background
-    glClearColor(0.0f, 0.0f, 0.4f, 0.0f);
-
     // Enable depth test
     glEnable(GL_DEPTH_TEST);
     // Accept fragment if it closer to the camera than the former one
@@ -78,7 +77,7 @@ int main(void) {
     glm::mat4 Projection = glm::perspective(glm::radians(45.0f), 4.0f / 3.0f, 0.1f, 100.0f);
     // Camera matrix
     glm::mat4 View = glm::lookAt(
-            glm::vec3(4, 3, -3), // Camera is at (4,3,-3), in World Space
+            glm::vec3(4, 3, 0), // Camera is at (4,3,-3), in World Space
             glm::vec3(0, 0, 0), // and looks at the origin
             glm::vec3(0, 1, 0)  // Head is up (set to 0,-1,0 to look upside-down)
     );
@@ -86,47 +85,6 @@ int main(void) {
     glm::mat4 Model = glm::mat4(1.0f);
     // Our ModelViewProjection : multiplication of our 3 matrices
     glm::mat4 MVP = Projection * View * Model; // Remember, matrix multiplication is the other way around
-
-    // Our vertices. Tree consecutive floats give a 3D vertex; Three consecutive vertices give a triangle.
-    // A cube has 6 faces with 2 triangles each, so this makes 6*2=12 triangles, and 12*3 vertices
-    static const GLfloat g_vertex_buffer_data[] = {
-            -1.0f, -1.0f, -1.0f,
-            -1.0f, -1.0f, 1.0f,
-            -1.0f, 1.0f, 1.0f,
-            1.0f, 1.0f, -1.0f,
-            -1.0f, -1.0f, -1.0f,
-            -1.0f, 1.0f, -1.0f,
-            1.0f, -1.0f, 1.0f,
-            -1.0f, -1.0f, -1.0f,
-            1.0f, -1.0f, -1.0f,
-            1.0f, 1.0f, -1.0f,
-            1.0f, -1.0f, -1.0f,
-            -1.0f, -1.0f, -1.0f,
-            -1.0f, -1.0f, -1.0f,
-            -1.0f, 1.0f, 1.0f,
-            -1.0f, 1.0f, -1.0f,
-            1.0f, -1.0f, 1.0f,
-            -1.0f, -1.0f, 1.0f,
-            -1.0f, -1.0f, -1.0f,
-            -1.0f, 1.0f, 1.0f,
-            -1.0f, -1.0f, 1.0f,
-            1.0f, -1.0f, 1.0f,
-            1.0f, 1.0f, 1.0f,
-            1.0f, -1.0f, -1.0f,
-            1.0f, 1.0f, -1.0f,
-            1.0f, -1.0f, -1.0f,
-            1.0f, 1.0f, 1.0f,
-            1.0f, -1.0f, 1.0f,
-            1.0f, 1.0f, 1.0f,
-            1.0f, 1.0f, -1.0f,
-            -1.0f, 1.0f, -1.0f,
-            1.0f, 1.0f, 1.0f,
-            -1.0f, 1.0f, -1.0f,
-            -1.0f, 1.0f, 1.0f,
-            1.0f, 1.0f, 1.0f,
-            -1.0f, 1.0f, 1.0f,
-            1.0f, -1.0f, 1.0f
-    };
 
     // One color for each vertex. They were generated randomly.
     static const GLfloat g_color_buffer_data[] = {
@@ -168,10 +126,27 @@ int main(void) {
             0.982f, 0.099f, 0.879f
     };
 
+    BYTE buf[SHA256_BLOCK_SIZE];
+    BYTE input[] = "A quick brown fox jumps over the lazy dog";
+
+    SHA256_CTX ctx{};
+    sha256_init(&ctx);
+
+    sha256_update(&ctx, input, 41);
+
+    sha256_final(&ctx, buf);
+
+    BYTE backgroundColorByte = buf[0];
+    const float *bgColor = getBackgroundColor(backgroundColorByte);
+
+    glClearColor(bgColor[0], bgColor[1], bgColor[2], 0.0f);
+
+    GLfloat *g_vertex_buffer_data = getCoordinates(input);
+
     GLuint vertexbuffer;
     glGenBuffers(1, &vertexbuffer);
     glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(g_vertex_buffer_data), g_vertex_buffer_data, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * 99, g_vertex_buffer_data, GL_STATIC_DRAW);
 
     GLuint colorbuffer;
     glGenBuffers(1, &colorbuffer);

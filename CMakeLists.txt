@@ -31,7 +31,7 @@ add_definitions(
 set(CMAKE_CXX_STANDARD 11)
 
 set(SOURCE_FILES
-        main.cpp)
+        main.cpp common/sha256.cpp common/sha256.h common/glhash.cpp common/glhash.h)
 
 # add_executable(GlHash ${SOURCE_FILES})
 

@@ -27,9 +27,9 @@ using namespace glm;
 
 int main(void) {
 
-    //char String[Max_Lenght_String];
-    //FILE *in;
-    //scanf("%s", String);
+    BYTE input[Max_Lenght_String];
+    std::cout << "Inserisci la stringa da hashare" << endl;
+    std::cin >> input;
 
     // Initialise GLFW
     if (!glfwInit()) {
@@ -137,7 +137,7 @@ int main(void) {
     };
 
     BYTE buf[SHA256_BLOCK_SIZE];
-    BYTE input[] = "A quick brown fox jumps over the lazy dog";
+    input = "A quick brown fox jumps over the lazy dog";
 
     SHA256_CTX ctx{};
     sha256_init(&ctx);

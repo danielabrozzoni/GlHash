@@ -128,12 +128,12 @@ GLfloat *getCoordinates(BYTE *input) {
     auto *g_vertex_buffer_data = (GLfloat *) malloc(sizeof(GLfloat) * valuesCount);
 
     for (size_t i = 1; valuesRead < valuesCount; valuesRead += 4, i++) {
-        g_vertex_buffer_data[valuesRead] = mapBitsToFloat(input[i], 2, 0, -1.0f, 1.0f) + offset[valuesRead];
-        g_vertex_buffer_data[valuesRead + 1] = mapBitsToFloat(input[i], 2, 2, -1.0f, 1.0f) + offset[valuesRead+1];
-        g_vertex_buffer_data[valuesRead + 2] = mapBitsToFloat(input[i], 2, 4, -1.0f, 1.0f) - offset[valuesRead + 2];
+        g_vertex_buffer_data[valuesRead] = mapBitsToFloat(input[i], 2, 6, -1.0f, 1.0f) + offset[valuesRead];
+        g_vertex_buffer_data[valuesRead + 1] = mapBitsToFloat(input[i], 2, 4, -1.0f, 1.0f) + offset[valuesRead + 1];
+        g_vertex_buffer_data[valuesRead + 2] = mapBitsToFloat(input[i], 2, 2, -1.0f, 1.0f) - offset[valuesRead + 2];
 
         if (valuesRead < valuesCount) {
-            g_vertex_buffer_data[valuesRead + 3] = mapBitsToFloat(input[i], 2, 6, -1.0f, 1.0f) - offset[valuesRead+3];
+            g_vertex_buffer_data[valuesRead + 3] = mapBitsToFloat(input[i], 2, 0, -1.0f, 1.0f) - offset[valuesRead + 3];
         }
     }
 

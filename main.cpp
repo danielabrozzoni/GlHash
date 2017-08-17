@@ -28,7 +28,7 @@ using namespace glm;
 int main(void) {
 
     BYTE input[Max_Lenght_String];
-    std::cout << "Inserisci la stringa da hashare" << endl;
+    std::cout << "Inserisci la stringa da hashare: ";
     std::cin >> input;
 
     // Initialise GLFW
@@ -94,7 +94,6 @@ int main(void) {
     // Model matrix : an identity matrix (model will be at the origin)
     glm::mat4 Model = glm::mat4(1.0f);
     // Our ModelViewProjection : multiplication of our 3 matrices
-    glm::mat4 MVP = Projection * View * Model; // Remember, matrix multiplication is the other way around
 
     // One color for each vertex. They were generated randomly.
     static const GLfloat g_color_buffer_data[] = {
@@ -137,12 +136,12 @@ int main(void) {
     };
 
     BYTE buf[SHA256_BLOCK_SIZE];
-    input = "A quick brown fox jumps over the lazy dog";
+    //input = "A quick brown fox jumps over the lazy dog";
 
     SHA256_CTX ctx{};
     sha256_init(&ctx);
 
-    sha256_update(&ctx, input, 41);
+    sha256_update(&ctx, input, strlen(reinterpret_cast<const char *>(input)));
 
     sha256_final(&ctx, buf);
 
@@ -151,7 +150,21 @@ int main(void) {
 
     glClearColor(bgColor[0], bgColor[1], bgColor[2], 0.0f);
 
-    GLfloat *g_vertex_buffer_data = getCoordinates(input);
+    GLfloat *g_vertex_buffer_data = getCoordinates(buf);
+
+    float xRotation = mapBitsToFloat(buf[26], 8, 0, -3.1416f, 3.1416);
+    float yRotation = mapBitsToFloat(buf[27], 8, 0, -3.1416f, 3.1416);
+    float zRotation = mapBitsToFloat(buf[28], 8, 0, -3.1416f, 3.1416);
+
+    float xTranslation = mapBitsToFloat(buf[29], 8, 0, -0.5f, 0.5f);
+    float yTranslation = mapBitsToFloat(buf[30], 8, 0, -0.5f, 0.5f);
+    float zTranslation = mapBitsToFloat(buf[31], 8, 0, -0.5f, 0.5f);
+
+    Model = glm::rotate(Model, xRotation, glm::vec3(1.0f, 0.0f, 0.0f));
+    Model = glm::rotate(Model, yRotation, glm::vec3(0.0f, 1.0f, 0.0f));
+    Model = glm::rotate(Model, zRotation, glm::vec3(0.0f, 0.0f, 1.0f));
+
+    Model = glm::translate(Model, glm::vec3(xTranslation, yTranslation, zTranslation));
 
     GLuint vertexbuffer;
     glGenBuffers(1, &vertexbuffer);
@@ -162,6 +175,8 @@ int main(void) {
     glGenBuffers(1, &colorbuffer);
     glBindBuffer(GL_ARRAY_BUFFER, colorbuffer);
     glBufferData(GL_ARRAY_BUFFER, sizeof(g_color_buffer_data), g_color_buffer_data, GL_STATIC_DRAW);
+
+    glm::mat4 MVP = Projection * View * Model; // Remember, matrix multiplication is the other way around
 
     do {
 
@@ -200,7 +215,7 @@ int main(void) {
         );
 
         // Draw the triangle !
-        glDrawArrays(GL_TRIANGLES, 0, 12 * 3); // 12*3 indices starting at 0 -> 12 triangles
+        glDrawArrays(GL_TRIANGLES, 0, 11 * 3); // 11*3 indices starting at 0 -> 11 triangles
 
         glDisableVertexAttribArray(0);
         glDisableVertexAttribArray(1);
@@ -213,7 +228,7 @@ int main(void) {
     while (glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS &&
            glfwWindowShouldClose(window) == 0);
 
-    ReadBuffer(3, "output.txt", 0);
+    //ReadBuffer(3, "output.txt", 0);
 
     // Cleanup VBO and shader
     glDeleteBuffers(1, &vertexbuffer);

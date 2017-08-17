@@ -213,7 +213,7 @@ int main(void) {
     while (glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS &&
            glfwWindowShouldClose(window) == 0);
 
-    ReadBuffer(3, "output.txt");
+    ReadBuffer(3, "output.txt", 0);
 
     // Cleanup VBO and shader
     glDeleteBuffers(1, &vertexbuffer);

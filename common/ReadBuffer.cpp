@@ -23,7 +23,7 @@ void WriteFile(char filename[])
 }
 
 
-vector<unsigned char> ReadBuffer(int option, char filename[])
+vector<unsigned char> ReadBuffer(int option, char filename[], bool write)
 {
     int cont;
     switch(option)
@@ -76,8 +76,8 @@ vector<unsigned char> ReadBuffer(int option, char filename[])
 
     }
 
-
-   WriteFile(filename);
+    if(write)
+        WriteFile(filename);
 
     return pixels;
 

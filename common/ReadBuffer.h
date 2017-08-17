@@ -12,6 +12,6 @@
 #include <OpenGL/OpenGL.h>
 #include <iostream>
 
-std::vector<unsigned char> ReadBuffer(int opt, char filename[]);
+std::vector<unsigned char> ReadBuffer(int opt, char filename[], bool);
 
 #endif //GLHASH_READBUFFER_H

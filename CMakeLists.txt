@@ -31,7 +31,7 @@ add_definitions(
 set(CMAKE_CXX_STANDARD 11)
 
 set(SOURCE_FILES
-        main.cpp)
+        main.cpp ReadBuffer.cpp ReadBuffer.h)
 
 # add_executable(GlHash ${SOURCE_FILES})
 

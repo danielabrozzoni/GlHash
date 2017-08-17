@@ -17,8 +17,17 @@ GLFWwindow *window;
 using namespace glm;
 
 #include <common/shader.hpp>
+#include "ReadBuffer.h"
+#define Window_Width 133
+#define Window_Height 100
+#define Max_Lenght_String 256
 
 int main(void) {
+
+    //char String[Max_Lenght_String];
+    //FILE *in;
+    //scanf("%s", String);
+
     // Initialise GLFW
     if (!glfwInit()) {
         fprintf(stderr, "Failed to initialize GLFW\n");
@@ -33,7 +42,7 @@ int main(void) {
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
     // Open a window and create its OpenGL context
-    window = glfwCreateWindow(133, 100, "GlHash", NULL, NULL);
+    window = glfwCreateWindow(Window_Width, Window_Height, "GlHash", NULL, NULL);
     if (window == NULL) {
         fprintf(stderr,
                 "Failed to open GLFW window. If you have an Intel GPU, they are not 3.3 compatible. Try the 2.1 version of the tutorials.\n");
@@ -228,6 +237,10 @@ int main(void) {
     while (glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS &&
            glfwWindowShouldClose(window) == 0);
 
+
+    ReadBuffer(3, "output.txt");
+
+
     // Cleanup VBO and shader
     glDeleteBuffers(1, &vertexbuffer);
     glDeleteBuffers(1, &colorbuffer);
@@ -239,4 +252,3 @@ int main(void) {
 
     return 0;
 }
-

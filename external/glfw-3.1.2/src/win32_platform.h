@@ -30,15 +30,15 @@
 
 // We don't need all the fancy stuff
 #ifndef NOMINMAX
-#define NOMINMAX
+ #define NOMINMAX
 #endif
 
 #ifndef VC_EXTRALEAN
-#define VC_EXTRALEAN
+ #define VC_EXTRALEAN
 #endif
 
 #ifndef WIN32_LEAN_AND_MEAN
-#define WIN32_LEAN_AND_MEAN
+ #define WIN32_LEAN_AND_MEAN
 #endif
 
 // This is a workaround for the fact that glfw3.h needs to export APIENTRY (for
@@ -48,17 +48,17 @@
 
 // GLFW on Windows is Unicode only and does not work in MBCS mode
 #ifndef UNICODE
-#define UNICODE
+ #define UNICODE
 #endif
 
 // GLFW requires Windows XP or later
 #if WINVER < 0x0501
-#undef WINVER
-#define WINVER 0x0501
+ #undef WINVER
+ #define WINVER 0x0501
 #endif
 #if _WIN32_WINNT < 0x0501
-#undef _WIN32_WINNT
-#define _WIN32_WINNT 0x0501
+ #undef _WIN32_WINNT
+ #define _WIN32_WINNT 0x0501
 #endif
 
 #include <windows.h>
@@ -66,65 +66,58 @@
 #include <dbt.h>
 
 #if defined(_MSC_VER)
-#include <malloc.h>
-#define strdup _strdup
+ #include <malloc.h>
+ #define strdup _strdup
 #endif
 
 // HACK: Define macros that some older windows.h variants don't
 #ifndef WM_MOUSEHWHEEL
-#define WM_MOUSEHWHEEL 0x020E
+ #define WM_MOUSEHWHEEL 0x020E
 #endif
 #ifndef WM_DWMCOMPOSITIONCHANGED
-#define WM_DWMCOMPOSITIONCHANGED 0x031E
+ #define WM_DWMCOMPOSITIONCHANGED 0x031E
 #endif
 #ifndef WM_COPYGLOBALDATA
-#define WM_COPYGLOBALDATA 0x0049
+ #define WM_COPYGLOBALDATA 0x0049
 #endif
 #ifndef WM_UNICHAR
-#define WM_UNICHAR 0x0109
+ #define WM_UNICHAR 0x0109
 #endif
 #ifndef UNICODE_NOCHAR
-#define UNICODE_NOCHAR 0xFFFF
+ #define UNICODE_NOCHAR 0xFFFF
 #endif
 
 #if WINVER < 0x0601
-typedef struct tagCHANGEFILTERSTRUCT {
+typedef struct tagCHANGEFILTERSTRUCT
+{
     DWORD cbSize;
     DWORD ExtStatus;
 
 } CHANGEFILTERSTRUCT, *PCHANGEFILTERSTRUCT;
 #ifndef MSGFLT_ALLOW
-#define MSGFLT_ALLOW 1
+ #define MSGFLT_ALLOW 1
 #endif
 #endif /*Windows 7*/
 
 // winmm.dll function pointer typedefs
-typedef MMRESULT (WINAPI
-* JOYGETDEVCAPS_T)(UINT,LPJOYCAPS,UINT);
-typedef MMRESULT (WINAPI
-* JOYGETPOS_T)(UINT,LPJOYINFO);
-typedef MMRESULT (WINAPI
-* JOYGETPOSEX_T)(UINT,LPJOYINFOEX);
-typedef DWORD (WINAPI
-* TIMEGETTIME_T)(void);
+typedef MMRESULT (WINAPI * JOYGETDEVCAPS_T)(UINT,LPJOYCAPS,UINT);
+typedef MMRESULT (WINAPI * JOYGETPOS_T)(UINT,LPJOYINFO);
+typedef MMRESULT (WINAPI * JOYGETPOSEX_T)(UINT,LPJOYINFOEX);
+typedef DWORD (WINAPI * TIMEGETTIME_T)(void);
 #define _glfw_joyGetDevCaps _glfw.win32.winmm.joyGetDevCaps
 #define _glfw_joyGetPos _glfw.win32.winmm.joyGetPos
 #define _glfw_joyGetPosEx _glfw.win32.winmm.joyGetPosEx
 #define _glfw_timeGetTime _glfw.win32.winmm.timeGetTime
 
 // user32.dll function pointer typedefs
-typedef BOOL (WINAPI
-* SETPROCESSDPIAWARE_T)(void);
-typedef BOOL (WINAPI
-* CHANGEWINDOWMESSAGEFILTEREX_T)(HWND,UINT,DWORD,PCHANGEFILTERSTRUCT);
+typedef BOOL (WINAPI * SETPROCESSDPIAWARE_T)(void);
+typedef BOOL (WINAPI * CHANGEWINDOWMESSAGEFILTEREX_T)(HWND,UINT,DWORD,PCHANGEFILTERSTRUCT);
 #define _glfw_SetProcessDPIAware _glfw.win32.user32.SetProcessDPIAware
 #define _glfw_ChangeWindowMessageFilterEx _glfw.win32.user32.ChangeWindowMessageFilterEx
 
 // dwmapi.dll function pointer typedefs
-typedef HRESULT (WINAPI
-* DWMISCOMPOSITIONENABLED_T)(BOOL*);
-typedef HRESULT (WINAPI
-* DWMFLUSH_T)(VOID);
+typedef HRESULT (WINAPI * DWMISCOMPOSITIONENABLED_T)(BOOL*);
+typedef HRESULT (WINAPI * DWMFLUSH_T)(VOID);
 #define _glfw_DwmIsCompositionEnabled _glfw.win32.dwmapi.DwmIsCompositionEnabled
 #define _glfw_DwmFlush _glfw.win32.dwmapi.DwmFlush
 
@@ -136,13 +129,13 @@ typedef HRESULT (WINAPI
 #include "winmm_joystick.h"
 
 #if defined(_GLFW_WGL)
-#include "wgl_context.h"
+ #include "wgl_context.h"
 #elif defined(_GLFW_EGL)
-#define _GLFW_EGL_NATIVE_WINDOW  window->win32.handle
-#define _GLFW_EGL_NATIVE_DISPLAY EGL_DEFAULT_DISPLAY
-#include "egl_context.h"
+ #define _GLFW_EGL_NATIVE_WINDOW  window->win32.handle
+ #define _GLFW_EGL_NATIVE_DISPLAY EGL_DEFAULT_DISPLAY
+ #include "egl_context.h"
 #else
-#error "No supported context creation API selected"
+ #error "No supported context creation API selected"
 #endif
 
 #define _GLFW_PLATFORM_WINDOW_STATE         _GLFWwindowWin32  win32
@@ -154,46 +147,48 @@ typedef HRESULT (WINAPI
 
 // Win32-specific per-window data
 //
-typedef struct _GLFWwindowWin32 {
-    HWND handle;
+typedef struct _GLFWwindowWin32
+{
+    HWND                handle;
 
-    GLboolean cursorTracked;
-    GLboolean iconified;
+    GLboolean           cursorTracked;
+    GLboolean           iconified;
 
     // The last received cursor position, regardless of source
-    int cursorPosX, cursorPosY;
+    int                 cursorPosX, cursorPosY;
 
 } _GLFWwindowWin32;
 
 
 // Win32-specific global data
 //
-typedef struct _GLFWlibraryWin32 {
-    DWORD foregroundLockTimeout;
-    char *clipboardString;
-    short int publicKeys[512];
+typedef struct _GLFWlibraryWin32
+{
+    DWORD               foregroundLockTimeout;
+    char*               clipboardString;
+    short int           publicKeys[512];
 
     // winmm.dll
     struct {
-        HINSTANCE instance;
+        HINSTANCE       instance;
         JOYGETDEVCAPS_T joyGetDevCaps;
-        JOYGETPOS_T joyGetPos;
-        JOYGETPOSEX_T joyGetPosEx;
-        TIMEGETTIME_T timeGetTime;
+        JOYGETPOS_T     joyGetPos;
+        JOYGETPOSEX_T   joyGetPosEx;
+        TIMEGETTIME_T   timeGetTime;
     } winmm;
 
     // user32.dll
     struct {
-        HINSTANCE instance;
+        HINSTANCE       instance;
         SETPROCESSDPIAWARE_T SetProcessDPIAware;
         CHANGEWINDOWMESSAGEFILTEREX_T ChangeWindowMessageFilterEx;
     } user32;
 
     // dwmapi.dll
     struct {
-        HINSTANCE instance;
+        HINSTANCE       instance;
         DWMISCOMPOSITIONENABLED_T DwmIsCompositionEnabled;
-        DWMFLUSH_T DwmFlush;
+        DWMFLUSH_T      DwmFlush;
     } dwmapi;
 
 } _GLFWlibraryWin32;
@@ -201,21 +196,23 @@ typedef struct _GLFWlibraryWin32 {
 
 // Win32-specific per-monitor data
 //
-typedef struct _GLFWmonitorWin32 {
+typedef struct _GLFWmonitorWin32
+{
     // This size matches the static size of DISPLAY_DEVICE.DeviceName
-    WCHAR adapterName[32];
-    WCHAR displayName[32];
-    char publicAdapterName[64];
-    char publicDisplayName[64];
-    GLboolean modesPruned;
-    GLboolean modeChanged;
+    WCHAR               adapterName[32];
+    WCHAR               displayName[32];
+    char                publicAdapterName[64];
+    char                publicDisplayName[64];
+    GLboolean           modesPruned;
+    GLboolean           modeChanged;
 
 } _GLFWmonitorWin32;
 
 
 // Win32-specific per-cursor data
 //
-typedef struct _GLFWcursorWin32 {
+typedef struct _GLFWcursorWin32
+{
     HCURSOR handle;
 
 } _GLFWcursorWin32;
@@ -223,29 +220,26 @@ typedef struct _GLFWcursorWin32 {
 
 // Win32-specific global timer data
 //
-typedef struct _GLFWtimeWin32 {
-    GLboolean hasPC;
-    double resolution;
-    unsigned __int64
-    base;
+typedef struct _GLFWtimeWin32
+{
+    GLboolean           hasPC;
+    double              resolution;
+    unsigned __int64    base;
 
 } _GLFWtimeWin32;
 
 
 GLboolean _glfwRegisterWindowClass(void);
-
 void _glfwUnregisterWindowClass(void);
 
 BOOL _glfwIsCompositionEnabled(void);
 
-WCHAR *_glfwCreateWideStringFromUTF8(const char *source);
-
-char *_glfwCreateUTF8FromWideString(const WCHAR *source);
+WCHAR* _glfwCreateWideStringFromUTF8(const char* source);
+char* _glfwCreateUTF8FromWideString(const WCHAR* source);
 
 void _glfwInitTimer(void);
 
-GLboolean _glfwSetVideoMode(_GLFWmonitor *monitor, const GLFWvidmode *desired);
-
-void _glfwRestoreVideoMode(_GLFWmonitor *monitor);
+GLboolean _glfwSetVideoMode(_GLFWmonitor* monitor, const GLFWvidmode* desired);
+void _glfwRestoreVideoMode(_GLFWmonitor* monitor);
 
 #endif // _glfw3_win32_platform_h_

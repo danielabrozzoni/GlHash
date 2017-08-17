@@ -34,10 +34,11 @@
 #	error "SSE2 instructions not supported or enabled"
 #else
 
-namespace glm {
-    namespace detail {
+namespace glm{
+namespace detail
+{
 
-    }//namespace detail
+}//namespace detail
 }//namespace glm
 
 #include "intrinsic_trigonometric.inl"

@@ -14,22 +14,15 @@ GLEWAPI GLboolean GLEWAPIENTRY glxewContextIsSupported (const GLXEWContext *ctx,
 
 #else /* GLEW_MX */
 
-GLEWAPI GLenum
-
-GLEWAPIENTRY glxewInit();
-
-GLEWAPI GLboolean
-
-GLEWAPIENTRY glxewIsSupported(const char *name);
+GLEWAPI GLenum GLEWAPIENTRY glxewInit ();
+GLEWAPI GLboolean GLEWAPIENTRY glxewIsSupported (const char *name);
 
 #define GLXEW_GET_VAR(x) (*(const GLboolean*)&x)
 #define GLXEW_GET_FUN(x) x
 
 #endif /* GLEW_MX */
 
-GLEWAPI GLboolean
-
-GLEWAPIENTRY glxewGetExtension(const char *name);
+GLEWAPI GLboolean GLEWAPIENTRY glxewGetExtension (const char *name);
 
 #ifdef __cplusplus
 }

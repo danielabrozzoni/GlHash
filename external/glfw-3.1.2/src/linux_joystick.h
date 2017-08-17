@@ -35,16 +35,18 @@
 
 // Linux-specific joystick API data
 //
-typedef struct _GLFWjoystickLinux {
-    struct {
-        int present;
-        int fd;
-        float *axes;
-        int axisCount;
-        unsigned char *buttons;
-        int buttonCount;
-        char *name;
-        char *path;
+typedef struct _GLFWjoystickLinux
+{
+    struct
+    {
+        int             present;
+        int             fd;
+        float*          axes;
+        int             axisCount;
+        unsigned char*  buttons;
+        int             buttonCount;
+        char*           name;
+        char*           path;
     } js[GLFW_JOYSTICK_LAST + 1];
 
 #if defined(__linux__)
@@ -56,7 +58,6 @@ typedef struct _GLFWjoystickLinux {
 
 
 int _glfwInitJoysticks(void);
-
 void _glfwTerminateJoysticks(void);
 
 #endif // _glfw3_linux_joystick_h_

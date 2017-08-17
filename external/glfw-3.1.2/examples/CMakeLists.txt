@@ -4,23 +4,23 @@ link_libraries(glfw)
 if (BUILD_SHARED_LIBS)
     add_definitions(-DGLFW_DLL)
     link_libraries("${OPENGL_gl_LIBRARY}" "${MATH_LIBRARY}")
-else ()
+else()
     link_libraries(${glfw_LIBRARIES})
-endif ()
+endif()
 
 include_directories("${GLFW_SOURCE_DIR}/include"
-        "${GLFW_SOURCE_DIR}/deps")
+                    "${GLFW_SOURCE_DIR}/deps")
 
 if ("${OPENGL_INCLUDE_DIR}")
     include_directories("${OPENGL_INCLUDE_DIR}")
-endif ()
+endif()
 
 set(GLAD "${GLFW_SOURCE_DIR}/deps/glad/glad.h"
-        "${GLFW_SOURCE_DIR}/deps/glad.c")
+         "${GLFW_SOURCE_DIR}/deps/glad.c")
 set(GETOPT "${GLFW_SOURCE_DIR}/deps/getopt.h"
-        "${GLFW_SOURCE_DIR}/deps/getopt.c")
+           "${GLFW_SOURCE_DIR}/deps/getopt.c")
 set(TINYCTHREAD "${GLFW_SOURCE_DIR}/deps/tinycthread.h"
-        "${GLFW_SOURCE_DIR}/deps/tinycthread.c")
+                "${GLFW_SOURCE_DIR}/deps/tinycthread.c")
 
 add_executable(boing WIN32 MACOSX_BUNDLE boing.c)
 add_executable(gears WIN32 MACOSX_BUNDLE gears.c)
@@ -39,8 +39,8 @@ set_target_properties(${WINDOWS_BINARIES} PROPERTIES FOLDER "GLFW3/Examples")
 if (MSVC)
     # Tell MSVC to use main instead of WinMain for Windows subsystem executables
     set_target_properties(${WINDOWS_BINARIES} PROPERTIES
-            LINK_FLAGS "/ENTRY:mainCRTStartup")
-endif ()
+                          LINK_FLAGS "/ENTRY:mainCRTStartup")
+endif()
 
 if (APPLE)
     set_target_properties(boing PROPERTIES MACOSX_BUNDLE_BUNDLE_NAME "Boing")
@@ -52,8 +52,8 @@ if (APPLE)
     set_target_properties(wave PROPERTIES MACOSX_BUNDLE_BUNDLE_NAME "Wave")
 
     set_target_properties(${WINDOWS_BINARIES} PROPERTIES
-            MACOSX_BUNDLE_SHORT_VERSION_STRING ${GLFW_VERSION}
-            MACOSX_BUNDLE_LONG_VERSION_STRING ${GLFW_VERSION_FULL}
-            MACOSX_BUNDLE_INFO_PLIST "${GLFW_SOURCE_DIR}/CMake/MacOSXBundleInfo.plist.in")
-endif ()
+                          MACOSX_BUNDLE_SHORT_VERSION_STRING ${GLFW_VERSION}
+                          MACOSX_BUNDLE_LONG_VERSION_STRING ${GLFW_VERSION_FULL}
+                          MACOSX_BUNDLE_INFO_PLIST "${GLFW_SOURCE_DIR}/CMake/MacOSXBundleInfo.plist.in")
+endif()
 

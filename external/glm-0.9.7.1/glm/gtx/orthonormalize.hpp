@@ -51,23 +51,24 @@
 #	pragma message("GLM: GLM_GTX_orthonormalize extension included")
 #endif
 
-namespace glm {
-    /// @addtogroup gtx_orthonormalize
-    /// @{
+namespace glm
+{
+	/// @addtogroup gtx_orthonormalize
+	/// @{
 
-    /// Returns the orthonormalized matrix of m.
-    ///
-    /// @see gtx_orthonormalize
-    template<typename T, precision P>
-    GLM_FUNC_DECL tmat3x3<T, P> orthonormalize(tmat3x3<T, P> const &m);
+	/// Returns the orthonormalized matrix of m.
+	///
+	/// @see gtx_orthonormalize
+	template <typename T, precision P> 
+	GLM_FUNC_DECL tmat3x3<T, P> orthonormalize(tmat3x3<T, P> const & m);
+		
+	/// Orthonormalizes x according y.
+	///
+	/// @see gtx_orthonormalize
+	template <typename T, precision P> 
+	GLM_FUNC_DECL tvec3<T, P> orthonormalize(tvec3<T, P> const & x, tvec3<T, P> const & y);
 
-    /// Orthonormalizes x according y.
-    ///
-    /// @see gtx_orthonormalize
-    template<typename T, precision P>
-    GLM_FUNC_DECL tvec3<T, P> orthonormalize(tvec3<T, P> const &x, tvec3<T, P> const &y);
-
-    /// @}
+	/// @}
 }//namespace glm
 
 #include "orthonormalize.inl"

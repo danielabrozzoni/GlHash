@@ -38,11 +38,12 @@
 #define strdup(x) _strdup(x)
 #endif
 
-typedef struct Joystick {
+typedef struct Joystick
+{
     GLboolean present;
-    char *name;
-    float *axes;
-    unsigned char *buttons;
+    char* name;
+    float* axes;
+    unsigned char* buttons;
     int axis_count;
     int button_count;
 } Joystick;
@@ -50,23 +51,28 @@ typedef struct Joystick {
 static Joystick joysticks[GLFW_JOYSTICK_LAST - GLFW_JOYSTICK_1 + 1];
 static int joystick_count = 0;
 
-static void error_callback(int error, const char *description) {
+static void error_callback(int error, const char* description)
+{
     fprintf(stderr, "Error: %s\n", description);
 }
 
-static void framebuffer_size_callback(GLFWwindow *window, int width, int height) {
+static void framebuffer_size_callback(GLFWwindow* window, int width, int height)
+{
     glViewport(0, 0, width, height);
 }
 
-static void draw_joystick(Joystick *j, int x, int y, int width, int height) {
+static void draw_joystick(Joystick* j, int x, int y, int width, int height)
+{
     int i;
     const int axis_height = 3 * height / 4;
     const int button_height = height / 4;
 
-    if (j->axis_count) {
+    if (j->axis_count)
+    {
         const int axis_width = width / j->axis_count;
 
-        for (i = 0; i < j->axis_count; i++) {
+        for (i = 0;  i < j->axis_count;  i++)
+        {
             float value = j->axes[i] / 2.f + 0.5f;
 
             glColor3f(0.3f, 0.3f, 0.3f);
@@ -83,10 +89,12 @@ static void draw_joystick(Joystick *j, int x, int y, int width, int height) {
         }
     }
 
-    if (j->button_count) {
+    if (j->button_count)
+    {
         const int button_width = width / j->button_count;
 
-        for (i = 0; i < j->button_count; i++) {
+        for (i = 0;  i < j->button_count;  i++)
+        {
             if (j->buttons[i])
                 glColor3f(1.f, 1.f, 1.f);
             else
@@ -100,7 +108,8 @@ static void draw_joystick(Joystick *j, int x, int y, int width, int height) {
     }
 }
 
-static void draw_joysticks(GLFWwindow *window) {
+static void draw_joysticks(GLFWwindow* window)
+{
     int i, width, height, offset = 0;
 
     glfwGetFramebufferSize(window, &width, &height);
@@ -110,10 +119,12 @@ static void draw_joysticks(GLFWwindow *window) {
     glOrtho(0.f, width, height, 0.f, 1.f, -1.f);
     glMatrixMode(GL_MODELVIEW);
 
-    for (i = 0; i < sizeof(joysticks) / sizeof(Joystick); i++) {
-        Joystick *j = joysticks + i;
+    for (i = 0;  i < sizeof(joysticks) / sizeof(Joystick);  i++)
+    {
+        Joystick* j = joysticks + i;
 
-        if (j->present) {
+        if (j->present)
+        {
             draw_joystick(j,
                           0, offset * height / joystick_count,
                           width, height / joystick_count);
@@ -122,22 +133,26 @@ static void draw_joysticks(GLFWwindow *window) {
     }
 }
 
-static void refresh_joysticks(void) {
+static void refresh_joysticks(void)
+{
     int i;
 
-    for (i = 0; i < sizeof(joysticks) / sizeof(Joystick); i++) {
-        Joystick *j = joysticks + i;
+    for (i = 0;  i < sizeof(joysticks) / sizeof(Joystick);  i++)
+    {
+        Joystick* j = joysticks + i;
 
-        if (glfwJoystickPresent(GLFW_JOYSTICK_1 + i)) {
-            const float *axes;
-            const unsigned char *buttons;
+        if (glfwJoystickPresent(GLFW_JOYSTICK_1 + i))
+        {
+            const float* axes;
+            const unsigned char* buttons;
             int axis_count, button_count;
 
             free(j->name);
             j->name = strdup(glfwGetJoystickName(GLFW_JOYSTICK_1 + i));
 
             axes = glfwGetJoystickAxes(GLFW_JOYSTICK_1 + i, &axis_count);
-            if (axis_count != j->axis_count) {
+            if (axis_count != j->axis_count)
+            {
                 j->axis_count = axis_count;
                 j->axes = realloc(j->axes, j->axis_count * sizeof(float));
             }
@@ -145,14 +160,16 @@ static void refresh_joysticks(void) {
             memcpy(j->axes, axes, axis_count * sizeof(float));
 
             buttons = glfwGetJoystickButtons(GLFW_JOYSTICK_1 + i, &button_count);
-            if (button_count != j->button_count) {
+            if (button_count != j->button_count)
+            {
                 j->button_count = button_count;
                 j->buttons = realloc(j->buttons, j->button_count);
             }
 
             memcpy(j->buttons, buttons, button_count * sizeof(unsigned char));
 
-            if (!j->present) {
+            if (!j->present)
+            {
                 printf("Found joystick %i named \'%s\' with %i axes, %i buttons\n",
                        i + 1, j->name, j->axis_count, j->button_count);
 
@@ -160,8 +177,11 @@ static void refresh_joysticks(void) {
             }
 
             j->present = GL_TRUE;
-        } else {
-            if (j->present) {
+        }
+        else
+        {
+            if (j->present)
+            {
                 printf("Lost joystick %i named \'%s\'\n", i + 1, j->name);
 
                 free(j->name);
@@ -175,8 +195,9 @@ static void refresh_joysticks(void) {
     }
 }
 
-int main(void) {
-    GLFWwindow *window;
+int main(void)
+{
+    GLFWwindow* window;
 
     memset(joysticks, 0, sizeof(joysticks));
 
@@ -186,7 +207,8 @@ int main(void) {
         exit(EXIT_FAILURE);
 
     window = glfwCreateWindow(640, 480, "Joystick Test", NULL, NULL);
-    if (!window) {
+    if (!window)
+    {
         glfwTerminate();
         exit(EXIT_FAILURE);
     }
@@ -196,7 +218,8 @@ int main(void) {
     glfwMakeContextCurrent(window);
     glfwSwapInterval(1);
 
-    while (!glfwWindowShouldClose(window)) {
+    while (!glfwWindowShouldClose(window))
+    {
         glClear(GL_COLOR_BUFFER_BIT);
 
         refresh_joysticks();

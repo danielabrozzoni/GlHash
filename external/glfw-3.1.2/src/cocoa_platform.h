@@ -32,21 +32,17 @@
 #if defined(__OBJC__)
 #import <Cocoa/Cocoa.h>
 #else
-
 #include <ApplicationServices/ApplicationServices.h>
-
-typedef void *id;
+typedef void* id;
 #endif
 
 #include "posix_tls.h"
 #include "iokit_joystick.h"
 
 #if defined(_GLFW_NSGL)
-
-#include "nsgl_context.h"
-
+ #include "nsgl_context.h"
 #else
-#error "The Cocoa backend depends on NSGL platform support"
+ #error "The Cocoa backend depends on NSGL platform support"
 #endif
 
 #define _GLFW_PLATFORM_WINDOW_STATE         _GLFWwindowNS  ns
@@ -58,65 +54,69 @@ typedef void *id;
 
 // Cocoa-specific per-window data
 //
-typedef struct _GLFWwindowNS {
-    id object;
-    id delegate;
-    id view;
-    unsigned int modifierFlags;
+typedef struct _GLFWwindowNS
+{
+    id              object;
+    id              delegate;
+    id              view;
+    unsigned int    modifierFlags;
 
     // The total sum of the distances the cursor has been warped
     // since the last cursor motion event was processed
     // This is kept to counteract Cocoa doing the same internally
-    double warpDeltaX, warpDeltaY;
+    double          warpDeltaX, warpDeltaY;
 
 } _GLFWwindowNS;
 
 
 // Cocoa-specific global data
 //
-typedef struct _GLFWlibraryNS {
+typedef struct _GLFWlibraryNS
+{
     CGEventSourceRef eventSource;
-    id delegate;
-    id autoreleasePool;
-    id cursor;
+    id              delegate;
+    id              autoreleasePool;
+    id              cursor;
 
-    short int publicKeys[256];
-    char *clipboardString;
+    short int       publicKeys[256];
+    char*           clipboardString;
 
 } _GLFWlibraryNS;
 
 
 // Cocoa-specific per-monitor data
 //
-typedef struct _GLFWmonitorNS {
-    CGDirectDisplayID displayID;
-    CGDisplayModeRef previousMode;
-    uint32_t unitNumber;
+typedef struct _GLFWmonitorNS
+{
+    CGDirectDisplayID   displayID;
+    CGDisplayModeRef    previousMode;
+    uint32_t            unitNumber;
 
 } _GLFWmonitorNS;
 
 
 // Cocoa-specific per-cursor data
 //
-typedef struct _GLFWcursorNS {
-    id object;
+typedef struct _GLFWcursorNS
+{
+    id              object;
 
 } _GLFWcursorNS;
 
 
 // Cocoa-specific global timer data
 //
-typedef struct _GLFWtimeNS {
-    double base;
-    double resolution;
+typedef struct _GLFWtimeNS
+{
+    double          base;
+    double          resolution;
 
 } _GLFWtimeNS;
 
 
 void _glfwInitTimer(void);
 
-GLboolean _glfwSetVideoMode(_GLFWmonitor *monitor, const GLFWvidmode *desired);
-
-void _glfwRestoreVideoMode(_GLFWmonitor *monitor);
+GLboolean _glfwSetVideoMode(_GLFWmonitor* monitor, const GLFWvidmode* desired);
+void _glfwRestoreVideoMode(_GLFWmonitor* monitor);
 
 #endif // _glfw3_cocoa_platform_h_

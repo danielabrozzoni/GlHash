@@ -30,18 +30,11 @@
 /// @author Christophe Riccio
 ///////////////////////////////////////////////////////////////////////////////////
 
-namespace glm {
-    template<typename vecType>
-    GLM_FUNC_QUALIFIER vecType
-    proj(vecType const
-    & x,
-    vecType const &Normal
-    ) {
-    return
-    glm::dot(x, Normal
-    ) /
-    glm::dot(Normal, Normal
-    ) *
-    Normal;
-}
+namespace glm
+{
+	template <typename vecType>
+	GLM_FUNC_QUALIFIER vecType proj(vecType const & x, vecType const & Normal)
+	{
+		return glm::dot(x, Normal) / glm::dot(Normal, Normal) * Normal;
+	}
 }//namespace glm

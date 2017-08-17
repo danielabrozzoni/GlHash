@@ -30,62 +30,48 @@
 /// @author Christophe Riccio
 ///////////////////////////////////////////////////////////////////////////////////
 
-namespace glm {
+namespace glm{
 
 #	if !GLM_HAS_DEFAULTED_FUNCTIONS
-
-    template<>
-    GLM_FUNC_QUALIFIER tvec4<float, simd>::tvec4()
+		template <>
+		GLM_FUNC_QUALIFIER tvec4<float, simd>::tvec4()
 #			ifndef GLM_FORCE_NO_CTOR_INIT
-            :
-
-    data (_mm_setzero_ps())
+				: data(_mm_setzero_ps())
 #			endif
-    {}
-
+		{}
 #	endif//!GLM_HAS_DEFAULTED_FUNCTIONS
 
-    template<>
-    GLM_FUNC_QUALIFIER tvec4<float, simd>::tvec4(float s) :
+	template <>
+	GLM_FUNC_QUALIFIER tvec4<float, simd>::tvec4(float s) :
+		data(_mm_set1_ps(s))
+	{}
 
-    data (_mm_set1_ps(s)) {}
+	template <>
+	GLM_FUNC_QUALIFIER tvec4<float, simd>::tvec4(float a, float b, float c, float d) :
+		data(_mm_set_ps(d, c, b, a))
+	{}
 
-    template<>
-    GLM_FUNC_QUALIFIER tvec4<float, simd>::tvec4(float a, float b, float c, float d) :
+	template <>
+	template <typename U>
+	GLM_FUNC_QUALIFIER tvec4<float, simd> & tvec4<float, simd>::operator+=(U scalar)
+	{
+		this->data = _mm_add_ps(this->data, _mm_set_ps1(static_cast<float>(scalar)));
+		return *this;
+	}
 
-    data (_mm_set_ps(d, c, b, a)) {}
+	template <>
+	template <>
+	GLM_FUNC_QUALIFIER tvec4<float, simd> & tvec4<float, simd>::operator+=<float>(float scalar)
+	{
+		this->data = _mm_add_ps(this->data, _mm_set_ps1(scalar));
+		return *this;
+	}
 
-    template<>
-    template<typename U>
-    GLM_FUNC_QUALIFIER tvec4<float, simd>
-    &
-
-    tvec4<float, simd>::operator+=(U scalar) {
-        this->data = _mm_add_ps(this->data, _mm_set_ps1(static_cast<float>(scalar)));
-        return *this;
-    }
-
-    template<>
-    template<>
-    GLM_FUNC_QUALIFIER tvec4<float, simd>
-    &
-    tvec4<float, simd>::operator+=
-    <float>(
-    float scalar
-    ) {
-    this->
-    data = _mm_add_ps(this->data, _mm_set_ps1(scalar));
-    return *this;
-}
-
-template<>
-template<typename U>
-GLM_FUNC_QUALIFIER tvec4<float, simd>
-&
-
-tvec4<float, simd>::operator+=(tvec1 <U, simd> const &v) {
-    this->data = _mm_add_ps(this->data, _mm_set_ps1(static_cast<float>(v.x)));
-    return *this;
-}
-
+	template <>
+	template <typename U>
+	GLM_FUNC_QUALIFIER tvec4<float, simd> & tvec4<float, simd>::operator+=(tvec1<U, simd> const & v)
+	{
+		this->data = _mm_add_ps(this->data, _mm_set_ps1(static_cast<float>(v.x)));
+		return *this;
+	}
 }//namespace glm

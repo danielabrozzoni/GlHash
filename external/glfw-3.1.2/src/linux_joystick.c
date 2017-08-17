@@ -45,7 +45,8 @@
 
 // Attempt to open the specified joystick device
 //
-static void openJoystickDevice(const char *path) {
+static void openJoystickDevice(const char* path)
+{
 #if defined(__linux__)
     char axisCount, buttonCount;
     char name[256];
@@ -105,7 +106,8 @@ static void openJoystickDevice(const char *path) {
 
 // Polls for and processes events for all present joysticks
 //
-static void pollJoystickEvents(void) {
+static void pollJoystickEvents(void)
+{
 #if defined(__linux__)
     int i;
     struct js_event e;
@@ -185,7 +187,8 @@ static void pollJoystickEvents(void) {
 
 // Initialize joystick interface
 //
-int _glfwInitJoysticks(void) {
+int _glfwInitJoysticks(void)
+{
 #if defined(__linux__)
     const char* dirname = "/dev/input";
     DIR* dir;
@@ -255,7 +258,8 @@ int _glfwInitJoysticks(void) {
 
 // Close all opened joystick handles
 //
-void _glfwTerminateJoysticks(void) {
+void _glfwTerminateJoysticks(void)
+{
 #if defined(__linux__)
     int i;
 
@@ -288,27 +292,31 @@ void _glfwTerminateJoysticks(void) {
 //////                       GLFW platform API                      //////
 //////////////////////////////////////////////////////////////////////////
 
-int _glfwPlatformJoystickPresent(int joy) {
+int _glfwPlatformJoystickPresent(int joy)
+{
     pollJoystickEvents();
 
     return _glfw.linux_js.js[joy].present;
 }
 
-const float *_glfwPlatformGetJoystickAxes(int joy, int *count) {
+const float* _glfwPlatformGetJoystickAxes(int joy, int* count)
+{
     pollJoystickEvents();
 
     *count = _glfw.linux_js.js[joy].axisCount;
     return _glfw.linux_js.js[joy].axes;
 }
 
-const unsigned char *_glfwPlatformGetJoystickButtons(int joy, int *count) {
+const unsigned char* _glfwPlatformGetJoystickButtons(int joy, int* count)
+{
     pollJoystickEvents();
 
     *count = _glfw.linux_js.js[joy].buttonCount;
     return _glfw.linux_js.js[joy].buttons;
 }
 
-const char *_glfwPlatformGetJoystickName(int joy) {
+const char* _glfwPlatformGetJoystickName(int joy)
+{
     pollJoystickEvents();
 
     return _glfw.linux_js.js[joy].name;

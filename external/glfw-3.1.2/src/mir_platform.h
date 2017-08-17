@@ -38,9 +38,9 @@
 #include "xkb_unicode.h"
 
 #if defined(_GLFW_EGL)
-#include "egl_context.h"
+ #include "egl_context.h"
 #else
-#error "The Mir backend depends on EGL platform support"
+ #error "The Mir backend depends on EGL platform support"
 #endif
 
 #define _GLFW_EGL_NATIVE_WINDOW  window->mir.window
@@ -54,24 +54,27 @@
 
 // Mir-specific Event Queue
 //
-typedef struct EventQueue {
+typedef struct EventQueue
+{
     TAILQ_HEAD(, EventNode) head;
 } EventQueue;
 
 // Mir-specific per-window data
 //
-typedef struct _GLFWwindowMir {
-    MirSurface *surface;
-    int width;
-    int height;
-    MirEGLNativeWindowType window;
+typedef struct _GLFWwindowMir
+{
+    MirSurface*             surface;
+    int                     width;
+    int                     height;
+    MirEGLNativeWindowType  window;
 
 } _GLFWwindowMir;
 
 
 // Mir-specific per-monitor data
 //
-typedef struct _GLFWmonitorMir {
+typedef struct _GLFWmonitorMir
+{
     int cur_mode;
     int output_id;
     int x;
@@ -82,14 +85,15 @@ typedef struct _GLFWmonitorMir {
 
 // Mir-specific global data
 //
-typedef struct _GLFWlibraryMir {
-    MirConnection *connection;
+typedef struct _GLFWlibraryMir
+{
+    MirConnection*          connection;
     MirEGLNativeDisplayType display;
-    MirCursorConfiguration *default_conf;
-    EventQueue *event_queue;
+    MirCursorConfiguration* default_conf;
+    EventQueue* event_queue;
 
     pthread_mutex_t event_mutex;
-    pthread_cond_t event_cond;
+    pthread_cond_t  event_cond;
 
 } _GLFWlibraryMir;
 
@@ -97,14 +101,14 @@ typedef struct _GLFWlibraryMir {
 // Mir-specific per-cursor data
 // TODO: Only system cursors are implemented in Mir atm. Need to wait for support.
 //
-typedef struct _GLFWcursorMir {
-    MirCursorConfiguration *conf;
-    MirBufferStream *custom_cursor;
+typedef struct _GLFWcursorMir
+{
+    MirCursorConfiguration* conf;
+    MirBufferStream*        custom_cursor;
 } _GLFWcursorMir;
 
 
-extern void _glfwInitEventQueue(EventQueue *queue);
-
-extern void _glfwDeleteEventQueue(EventQueue *queue);
+extern void _glfwInitEventQueue(EventQueue* queue);
+extern void _glfwDeleteEventQueue(EventQueue* queue);
 
 #endif // _glfw3_mir_platform_h_

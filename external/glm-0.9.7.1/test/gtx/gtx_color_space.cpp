@@ -31,18 +31,20 @@
 
 #include <glm/gtx/color_space.hpp>
 
-int test_saturation() {
-    int Error(0);
+int test_saturation()
+{
+	int Error(0);
+	
+	glm::vec4 Color = glm::saturation(1.0f, glm::vec4(1.0, 0.5, 0.0, 1.0));
 
-    glm::vec4 Color = glm::saturation(1.0f, glm::vec4(1.0, 0.5, 0.0, 1.0));
-
-    return Error;
+	return Error;
 }
 
-int main() {
-    int Error(0);
+int main()
+{
+	int Error(0);
 
-    Error += test_saturation();
+	Error += test_saturation();
 
-    return Error;
+	return Error;
 }

@@ -38,11 +38,11 @@
 ///////////////////////////////////////////////////////////////////////////////////
 // Version
 
-#define GLM_VERSION                    97
-#define GLM_VERSION_MAJOR            0
-#define GLM_VERSION_MINOR            9
-#define GLM_VERSION_PATCH            7
-#define GLM_VERSION_REVISION        1
+#define GLM_VERSION					97
+#define GLM_VERSION_MAJOR			0
+#define GLM_VERSION_MINOR			9
+#define GLM_VERSION_PATCH			7
+#define GLM_VERSION_REVISION		1
 
 #if(defined(GLM_MESSAGES) && !defined(GLM_MESSAGE_VERSION_DISPLAYED))
 #	define GLM_MESSAGE_VERSION_DISPLAYED
@@ -52,16 +52,16 @@
 ///////////////////////////////////////////////////////////////////////////////////
 // Platform
 
-#define GLM_PLATFORM_UNKNOWN        0x00000000
-#define GLM_PLATFORM_WINDOWS        0x00010000
-#define GLM_PLATFORM_LINUX            0x00020000
-#define GLM_PLATFORM_APPLE            0x00040000
+#define GLM_PLATFORM_UNKNOWN		0x00000000
+#define GLM_PLATFORM_WINDOWS		0x00010000
+#define GLM_PLATFORM_LINUX			0x00020000
+#define GLM_PLATFORM_APPLE			0x00040000
 //#define GLM_PLATFORM_IOS			0x00080000
-#define GLM_PLATFORM_ANDROID        0x00100000
-#define GLM_PLATFORM_CHROME_NACL    0x00200000
-#define GLM_PLATFORM_UNIX            0x00400000
-#define GLM_PLATFORM_QNXNTO            0x00800000
-#define GLM_PLATFORM_WINCE            0x01000000
+#define GLM_PLATFORM_ANDROID		0x00100000
+#define GLM_PLATFORM_CHROME_NACL	0x00200000
+#define GLM_PLATFORM_UNIX			0x00400000
+#define GLM_PLATFORM_QNXNTO			0x00800000
+#define GLM_PLATFORM_WINCE			0x01000000
 
 #ifdef GLM_FORCE_PLATFORM_UNKNOWN
 #	define GLM_PLATFORM GLM_PLATFORM_UNKNOWN
@@ -119,72 +119,72 @@
 // User defines: GLM_FORCE_COMPILER_UNKNOWN
 // TODO ? __llvm__
 
-#define GLM_COMPILER_UNKNOWN        0x00000000
+#define GLM_COMPILER_UNKNOWN		0x00000000
 
 // Intel
-#define GLM_COMPILER_INTEL            0x00100000
-#define GLM_COMPILER_INTEL12        0x00100010
-#define GLM_COMPILER_INTEL12_1        0x00100020
-#define GLM_COMPILER_INTEL13        0x00100030
-#define GLM_COMPILER_INTEL14        0x00100040
-#define GLM_COMPILER_INTEL15        0x00100050
-#define GLM_COMPILER_INTEL16        0x00100060
+#define GLM_COMPILER_INTEL			0x00100000
+#define GLM_COMPILER_INTEL12		0x00100010
+#define GLM_COMPILER_INTEL12_1		0x00100020
+#define GLM_COMPILER_INTEL13		0x00100030
+#define GLM_COMPILER_INTEL14		0x00100040
+#define GLM_COMPILER_INTEL15		0x00100050
+#define GLM_COMPILER_INTEL16		0x00100060
 
 // Visual C++ defines
-#define GLM_COMPILER_VC                0x01000000
-#define GLM_COMPILER_VC2010            0x01000090
-#define GLM_COMPILER_VC2012            0x010000A0
-#define GLM_COMPILER_VC2013            0x010000B0
-#define GLM_COMPILER_VC2015            0x010000C0
+#define GLM_COMPILER_VC				0x01000000
+#define GLM_COMPILER_VC2010			0x01000090
+#define GLM_COMPILER_VC2012			0x010000A0
+#define GLM_COMPILER_VC2013			0x010000B0
+#define GLM_COMPILER_VC2015			0x010000C0
 
 // GCC defines
-#define GLM_COMPILER_GCC            0x02000000
-#define GLM_COMPILER_GCC44            0x020000B0
-#define GLM_COMPILER_GCC45            0x020000C0
-#define GLM_COMPILER_GCC46            0x020000D0
-#define GLM_COMPILER_GCC47            0x020000E0
-#define GLM_COMPILER_GCC48            0x020000F0
-#define GLM_COMPILER_GCC49            0x02000100
-#define GLM_COMPILER_GCC50            0x02000200
-#define GLM_COMPILER_GCC51            0x02000300
-#define GLM_COMPILER_GCC52            0x02000400
-#define GLM_COMPILER_GCC53            0x02000500
+#define GLM_COMPILER_GCC			0x02000000
+#define GLM_COMPILER_GCC44			0x020000B0
+#define GLM_COMPILER_GCC45			0x020000C0
+#define GLM_COMPILER_GCC46			0x020000D0
+#define GLM_COMPILER_GCC47			0x020000E0
+#define GLM_COMPILER_GCC48			0x020000F0
+#define GLM_COMPILER_GCC49			0x02000100
+#define GLM_COMPILER_GCC50			0x02000200
+#define GLM_COMPILER_GCC51			0x02000300
+#define GLM_COMPILER_GCC52			0x02000400
+#define GLM_COMPILER_GCC53			0x02000500
 
 // CUDA
-#define GLM_COMPILER_CUDA            0x10000000
-#define GLM_COMPILER_CUDA40            0x10000040
-#define GLM_COMPILER_CUDA41            0x10000050
-#define GLM_COMPILER_CUDA42            0x10000060
-#define GLM_COMPILER_CUDA50            0x10000070
-#define GLM_COMPILER_CUDA60            0x10000080
-#define GLM_COMPILER_CUDA65            0x10000090
-#define GLM_COMPILER_CUDA70            0x100000A0
-#define GLM_COMPILER_CUDA75            0x100000B0
+#define GLM_COMPILER_CUDA			0x10000000
+#define GLM_COMPILER_CUDA40			0x10000040
+#define GLM_COMPILER_CUDA41			0x10000050
+#define GLM_COMPILER_CUDA42			0x10000060
+#define GLM_COMPILER_CUDA50			0x10000070
+#define GLM_COMPILER_CUDA60			0x10000080
+#define GLM_COMPILER_CUDA65			0x10000090
+#define GLM_COMPILER_CUDA70			0x100000A0
+#define GLM_COMPILER_CUDA75			0x100000B0
 
 // LLVM
-#define GLM_COMPILER_LLVM            0x20000000
-#define GLM_COMPILER_LLVM32            0x20000030
-#define GLM_COMPILER_LLVM33            0x20000040
-#define GLM_COMPILER_LLVM34            0x20000050
-#define GLM_COMPILER_LLVM35            0x20000060
-#define GLM_COMPILER_LLVM36            0x20000070
-#define GLM_COMPILER_LLVM37            0x20000080
-#define GLM_COMPILER_LLVM38            0x20000090
-#define GLM_COMPILER_LLVM39            0x200000A0
+#define GLM_COMPILER_LLVM			0x20000000
+#define GLM_COMPILER_LLVM32			0x20000030
+#define GLM_COMPILER_LLVM33			0x20000040
+#define GLM_COMPILER_LLVM34			0x20000050
+#define GLM_COMPILER_LLVM35			0x20000060
+#define GLM_COMPILER_LLVM36			0x20000070
+#define GLM_COMPILER_LLVM37			0x20000080
+#define GLM_COMPILER_LLVM38			0x20000090
+#define GLM_COMPILER_LLVM39			0x200000A0
 
 // Apple Clang
-#define GLM_COMPILER_APPLE_CLANG    0x40000000
-#define GLM_COMPILER_APPLE_CLANG40    0x40000010
-#define GLM_COMPILER_APPLE_CLANG41    0x40000020
-#define GLM_COMPILER_APPLE_CLANG42    0x40000030
-#define GLM_COMPILER_APPLE_CLANG50    0x40000040
-#define GLM_COMPILER_APPLE_CLANG51    0x40000050
-#define GLM_COMPILER_APPLE_CLANG60    0x40000060
-#define GLM_COMPILER_APPLE_CLANG61    0x40000070
+#define GLM_COMPILER_APPLE_CLANG	0x40000000
+#define GLM_COMPILER_APPLE_CLANG40	0x40000010
+#define GLM_COMPILER_APPLE_CLANG41	0x40000020
+#define GLM_COMPILER_APPLE_CLANG42	0x40000030
+#define GLM_COMPILER_APPLE_CLANG50	0x40000040
+#define GLM_COMPILER_APPLE_CLANG51	0x40000050
+#define GLM_COMPILER_APPLE_CLANG60	0x40000060
+#define GLM_COMPILER_APPLE_CLANG61	0x40000070
 
 // Build model
-#define GLM_MODEL_32                0x00000010
-#define GLM_MODEL_64                0x00000020
+#define GLM_MODEL_32				0x00000010
+#define GLM_MODEL_64				0x00000020
 
 // Force generic C++ compiler
 #ifdef GLM_FORCE_COMPILER_UNKNOWN
@@ -346,7 +346,7 @@
 // Build model
 
 #if defined(__arch64__) || defined(__LP64__) || defined(_M_X64) || defined(__ppc64__) || defined(__x86_64__)
-#		define GLM_MODEL    GLM_MODEL_64
+#		define GLM_MODEL	GLM_MODEL_64
 #elif defined(__i386__) || defined(__ppc__)
 #	define GLM_MODEL	GLM_MODEL_32
 #else
@@ -371,14 +371,14 @@
 
 // User defines: GLM_FORCE_PURE GLM_FORCE_SSE2 GLM_FORCE_SSE3 GLM_FORCE_AVX GLM_FORCE_AVX2
 
-#define GLM_ARCH_PURE        0x0000
-#define GLM_ARCH_ARM        0x0001
-#define GLM_ARCH_X86        0x0002
-#define GLM_ARCH_SSE2        0x0004
-#define GLM_ARCH_SSE3        0x0008
-#define GLM_ARCH_SSE4        0x0010
-#define GLM_ARCH_AVX        0x0020
-#define GLM_ARCH_AVX2        0x0040
+#define GLM_ARCH_PURE		0x0000
+#define GLM_ARCH_ARM		0x0001
+#define GLM_ARCH_X86		0x0002
+#define GLM_ARCH_SSE2		0x0004
+#define GLM_ARCH_SSE3		0x0008
+#define GLM_ARCH_SSE4		0x0010
+#define GLM_ARCH_AVX		0x0020
+#define GLM_ARCH_AVX2		0x0040
 
 #if defined(GLM_FORCE_PURE)
 #	define GLM_ARCH GLM_ARCH_PURE
@@ -451,20 +451,16 @@
 #	include <smmintrin.h>
 #endif//GLM_ARCH
 #if GLM_ARCH & GLM_ARCH_SSE3
-
 #	include <pmmintrin.h>
-
 #endif//GLM_ARCH
 #if GLM_ARCH & GLM_ARCH_SSE2
-
 #	include <emmintrin.h>
-
 #	if(GLM_COMPILER == GLM_COMPILER_VC2005) // VC2005 is missing some intrinsics, workaround
-inline float _mm_cvtss_f32(__m128 A) { return A.m128_f32[0]; }
-inline __m128 _mm_castpd_ps(__m128d PD) { union { __m128 ps; __m128d pd; } c; c.pd = PD; return c.ps; }
-inline __m128d _mm_castps_pd(__m128 PS) { union { __m128 ps; __m128d pd; } c; c.ps = PS; return c.pd; }
-inline __m128i _mm_castps_si128(__m128 PS) { union { __m128 ps; __m128i pi; } c; c.ps = PS; return c.pi; }
-inline __m128 _mm_castsi128_ps(__m128i PI) { union { __m128 ps; __m128i pi; } c; c.pi = PI; return c.ps; }
+		inline float _mm_cvtss_f32(__m128 A) { return A.m128_f32[0]; }
+		inline __m128 _mm_castpd_ps(__m128d PD) { union { __m128 ps; __m128d pd; } c; c.pd = PD; return c.ps; }
+		inline __m128d _mm_castps_pd(__m128 PS) { union { __m128 ps; __m128d pd; } c; c.ps = PS; return c.pd; }
+		inline __m128i _mm_castps_si128(__m128 PS) { union { __m128 ps; __m128i pi; } c; c.ps = PS; return c.pi; }
+		inline __m128 _mm_castsi128_ps(__m128i PI) { union { __m128 ps; __m128i pi; } c; c.pi = PI; return c.ps; }
 #	endif
 #endif//GLM_ARCH
 
@@ -490,25 +486,25 @@ inline __m128 _mm_castsi128_ps(__m128i PI) { union { __m128 ps; __m128i pi; } c;
 
 // User defines: GLM_FORCE_CXX98, GLM_FORCE_CXX03, GLM_FORCE_CXX11, GLM_FORCE_CXX14
 
-#define GLM_LANG_CXX98_FLAG            (1 << 1)
-#define GLM_LANG_CXX03_FLAG            (1 << 2)
-#define GLM_LANG_CXX0X_FLAG            (1 << 3)
-#define GLM_LANG_CXX11_FLAG            (1 << 4)
-#define GLM_LANG_CXX1Y_FLAG            (1 << 5)
-#define GLM_LANG_CXX14_FLAG            (1 << 6)
-#define GLM_LANG_CXX1Z_FLAG            (1 << 7)
-#define GLM_LANG_CXXMS_FLAG            (1 << 8)
-#define GLM_LANG_CXXGNU_FLAG        (1 << 9)
+#define GLM_LANG_CXX98_FLAG			(1 << 1)
+#define GLM_LANG_CXX03_FLAG			(1 << 2)
+#define GLM_LANG_CXX0X_FLAG			(1 << 3)
+#define GLM_LANG_CXX11_FLAG			(1 << 4)
+#define GLM_LANG_CXX1Y_FLAG			(1 << 5)
+#define GLM_LANG_CXX14_FLAG			(1 << 6)
+#define GLM_LANG_CXX1Z_FLAG			(1 << 7)
+#define GLM_LANG_CXXMS_FLAG			(1 << 8)
+#define GLM_LANG_CXXGNU_FLAG		(1 << 9)
 
-#define GLM_LANG_CXX98            GLM_LANG_CXX98_FLAG
-#define GLM_LANG_CXX03            (GLM_LANG_CXX98 | GLM_LANG_CXX03_FLAG)
-#define GLM_LANG_CXX0X            (GLM_LANG_CXX03 | GLM_LANG_CXX0X_FLAG)
-#define GLM_LANG_CXX11            (GLM_LANG_CXX0X | GLM_LANG_CXX11_FLAG)
-#define GLM_LANG_CXX1Y            (GLM_LANG_CXX11 | GLM_LANG_CXX1Y_FLAG)
-#define GLM_LANG_CXX14            (GLM_LANG_CXX1Y | GLM_LANG_CXX14_FLAG)
-#define GLM_LANG_CXX1Z            (GLM_LANG_CXX14 | GLM_LANG_CXX1Z_FLAG)
-#define GLM_LANG_CXXMS            GLM_LANG_CXXMS_FLAG
-#define GLM_LANG_CXXGNU            GLM_LANG_CXXGNU_FLAG
+#define GLM_LANG_CXX98			GLM_LANG_CXX98_FLAG
+#define GLM_LANG_CXX03			(GLM_LANG_CXX98 | GLM_LANG_CXX03_FLAG)
+#define GLM_LANG_CXX0X			(GLM_LANG_CXX03 | GLM_LANG_CXX0X_FLAG)
+#define GLM_LANG_CXX11			(GLM_LANG_CXX0X | GLM_LANG_CXX11_FLAG)
+#define GLM_LANG_CXX1Y			(GLM_LANG_CXX11 | GLM_LANG_CXX1Y_FLAG)
+#define GLM_LANG_CXX14			(GLM_LANG_CXX1Y | GLM_LANG_CXX14_FLAG)
+#define GLM_LANG_CXX1Z			(GLM_LANG_CXX14 | GLM_LANG_CXX1Z_FLAG)
+#define GLM_LANG_CXXMS			GLM_LANG_CXXMS_FLAG
+#define GLM_LANG_CXXGNU			GLM_LANG_CXXGNU_FLAG
 
 #if defined(GLM_FORCE_CXX14)
 #	undef GLM_FORCE_CXX11
@@ -658,7 +654,6 @@ inline __m128 _mm_castsi128_ps(__m128i PI) { union { __m128 ps; __m128i pi; } c;
 #	define GLM_HAS_CXX11_STL 0
 #elif GLM_COMPILER & (GLM_COMPILER_LLVM | GLM_COMPILER_APPLE_CLANG)
 #	if __has_include(<__config>) // libc++
-
 #		include <__config>
 //#	else // libstdc++
 //#		include <bits/c++config.h>
@@ -670,9 +665,9 @@ inline __m128 _mm_castsi128_ps(__m128i PI) { union { __m128 ps; __m128i pi; } c;
 #	endif
 #else
 #	define GLM_HAS_CXX11_STL ((GLM_LANG & GLM_LANG_CXX0X_FLAG) && \
-        ((GLM_COMPILER & GLM_COMPILER_GCC) && (GLM_COMPILER >= GLM_COMPILER_GCC48)) || \
-        ((GLM_COMPILER & GLM_COMPILER_VC) && (GLM_COMPILER >= GLM_COMPILER_VC2013)) || \
-        ((GLM_COMPILER & GLM_COMPILER_INTEL) && (GLM_COMPILER >= GLM_COMPILER_INTEL15)))
+		((GLM_COMPILER & GLM_COMPILER_GCC) && (GLM_COMPILER >= GLM_COMPILER_GCC48)) || \
+		((GLM_COMPILER & GLM_COMPILER_VC) && (GLM_COMPILER >= GLM_COMPILER_VC2013)) || \
+		((GLM_COMPILER & GLM_COMPILER_INTEL) && (GLM_COMPILER >= GLM_COMPILER_INTEL15)))
 #endif
 
 // N1720
@@ -682,8 +677,8 @@ inline __m128 _mm_castsi128_ps(__m128i PI) { union { __m128 ps; __m128i pi; } c;
 #	define GLM_HAS_STATIC_ASSERT 1
 #else
 #	define GLM_HAS_STATIC_ASSERT ((GLM_LANG & GLM_LANG_CXX0X_FLAG) && (\
-        ((GLM_COMPILER & GLM_COMPILER_GCC) && (GLM_COMPILER >= GLM_COMPILER_GCC43)) || \
-        ((GLM_COMPILER & GLM_COMPILER_VC) && (GLM_COMPILER >= GLM_COMPILER_VC2010))))
+		((GLM_COMPILER & GLM_COMPILER_GCC) && (GLM_COMPILER >= GLM_COMPILER_GCC43)) || \
+		((GLM_COMPILER & GLM_COMPILER_VC) && (GLM_COMPILER >= GLM_COMPILER_VC2010))))
 #endif
 
 // N1988
@@ -691,10 +686,10 @@ inline __m128 _mm_castsi128_ps(__m128i PI) { union { __m128 ps; __m128i pi; } c;
 #	define GLM_HAS_EXTENDED_INTEGER_TYPE 1
 #else
 #	define GLM_HAS_EXTENDED_INTEGER_TYPE (\
-        ((GLM_LANG & GLM_LANG_CXX0X_FLAG) && (GLM_COMPILER & GLM_COMPILER_VC) && (GLM_COMPILER >= GLM_COMPILER_VC2012)) || \
-        ((GLM_LANG & GLM_LANG_CXX0X_FLAG) && (GLM_COMPILER & GLM_COMPILER_GCC) && (GLM_COMPILER >= GLM_COMPILER_GCC43)) || \
-        ((GLM_LANG & GLM_LANG_CXX0X_FLAG) && (GLM_COMPILER & GLM_COMPILER_LLVM) && (GLM_COMPILER >= GLM_COMPILER_LLVM30)) || \
-        ((GLM_LANG & GLM_LANG_CXX0X_FLAG) && (GLM_COMPILER & GLM_COMPILER_APPLE_CLANG) && (GLM_COMPILER >= GLM_COMPILER_APPLE_CLANG40)))
+		((GLM_LANG & GLM_LANG_CXX0X_FLAG) && (GLM_COMPILER & GLM_COMPILER_VC) && (GLM_COMPILER >= GLM_COMPILER_VC2012)) || \
+		((GLM_LANG & GLM_LANG_CXX0X_FLAG) && (GLM_COMPILER & GLM_COMPILER_GCC) && (GLM_COMPILER >= GLM_COMPILER_GCC43)) || \
+		((GLM_LANG & GLM_LANG_CXX0X_FLAG) && (GLM_COMPILER & GLM_COMPILER_LLVM) && (GLM_COMPILER >= GLM_COMPILER_LLVM30)) || \
+		((GLM_LANG & GLM_LANG_CXX0X_FLAG) && (GLM_COMPILER & GLM_COMPILER_APPLE_CLANG) && (GLM_COMPILER >= GLM_COMPILER_APPLE_CLANG40)))
 #endif
 
 // N2235
@@ -706,7 +701,7 @@ inline __m128 _mm_castsi128_ps(__m128i PI) { union { __m128 ps; __m128i pi; } c;
 #	define GLM_HAS_CONSTEXPR_PARTIAL GLM_HAS_CONSTEXPR
 #else
 #	define GLM_HAS_CONSTEXPR ((GLM_LANG & GLM_LANG_CXX0X_FLAG) && (\
-        ((GLM_COMPILER & GLM_COMPILER_GCC) && (GLM_COMPILER >= GLM_COMPILER_GCC46))))
+		((GLM_COMPILER & GLM_COMPILER_GCC) && (GLM_COMPILER >= GLM_COMPILER_GCC46))))
 #	define GLM_HAS_CONSTEXPR_PARTIAL (GLM_HAS_CONSTEXPR || ((GLM_COMPILER & GLM_COMPILER_VC) && (GLM_COMPILER >= GLM_COMPILER_VC2015)))
 #endif
 
@@ -717,8 +712,8 @@ inline __m128 _mm_castsi128_ps(__m128i PI) { union { __m128 ps; __m128i pi; } c;
 #	define GLM_HAS_INITIALIZER_LISTS 1
 #else
 #	define GLM_HAS_INITIALIZER_LISTS ((GLM_LANG & GLM_LANG_CXX0X_FLAG) && (\
-        ((GLM_COMPILER & GLM_COMPILER_GCC) && (GLM_COMPILER >= GLM_COMPILER_GCC44)) || \
-        ((GLM_COMPILER & GLM_COMPILER_VC) && (GLM_COMPILER >= GLM_COMPILER_VC2013))))
+		((GLM_COMPILER & GLM_COMPILER_GCC) && (GLM_COMPILER >= GLM_COMPILER_GCC44)) || \
+		((GLM_COMPILER & GLM_COMPILER_VC) && (GLM_COMPILER >= GLM_COMPILER_VC2013))))
 #endif
 
 // N2544 Unrestricted unions
@@ -728,7 +723,7 @@ inline __m128 _mm_castsi128_ps(__m128i PI) { union { __m128 ps; __m128i pi; } c;
 #	define GLM_HAS_UNRESTRICTED_UNIONS 1
 #else
 #	define GLM_HAS_UNRESTRICTED_UNIONS (GLM_LANG & GLM_LANG_CXX0X_FLAG) && (\
-        ((GLM_COMPILER & GLM_COMPILER_GCC) && (GLM_COMPILER >= GLM_COMPILER_GCC46)))
+		((GLM_COMPILER & GLM_COMPILER_GCC) && (GLM_COMPILER >= GLM_COMPILER_GCC46)))
 #endif
 
 // N2346
@@ -738,9 +733,9 @@ inline __m128 _mm_castsi128_ps(__m128i PI) { union { __m128 ps; __m128i pi; } c;
 #	define GLM_HAS_DEFAULTED_FUNCTIONS 1
 #else
 #	define GLM_HAS_DEFAULTED_FUNCTIONS ((GLM_LANG & GLM_LANG_CXX0X_FLAG) && (\
-        ((GLM_COMPILER & GLM_COMPILER_GCC) && (GLM_COMPILER >= GLM_COMPILER_GCC44)) || \
-        ((GLM_COMPILER & GLM_COMPILER_VC) && (GLM_COMPILER >= GLM_COMPILER_VC2013)) || \
-        ((GLM_COMPILER & GLM_COMPILER_INTEL) && (GLM_COMPILER >= GLM_COMPILER_INTEL12))))
+		((GLM_COMPILER & GLM_COMPILER_GCC) && (GLM_COMPILER >= GLM_COMPILER_GCC44)) || \
+		((GLM_COMPILER & GLM_COMPILER_VC) && (GLM_COMPILER >= GLM_COMPILER_VC2013)) || \
+		((GLM_COMPILER & GLM_COMPILER_INTEL) && (GLM_COMPILER >= GLM_COMPILER_INTEL12))))
 #endif
 
 // N2118
@@ -750,8 +745,8 @@ inline __m128 _mm_castsi128_ps(__m128i PI) { union { __m128 ps; __m128i pi; } c;
 #	define GLM_HAS_RVALUE_REFERENCES 1
 #else
 #	define GLM_HAS_RVALUE_REFERENCES ((GLM_LANG & GLM_LANG_CXX0X_FLAG) && (\
-        ((GLM_COMPILER & GLM_COMPILER_GCC) && (GLM_COMPILER >= GLM_COMPILER_GCC43)) || \
-        ((GLM_COMPILER & GLM_COMPILER_VC) && (GLM_COMPILER >= GLM_COMPILER_VC2012))))
+		((GLM_COMPILER & GLM_COMPILER_GCC) && (GLM_COMPILER >= GLM_COMPILER_GCC43)) || \
+		((GLM_COMPILER & GLM_COMPILER_VC) && (GLM_COMPILER >= GLM_COMPILER_VC2012))))
 #endif
 
 // N2437 http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2007/n2437.pdf
@@ -761,9 +756,9 @@ inline __m128 _mm_castsi128_ps(__m128i PI) { union { __m128 ps; __m128i pi; } c;
 #	define GLM_HAS_EXPLICIT_CONVERSION_OPERATORS 1
 #else
 #	define GLM_HAS_EXPLICIT_CONVERSION_OPERATORS ((GLM_LANG & GLM_LANG_CXX0X_FLAG) && (\
-        ((GLM_COMPILER & GLM_COMPILER_GCC) && (GLM_COMPILER >= GLM_COMPILER_GCC45)) || \
-        ((GLM_COMPILER & GLM_COMPILER_INTEL) && (GLM_COMPILER >= GLM_COMPILER_INTEL14)) || \
-        ((GLM_COMPILER & GLM_COMPILER_VC) && (GLM_COMPILER >= GLM_COMPILER_VC2013))))
+		((GLM_COMPILER & GLM_COMPILER_GCC) && (GLM_COMPILER >= GLM_COMPILER_GCC45)) || \
+		((GLM_COMPILER & GLM_COMPILER_INTEL) && (GLM_COMPILER >= GLM_COMPILER_INTEL14)) || \
+		((GLM_COMPILER & GLM_COMPILER_VC) && (GLM_COMPILER >= GLM_COMPILER_VC2013))))
 #endif
 
 // N2258 http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2007/n2258.pdf
@@ -773,9 +768,9 @@ inline __m128 _mm_castsi128_ps(__m128i PI) { union { __m128 ps; __m128i pi; } c;
 #	define GLM_HAS_TEMPLATE_ALIASES 1
 #else
 #	define GLM_HAS_TEMPLATE_ALIASES ((GLM_LANG & GLM_LANG_CXX0X_FLAG) && (\
-        ((GLM_COMPILER & GLM_COMPILER_INTEL) && (GLM_COMPILER >= GLM_COMPILER_INTEL12_1)) || \
-        ((GLM_COMPILER & GLM_COMPILER_GCC) && (GLM_COMPILER >= GLM_COMPILER_GCC47)) || \
-        ((GLM_COMPILER & GLM_COMPILER_VC) && (GLM_COMPILER >= GLM_COMPILER_VC2013))))
+		((GLM_COMPILER & GLM_COMPILER_INTEL) && (GLM_COMPILER >= GLM_COMPILER_INTEL12_1)) || \
+		((GLM_COMPILER & GLM_COMPILER_GCC) && (GLM_COMPILER >= GLM_COMPILER_GCC47)) || \
+		((GLM_COMPILER & GLM_COMPILER_VC) && (GLM_COMPILER >= GLM_COMPILER_VC2013))))
 #endif
 
 // N2930 http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2009/n2930.html
@@ -785,9 +780,9 @@ inline __m128 _mm_castsi128_ps(__m128i PI) { union { __m128 ps; __m128i pi; } c;
 #	define GLM_HAS_RANGE_FOR 1
 #else
 #	define GLM_HAS_RANGE_FOR ((GLM_LANG & GLM_LANG_CXX0X_FLAG) && (\
-        ((GLM_COMPILER & GLM_COMPILER_GCC) && (GLM_COMPILER >= GLM_COMPILER_GCC46)) || \
-        ((GLM_COMPILER & GLM_COMPILER_INTEL) && (GLM_COMPILER >= GLM_COMPILER_INTEL13)) || \
-        ((GLM_COMPILER & GLM_COMPILER_VC) && (GLM_COMPILER >= GLM_COMPILER_VC2012))))
+		((GLM_COMPILER & GLM_COMPILER_GCC) && (GLM_COMPILER >= GLM_COMPILER_GCC46)) || \
+		((GLM_COMPILER & GLM_COMPILER_INTEL) && (GLM_COMPILER >= GLM_COMPILER_INTEL13)) || \
+		((GLM_COMPILER & GLM_COMPILER_VC) && (GLM_COMPILER >= GLM_COMPILER_VC2012))))
 #endif
 
 //
@@ -795,7 +790,7 @@ inline __m128 _mm_castsi128_ps(__m128i PI) { union { __m128 ps; __m128i pi; } c;
 #	define GLM_HAS_ASSIGNABLE 1
 #else
 #	define GLM_HAS_ASSIGNABLE ((GLM_LANG & GLM_LANG_CXX0X_FLAG) && (\
-        ((GLM_COMPILER & GLM_COMPILER_GCC) && (GLM_COMPILER >= GLM_COMPILER_GCC49))))
+		((GLM_COMPILER & GLM_COMPILER_GCC) && (GLM_COMPILER >= GLM_COMPILER_GCC49))))
 #endif
 
 //
@@ -806,14 +801,14 @@ inline __m128 _mm_castsi128_ps(__m128i PI) { union { __m128 ps; __m128i pi; } c;
 #	define GLM_HAS_MAKE_SIGNED 1
 #else
 #	define GLM_HAS_MAKE_SIGNED ((GLM_LANG & GLM_LANG_CXX0X_FLAG) && (\
-        ((GLM_COMPILER & GLM_COMPILER_VC) && (GLM_COMPILER >= GLM_COMPILER_VC2013))))
+		((GLM_COMPILER & GLM_COMPILER_VC) && (GLM_COMPILER >= GLM_COMPILER_VC2013))))
 #endif
 
 #if GLM_ARCH == GLM_ARCH_PURE
 #	define GLM_HAS_BITSCAN_WINDOWS 0
 #else
 #	define GLM_HAS_BITSCAN_WINDOWS ((GLM_PLATFORM & GLM_PLATFORM_WINDOWS) && (\
-        (GLM_COMPILER & (GLM_COMPILER_VC | GLM_COMPILER_LLVM | GLM_COMPILER_INTEL))))
+		(GLM_COMPILER & (GLM_COMPILER_VC | GLM_COMPILER_LLVM | GLM_COMPILER_INTEL))))
 #endif
 
 // OpenMP
@@ -959,30 +954,33 @@ inline __m128 _mm_castsi128_ps(__m128i PI) { union { __m128 ps; __m128i pi; } c;
 
 // User defines: GLM_FORCE_SIZE_T_LENGTH GLM_FORCE_SIZE_FUNC
 
-namespace glm {
-    using std::size_t;
+namespace glm
+{
+	using std::size_t;
 #	if defined(GLM_FORCE_SIZE_T_LENGTH) || defined(GLM_FORCE_SIZE_FUNC)
-    typedef size_t length_t;
+		typedef size_t length_t;
 #	else
-    typedef int length_t;
+		typedef int length_t;
 #	endif
 
-    namespace detail {
+namespace detail
+{
 #	ifdef GLM_FORCE_SIZE_FUNC
-        typedef size_t component_count_t;
+		typedef size_t component_count_t;
 #	else
-        typedef length_t component_count_t;
+		typedef length_t component_count_t;
 #	endif
 
-        template<typename genType>
-        GLM_FUNC_QUALIFIER GLM_CONSTEXPR component_count_t component_count(genType const &m) {
+	template <typename genType>
+	GLM_FUNC_QUALIFIER GLM_CONSTEXPR component_count_t component_count(genType const & m)
+	{
 #		ifdef GLM_FORCE_SIZE_FUNC
-            return m.size();
+			return m.size();
 #		else
-            return m.length();
+			return m.length();
 #		endif
-        }
-    }//namespace detail
+	}
+}//namespace detail
 }//namespace glm
 
 #if defined(GLM_MESSAGES) && !defined(GLM_MESSAGE_FORCE_SIZE_T_LENGTH)
@@ -1004,12 +1002,14 @@ namespace glm {
 #endif
 
 #if GLM_HAS_CONSTEXPR_PARTIAL
-namespace glm {
-    template<typename T, std::size_t N>
-    constexpr std::size_t countof(T const (&)[N]) {
-        return N;
-    }
-}//namespace glm
+	namespace glm
+	{
+		template <typename T, std::size_t N>
+		constexpr std::size_t countof(T const (&)[N])
+		{
+			return N;
+		}
+	}//namespace glm
 #	define GLM_COUNTOF(arr) glm::countof(arr)
 #elif _MSC_VER
 #	define GLM_COUNTOF(arr) _countof(arr)
@@ -1020,8 +1020,7 @@ namespace glm {
 ///////////////////////////////////////////////////////////////////////////////////
 // Uninitialize constructors
 
-namespace glm {
-    enum ctor {
-        uninitialize
-    };
+namespace glm
+{
+	enum ctor{uninitialize};
 }//namespace glm

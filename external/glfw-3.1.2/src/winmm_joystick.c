@@ -36,7 +36,8 @@
 
 // Convert axis value to the [-1,1] range
 //
-static float normalizeAxis(DWORD pos, DWORD min, DWORD max) {
+static float normalizeAxis(DWORD pos, DWORD min, DWORD max)
+{
     float fpos = (float) pos;
     float fmin = (float) min;
     float fmax = (float) max;
@@ -51,15 +52,17 @@ static float normalizeAxis(DWORD pos, DWORD min, DWORD max) {
 
 // Initialize joystick interface
 //
-void _glfwInitJoysticks(void) {
+void _glfwInitJoysticks(void)
+{
 }
 
 // Close all opened joystick handles
 //
-void _glfwTerminateJoysticks(void) {
+void _glfwTerminateJoysticks(void)
+{
     int i;
 
-    for (i = 0; i < GLFW_JOYSTICK_LAST; i++)
+    for (i = 0;  i < GLFW_JOYSTICK_LAST;  i++)
         free(_glfw.winmm_js[i].name);
 }
 
@@ -68,7 +71,8 @@ void _glfwTerminateJoysticks(void) {
 //////                       GLFW platform API                      //////
 //////////////////////////////////////////////////////////////////////////
 
-int _glfwPlatformJoystickPresent(int joy) {
+int _glfwPlatformJoystickPresent(int joy)
+{
     JOYINFO ji;
 
     if (_glfw_joyGetPos(joy, &ji) != JOYERR_NOERROR)
@@ -77,10 +81,11 @@ int _glfwPlatformJoystickPresent(int joy) {
     return GL_TRUE;
 }
 
-const float *_glfwPlatformGetJoystickAxes(int joy, int *count) {
+const float* _glfwPlatformGetJoystickAxes(int joy, int* count)
+{
     JOYCAPS jc;
     JOYINFOEX ji;
-    float *axes = _glfw.winmm_js[joy].axes;
+    float* axes = _glfw.winmm_js[joy].axes;
 
     if (_glfw_joyGetDevCaps(joy, &jc, sizeof(JOYCAPS)) != JOYERR_NOERROR)
         return NULL;
@@ -109,10 +114,11 @@ const float *_glfwPlatformGetJoystickAxes(int joy, int *count) {
     return axes;
 }
 
-const unsigned char *_glfwPlatformGetJoystickButtons(int joy, int *count) {
+const unsigned char* _glfwPlatformGetJoystickButtons(int joy, int* count)
+{
     JOYCAPS jc;
     JOYINFOEX ji;
-    unsigned char *buttons = _glfw.winmm_js[joy].buttons;
+    unsigned char* buttons = _glfw.winmm_js[joy].buttons;
 
     if (_glfw_joyGetDevCaps(joy, &jc, sizeof(JOYCAPS)) != JOYERR_NOERROR)
         return NULL;
@@ -122,9 +128,10 @@ const unsigned char *_glfwPlatformGetJoystickButtons(int joy, int *count) {
     if (_glfw_joyGetPosEx(joy, &ji) != JOYERR_NOERROR)
         return NULL;
 
-    while (*count < (int) jc.wNumButtons) {
+    while (*count < (int) jc.wNumButtons)
+    {
         buttons[*count] = (unsigned char)
-                (ji.dwButtons & (1UL << *count) ? GLFW_PRESS : GLFW_RELEASE);
+            (ji.dwButtons & (1UL << *count) ? GLFW_PRESS : GLFW_RELEASE);
         (*count)++;
     }
 
@@ -133,16 +140,18 @@ const unsigned char *_glfwPlatformGetJoystickButtons(int joy, int *count) {
     // concurrent button presses
     // NOTE: this API exposes only one hat
 
-    if ((jc.wCaps & JOYCAPS_HASPOV) && (jc.wCaps & JOYCAPS_POV4DIR)) {
+    if ((jc.wCaps & JOYCAPS_HASPOV) && (jc.wCaps & JOYCAPS_POV4DIR))
+    {
         int i, value = ji.dwPOV / 100 / 45;
 
         // Bit fields of button presses for each direction, including nil
-        const int directions[9] = {1, 3, 2, 6, 4, 12, 8, 9, 0};
+        const int directions[9] = { 1, 3, 2, 6, 4, 12, 8, 9, 0 };
 
         if (value < 0 || value > 8)
             value = 8;
 
-        for (i = 0; i < 4; i++) {
+        for (i = 0;  i < 4;  i++)
+        {
             if (directions[value] & (1 << i))
                 buttons[(*count)++] = GLFW_PRESS;
             else
@@ -153,7 +162,8 @@ const unsigned char *_glfwPlatformGetJoystickButtons(int joy, int *count) {
     return buttons;
 }
 
-const char *_glfwPlatformGetJoystickName(int joy) {
+const char* _glfwPlatformGetJoystickName(int joy)
+{
     JOYCAPS jc;
 
     if (_glfw_joyGetDevCaps(joy, &jc, sizeof(JOYCAPS)) != JOYERR_NOERROR)

@@ -21,7 +21,7 @@ source_group("GTX Files" FILES ${GTX_HEADER})
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/..)
 
-add_executable(${NAME}
-        ${ROOT_SOURCE} ${ROOT_INLINE} ${ROOT_HEADER}
-        ${CORE_SOURCE} ${CORE_INLINE} ${CORE_HEADER}
-        ${GTX_SOURCE} ${GTX_INLINE} ${GTX_HEADER})
+add_executable(${NAME} 
+	${ROOT_SOURCE}    ${ROOT_INLINE}    ${ROOT_HEADER} 
+	${CORE_SOURCE}    ${CORE_INLINE}    ${CORE_HEADER}
+	${GTX_SOURCE}     ${GTX_INLINE}     ${GTX_HEADER} )

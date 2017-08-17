@@ -34,8 +34,9 @@
 #	error "SSE2 instructions not supported or enabled"
 #else
 
-namespace glm {
-    namespace detail {
+namespace glm{
+namespace detail
+{
 /*
 GLM_FUNC_QUALIFIER __m128 sse_rsqrt_nr_ss(__m128 const x)
 {
@@ -70,7 +71,7 @@ GLM_FUNC_QUALIFIER __m128 sse_normalize_fast_ps(  float * RESTRICT vOut, float *
         return _mm_mul_ss( l , rsqt );
 }
 */
-    }//namespace detail
+}//namespace detail
 }//namespace glm
 
 #endif//GLM_ARCH

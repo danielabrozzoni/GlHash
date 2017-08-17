@@ -7,93 +7,108 @@
 // File    : gli/core/texture2D.inl
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-namespace gli {
-    namespace detail {
-        inline texture2D::size_type sizeLinear
-                (
-                        texture2D const &Texture
-                ) {
-            texture2D::size_type Result = 0;
-            for (texture2D::level_type Level = 0; Level < Texture.levels(); ++Level)
-                Result += sizeLinear(Texture[Level]);
-            return Result;
-        }
-    }//namespace detail
+namespace gli
+{
+	namespace detail
+	{
+		inline texture2D::size_type sizeLinear
+		(
+			texture2D const & Texture
+		)
+		{
+			texture2D::size_type Result = 0;
+			for(texture2D::level_type Level = 0; Level < Texture.levels(); ++Level)
+				Result += sizeLinear(Texture[Level]);
+			return Result;
+		}
+	}//namespace detail
 
-    inline texture2D::texture2D() {}
+	inline texture2D::texture2D()
+	{}
 
-    inline texture2D::texture2D
-            (
-                    level_type const &Levels
-            ) {
-        this->Images.resize(Levels);
-    }
+	inline texture2D::texture2D
+	(
+		level_type const & Levels
+	)
+	{
+		this->Images.resize(Levels);
+	}
 
-    //inline texture2D::texture2D
-    //(
-    //	image const & Mipmap,
-    //	bool GenerateMipmaps // ToDo
-    //)
-    //{
-    //	//std::size_t Levels = !GenerateMipmaps ? 1 : std::size_t(glm::log2(float(glm::max(Mipmap.width(), Mipmap.height()))));
-    //	texture2D::level_type Levels = !GenerateMipmaps ? 1 : std::size_t(glm::log2(float(glm::compMax(Mipmap.dimensions()))));
-    //	this->Mipmaps.resize(Levels);
-    //	this->Mipmaps[0] = Mipmap;
+	//inline texture2D::texture2D
+	//(
+	//	image const & Mipmap, 
+	//	bool GenerateMipmaps // ToDo
+	//)
+	//{
+	//	//std::size_t Levels = !GenerateMipmaps ? 1 : std::size_t(glm::log2(float(glm::max(Mipmap.width(), Mipmap.height()))));
+	//	texture2D::level_type Levels = !GenerateMipmaps ? 1 : std::size_t(glm::log2(float(glm::compMax(Mipmap.dimensions()))));
+	//	this->Mipmaps.resize(Levels);
+	//	this->Mipmaps[0] = Mipmap;
 
-    //	if(GenerateMipmaps)
-    //		this->generateMipmaps(0);
-    //}
+	//	if(GenerateMipmaps)
+	//		this->generateMipmaps(0);
+	//}
 
-    inline texture2D::~texture2D() {}
+	inline texture2D::~texture2D()
+	{}
 
-    inline image2D &texture2D::operator[](level_type const &Level) {
-        return this->Images[Level];
-    }
+	inline image2D & texture2D::operator[] (level_type const & Level)
+	{
+		return this->Images[Level];
+	}
 
-    inline image2D const &texture2D::operator[](level_type const &Level) const {
-        return this->Images[Level];
-    }
+	inline image2D const & texture2D::operator[] (level_type const & Level) const
+	{
+		return this->Images[Level];
+	}
 
-    inline bool texture2D::empty() const {
-        return this->Images.size() == 0;
-    }
+	inline bool texture2D::empty() const
+	{
+		return this->Images.size() == 0;
+	}
 
-    inline texture2D::format_type texture2D::format() const {
-        return this->Images.empty() ? FORMAT_NULL : this->Images[0].format();
-    }
+	inline texture2D::format_type texture2D::format() const
+	{
+		return this->Images.empty() ? FORMAT_NULL : this->Images[0].format();
+	}
 
-    inline texture2D::level_type texture2D::levels() const {
-        return this->Images.size();
-    }
+	inline texture2D::level_type texture2D::levels() const
+	{
+		return this->Images.size();
+	}
 
-    inline void texture2D::resize
-            (
-                    texture2D::level_type const &Levels
-            ) {
-        this->Images.resize(Levels);
-    }
+	inline void texture2D::resize
+	(
+		texture2D::level_type const & Levels
+	)
+	{
+		this->Images.resize(Levels);
+	}
 
-    template<typename genType>
-    inline void texture2D::swizzle(gli::comp X, gli::comp Y, gli::comp Z, gli::comp W) {
-        for (texture2D::level_type Level = 0; Level < this->levels(); ++Level) {
-            genType *Data = reinterpret_cast<genType *>(this->Images[Level].data());
-            texture2D::size_type Components = this->Images[Level].components();
-            //gli::detail::getComponents(this->Images[Level].format());
-            texture2D::size_type Size = (glm::compMul(this->Images[Level].dimensions()) * Components) / sizeof(genType);
+	template <typename genType>
+	inline void texture2D::swizzle(gli::comp X, gli::comp Y, gli::comp Z, gli::comp W)
+	{
+		for(texture2D::level_type Level = 0; Level < this->levels(); ++Level)
+		{
+			genType * Data = reinterpret_cast<genType*>(this->Images[Level].data());
+			texture2D::size_type Components = this->Images[Level].components();
+			//gli::detail::getComponents(this->Images[Level].format());
+			texture2D::size_type Size = (glm::compMul(this->Images[Level].dimensions()) * Components) / sizeof(genType);
 
-            for (texture2D::size_type i = 0; i < Size; ++i) {
-                genType Copy = Data[i];
-                if (Components > 0)
-                    Data[i][0] = Copy[X];
-                if (Components > 1)
-                    Data[i][1] = Copy[Y];
-                if (Components > 2)
-                    Data[i][2] = Copy[Z];
-                if (Components > 3)
-                    Data[i][3] = Copy[W];
-            }
-        }
-    }
+			for(texture2D::size_type i = 0; i < Size; ++i)
+			{
+				genType Copy = Data[i];
+				if(Components > 0)
+					Data[i][0] = Copy[X];
+				if(Components > 1)
+					Data[i][1] = Copy[Y];
+				if(Components > 2)
+					Data[i][2] = Copy[Z];
+				if(Components > 3)
+					Data[i][3] = Copy[W];
+			}
+		}
+	}
 
 /*
 	template <typename T>
@@ -161,9 +176,10 @@ namespace gli {
 	}
 */
 
-    namespace wip {
-        ////////////////
-        // image
+namespace wip
+{
+	////////////////
+	// image
 /*
 	// 
 	template
@@ -223,66 +239,66 @@ namespace gli {
 		
 	}
 */
-        ////
-        //template
-        //<
-        //	typename genType,
-        //	template <typename> class surface
-        //>
-        //template
-        //<
-        //	typename coordType
-        //>
-        //typename texture2D<genType, surface>::value_type const &
-        //texture2D<genType, surface>::image_impl::operator()
-        //(
-        //	coordType const & Coord
-        //) const
-        //{
-        //	return value_type(0);
-        //}
+	////
+	//template
+	//<
+	//	typename genType, 
+	//	template <typename> class surface
+	//>
+	//template
+	//<
+	//	typename coordType
+	//>
+	//typename texture2D<genType, surface>::value_type const & 
+	//texture2D<genType, surface>::image_impl::operator()
+	//(
+	//	coordType const & Coord
+	//) const
+	//{
+	//	return value_type(0);
+	//}
 
-        //////////////////
-        //// texture2D
+	//////////////////
+	//// texture2D
 
-        ////
-        //template
-        //<
-        //	typename genType,
-        //	template <typename> class surface
-        //>
-        //typename texture2D<genType, surface>::level_type texture2D<genType, surface>::levels() const
-        //{
-        //	return this->Mipmaps.size();
-        //}
+	//// 
+	//template
+	//<
+	//	typename genType, 
+	//	template <typename> class surface
+	//>
+	//typename texture2D<genType, surface>::level_type texture2D<genType, surface>::levels() const
+	//{
+	//	return this->Mipmaps.size();
+	//}
 
-        ////
-        //template
-        //<
-        //	typename genType,
-        //	template <typename> class surface
-        //>
-        //typename texture2D<genType, surface>::image & texture2D<genType, surface>::operator[]
-        //(
-        //	typename texture2D<genType, surface>::level_type Level
-        //)
-        //{
-        //	return this->Mipmaps[Level];
-        //}
+	//// 
+	//template
+	//<
+	//	typename genType, 
+	//	template <typename> class surface
+	//>
+	//typename texture2D<genType, surface>::image & texture2D<genType, surface>::operator[] 
+	//(
+	//	typename texture2D<genType, surface>::level_type Level
+	//)
+	//{
+	//	return this->Mipmaps[Level];
+	//}
 
-        ////
-        //template
-        //<
-        //	typename genType,
-        //	template <typename> class surface
-        //>
-        //typename texture2D<genType, surface>::image const & texture2D<genType, surface>::operator[]
-        //(
-        //	typename texture2D<genType, surface>::level_type Level
-        //) const
-        //{
-        //	return this->Mipmaps[Level];
-        //}
+	//// 
+	//template
+	//<
+	//	typename genType, 
+	//	template <typename> class surface
+	//>
+	//typename texture2D<genType, surface>::image const & texture2D<genType, surface>::operator[] 
+	//(
+	//	typename texture2D<genType, surface>::level_type Level
+	//) const
+	//{
+	//	return this->Mipmaps[Level];
+	//}
 
-    }//namespace wip
+}//namespace wip
 }//namespace gli

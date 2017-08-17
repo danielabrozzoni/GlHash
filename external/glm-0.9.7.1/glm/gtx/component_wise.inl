@@ -30,65 +30,41 @@
 /// @author Christophe Riccio
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-namespace glm {
-    template<typename T, precision P, template<typename, precision> class vecType>
-    GLM_FUNC_QUALIFIER T
-    compAdd(vecType<T, P> const
-    & v) {
-    T result(0);
-    for(
-    detail::component_count_t i = 0;
-    i< detail::component_count(v);
-    ++i)
-    result += v[i];
-    return
-    result;
-}
-
-template<typename T, precision P, template<typename, precision> class vecType>
-GLM_FUNC_QUALIFIER T
-compMul(vecType<T, P> const
-& v)
+namespace glm
 {
-T result(1);
-for(
-detail::component_count_t i = 0;
-i< detail::component_count(v);
-++i)
-result *= v[i];
-return
-result;
-}
+	template <typename T, precision P, template <typename, precision> class vecType>
+	GLM_FUNC_QUALIFIER T compAdd(vecType<T, P> const & v)
+	{
+		T result(0);
+		for(detail::component_count_t i = 0; i < detail::component_count(v); ++i)
+			result += v[i];
+		return result;
+	}
 
-template<typename T, precision P, template<typename, precision> class vecType>
-GLM_FUNC_QUALIFIER T
-compMin(vecType<T, P> const
-& v)
-{
-T result(v[0]);
+	template <typename T, precision P, template <typename, precision> class vecType>
+	GLM_FUNC_QUALIFIER T compMul(vecType<T, P> const & v)
+	{
+		T result(1);
+		for(detail::component_count_t i = 0; i < detail::component_count(v); ++i)
+			result *= v[i];
+		return result;
+	}
 
-for(
-detail::component_count_t i = 1;
-i< detail::component_count(v);
-++i)
-result = min(result, v[i]);
-return
-result;
-}
+	template <typename T, precision P, template <typename, precision> class vecType>
+	GLM_FUNC_QUALIFIER T compMin(vecType<T, P> const & v)
+	{
+		T result(v[0]);
+		for(detail::component_count_t i = 1; i < detail::component_count(v); ++i)
+			result = min(result, v[i]);
+		return result;
+	}
 
-template<typename T, precision P, template<typename, precision> class vecType>
-GLM_FUNC_QUALIFIER T
-compMax(vecType<T, P> const
-& v)
-{
-T result(v[0]);
-
-for(
-detail::component_count_t i = 1;
-i< detail::component_count(v);
-++i)
-result = max(result, v[i]);
-return
-result;
-}
+	template <typename T, precision P, template <typename, precision> class vecType>
+	GLM_FUNC_QUALIFIER T compMax(vecType<T, P> const & v)
+	{
+		T result(v[0]);
+		for(detail::component_count_t i = 1; i < detail::component_count(v); ++i)
+			result = max(result, v[i]);
+		return result;
+	}
 }//namespace glm

@@ -34,16 +34,11 @@
 #include "../deps/GL/wglext.h"
 
 // opengl32.dll function pointer typedefs
-typedef HGLRC (WINAPI
-* WGLCREATECONTEXT_T)(HDC);
-typedef BOOL (WINAPI
-* WGLDELETECONTEXT_T)(HGLRC);
-typedef PROC (WINAPI
-* WGLGETPROCADDRESS_T)(LPCSTR);
-typedef BOOL (WINAPI
-* WGLMAKECURRENT_T)(HDC,HGLRC);
-typedef BOOL (WINAPI
-* WGLSHARELISTS_T)(HGLRC,HGLRC);
+typedef HGLRC (WINAPI * WGLCREATECONTEXT_T)(HDC);
+typedef BOOL (WINAPI * WGLDELETECONTEXT_T)(HGLRC);
+typedef PROC (WINAPI * WGLGETPROCADDRESS_T)(LPCSTR);
+typedef BOOL (WINAPI * WGLMAKECURRENT_T)(HDC,HGLRC);
+typedef BOOL (WINAPI * WGLSHARELISTS_T)(HGLRC,HGLRC);
 #define _glfw_wglCreateContext _glfw.wgl.opengl32.CreateContext
 #define _glfw_wglDeleteContext _glfw.wgl.opengl32.DeleteContext
 #define _glfw_wglGetProcAddress _glfw.wgl.opengl32.GetProcAddress
@@ -57,58 +52,56 @@ typedef BOOL (WINAPI
 
 // WGL-specific per-context data
 //
-typedef struct _GLFWcontextWGL {
-    HDC dc;              // Private GDI device context
-    HGLRC context;         // Permanent rendering context
-    int interval;
+typedef struct _GLFWcontextWGL
+{
+    HDC       dc;              // Private GDI device context
+    HGLRC     context;         // Permanent rendering context
+    int       interval;
 
     // WGL extensions (context specific)
-    PFNWGLSWAPINTERVALEXTPROC SwapIntervalEXT;
+    PFNWGLSWAPINTERVALEXTPROC           SwapIntervalEXT;
     PFNWGLGETPIXELFORMATATTRIBIVARBPROC GetPixelFormatAttribivARB;
-    PFNWGLGETEXTENSIONSSTRINGEXTPROC GetExtensionsStringEXT;
-    PFNWGLGETEXTENSIONSSTRINGARBPROC GetExtensionsStringARB;
-    PFNWGLCREATECONTEXTATTRIBSARBPROC CreateContextAttribsARB;
-    GLboolean EXT_swap_control;
-    GLboolean ARB_multisample;
-    GLboolean ARB_framebuffer_sRGB;
-    GLboolean EXT_framebuffer_sRGB;
-    GLboolean ARB_pixel_format;
-    GLboolean ARB_create_context;
-    GLboolean ARB_create_context_profile;
-    GLboolean EXT_create_context_es2_profile;
-    GLboolean ARB_create_context_robustness;
-    GLboolean ARB_context_flush_control;
+    PFNWGLGETEXTENSIONSSTRINGEXTPROC    GetExtensionsStringEXT;
+    PFNWGLGETEXTENSIONSSTRINGARBPROC    GetExtensionsStringARB;
+    PFNWGLCREATECONTEXTATTRIBSARBPROC   CreateContextAttribsARB;
+    GLboolean                           EXT_swap_control;
+    GLboolean                           ARB_multisample;
+    GLboolean                           ARB_framebuffer_sRGB;
+    GLboolean                           EXT_framebuffer_sRGB;
+    GLboolean                           ARB_pixel_format;
+    GLboolean                           ARB_create_context;
+    GLboolean                           ARB_create_context_profile;
+    GLboolean                           EXT_create_context_es2_profile;
+    GLboolean                           ARB_create_context_robustness;
+    GLboolean                           ARB_context_flush_control;
 
 } _GLFWcontextWGL;
 
 
 // WGL-specific global data
 //
-typedef struct _GLFWlibraryWGL {
+typedef struct _GLFWlibraryWGL
+{
     struct {
-        HINSTANCE instance;
-        WGLCREATECONTEXT_T CreateContext;
-        WGLDELETECONTEXT_T DeleteContext;
+        HINSTANCE           instance;
+        WGLCREATECONTEXT_T  CreateContext;
+        WGLDELETECONTEXT_T  DeleteContext;
         WGLGETPROCADDRESS_T GetProcAddress;
-        WGLMAKECURRENT_T MakeCurrent;
-        WGLSHARELISTS_T ShareLists;
+        WGLMAKECURRENT_T    MakeCurrent;
+        WGLSHARELISTS_T     ShareLists;
     } opengl32;
 
 } _GLFWlibraryWGL;
 
 
 int _glfwInitContextAPI(void);
-
 void _glfwTerminateContextAPI(void);
-
-int _glfwCreateContext(_GLFWwindow *window,
-                       const _GLFWctxconfig *ctxconfig,
-                       const _GLFWfbconfig *fbconfig);
-
-void _glfwDestroyContext(_GLFWwindow *window);
-
-int _glfwAnalyzeContext(const _GLFWwindow *window,
-                        const _GLFWctxconfig *ctxconfig,
-                        const _GLFWfbconfig *fbconfig);
+int _glfwCreateContext(_GLFWwindow* window,
+                       const _GLFWctxconfig* ctxconfig,
+                       const _GLFWfbconfig* fbconfig);
+void _glfwDestroyContext(_GLFWwindow* window);
+int _glfwAnalyzeContext(const _GLFWwindow* window,
+                        const _GLFWctxconfig* ctxconfig,
+                        const _GLFWfbconfig* fbconfig);
 
 #endif // _glfw3_wgl_context_h_

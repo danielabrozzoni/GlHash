@@ -12,48 +12,45 @@
 
 #include "texture2d.hpp"
 
-namespace gli {
-    class texture2DArray {
-    public:
-        typedef texture2D::dimensions_type dimensions_type;
-        typedef texture2D::texcoord_type texcoord_type;
-        typedef texture2D::size_type size_type;
-        typedef texture2D::value_type value_type;
-        typedef texture2D::format_type format_type;
-        typedef texture2D::data_type data_type;
-        typedef texture2D::level_type level_type;
-        typedef std::vector<texture2D>::size_type layer_type;
+namespace gli
+{
+	class texture2DArray
+	{
+	public:
+		typedef texture2D::dimensions_type dimensions_type;
+		typedef texture2D::texcoord_type texcoord_type;
+		typedef texture2D::size_type size_type;
+		typedef texture2D::value_type value_type;
+		typedef texture2D::format_type format_type;
+		typedef texture2D::data_type data_type;
+		typedef texture2D::level_type level_type;
+		typedef std::vector<texture2D>::size_type layer_type;
 
-    public:
-        texture2DArray();
+	public:
+		texture2DArray();
 
-        explicit texture2DArray(
-                layer_type const &Layers,
-                level_type const &Levels);
+		explicit texture2DArray(
+			layer_type const & Layers, 
+			level_type const & Levels);
 
-        ~texture2DArray();
+		~texture2DArray();
 
-        texture2D &operator[](
-                layer_type const &Layer);
+		texture2D & operator[] (
+			layer_type const & Layer);
+		texture2D const & operator[] (
+			layer_type const & Layer) const;
 
-        texture2D const &operator[](
-                layer_type const &Layer) const;
+		bool empty() const;
+		format_type format() const;
+		layer_type layers() const;
+		level_type levels() const;
+		void resize(
+			layer_type const & Layers, 
+			level_type const & Levels);
 
-        bool empty() const;
-
-        format_type format() const;
-
-        layer_type layers() const;
-
-        level_type levels() const;
-
-        void resize(
-                layer_type const &Layers,
-                level_type const &Levels);
-
-    private:
-        std::vector<texture2D> Arrays;
-    };
+	private:
+		std::vector<texture2D> Arrays;
+	};
 
 }//namespace gli
 

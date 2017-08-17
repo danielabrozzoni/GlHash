@@ -119,13 +119,9 @@
 #include "./gtx/rotate_vector.hpp"
 #include "./gtx/spline.hpp"
 #include "./gtx/std_based_type.hpp"
-
 #if !(GLM_COMPILER & GLM_COMPILER_CUDA)
-
 #	include "./gtx/string_cast.hpp"
-
 #endif
-
 #include "./gtx/transform.hpp"
 #include "./gtx/transform2.hpp"
 #include "./gtx/type_aligned.hpp"
@@ -134,20 +130,14 @@
 #include "./gtx/wrap.hpp"
 
 #if GLM_HAS_TEMPLATE_ALIASES
-
 #	include "./gtx/scalar_multiplication.hpp"
-
 #endif
 
 #if GLM_HAS_RANGE_FOR
-
 #	include "./gtx/range.hpp"
-
 #endif
 
 #if GLM_ARCH & GLM_ARCH_SSE2
-
 #	include "./gtx/simd_vec4.hpp"
 #	include "./gtx/simd_mat4.hpp"
-
 #endif

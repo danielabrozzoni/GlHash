@@ -3,9 +3,7 @@
 #if defined(_WIN32)
 #  include <GL/wglew.h>
 #elif !defined(__ANDROID__) && !defined(__native_client__) && !defined(__HAIKU__) && (!defined(__APPLE__) || defined(GLEW_APPLE_GLX))
-
 #  include <GL/glxew.h>
-
 #endif
 
 #include <stddef.h>  /* For size_t */
@@ -123,7 +121,7 @@ void* NSGLGetProcAddress (const GLubyte *name)
   symbolName[0] = '_';
   symbol = NULL;
   /* if (NSIsSymbolNameDefined(symbolName))
-     symbol = NSLookupAndBindSymbol(symbolName); */
+	 symbol = NSLookupAndBindSymbol(symbolName); */
   symbol = image ? NSLookupSymbolInImage(image, symbolName, NSLOOKUPSYMBOLINIMAGE_OPTION_BIND | NSLOOKUPSYMBOLINIMAGE_OPTION_RETURN_ON_ERROR) : NULL;
   free(symbolName);
   if( symbol ) return NSAddressOfSymbol(symbol);
@@ -188,69 +186,82 @@ void* NSGLGetProcAddress (const GLubyte *name)
  * GLEW, just like OpenGL or GLU, does not rely on the standard C library.
  * These functions implement the functionality required in this file.
  */
-static GLuint _glewStrLen(const GLubyte *s) {
-    GLuint i = 0;
-    if (s == NULL) return 0;
-    while (s[i] != '\0') i++;
-    return i;
+static GLuint _glewStrLen (const GLubyte* s)
+{
+  GLuint i=0;
+  if (s == NULL) return 0;
+  while (s[i] != '\0') i++;
+  return i;
 }
 
-static GLuint _glewStrCLen(const GLubyte *s, GLubyte c) {
-    GLuint i = 0;
-    if (s == NULL) return 0;
-    while (s[i] != '\0' && s[i] != c) i++;
-    return (s[i] == '\0' || s[i] == c) ? i : 0;
+static GLuint _glewStrCLen (const GLubyte* s, GLubyte c)
+{
+  GLuint i=0;
+  if (s == NULL) return 0;
+  while (s[i] != '\0' && s[i] != c) i++;
+  return (s[i] == '\0' || s[i] == c) ? i : 0;
 }
 
-static GLboolean _glewStrSame(const GLubyte *a, const GLubyte *b, GLuint n) {
-    GLuint i = 0;
-    if (a == NULL || b == NULL)
-        return (a == NULL && b == NULL && n == 0) ? GL_TRUE : GL_FALSE;
-    while (i < n && a[i] != '\0' && b[i] != '\0' && a[i] == b[i]) i++;
-    return i == n ? GL_TRUE : GL_FALSE;
+static GLboolean _glewStrSame (const GLubyte* a, const GLubyte* b, GLuint n)
+{
+  GLuint i=0;
+  if(a == NULL || b == NULL)
+    return (a == NULL && b == NULL && n == 0) ? GL_TRUE : GL_FALSE;
+  while (i < n && a[i] != '\0' && b[i] != '\0' && a[i] == b[i]) i++;
+  return i == n ? GL_TRUE : GL_FALSE;
 }
 
-static GLboolean _glewStrSame1(const GLubyte **a, GLuint *na, const GLubyte *b, GLuint nb) {
-    while (*na > 0 && (**a == ' ' || **a == '\n' || **a == '\r' || **a == '\t')) {
-        (*a)++;
-        (*na)--;
+static GLboolean _glewStrSame1 (const GLubyte** a, GLuint* na, const GLubyte* b, GLuint nb)
+{
+  while (*na > 0 && (**a == ' ' || **a == '\n' || **a == '\r' || **a == '\t'))
+  {
+    (*a)++;
+    (*na)--;
+  }
+  if(*na >= nb)
+  {
+    GLuint i=0;
+    while (i < nb && (*a)+i != NULL && b+i != NULL && (*a)[i] == b[i]) i++;
+    if(i == nb)
+    {
+      *a = *a + nb;
+      *na = *na - nb;
+      return GL_TRUE;
     }
-    if (*na >= nb) {
-        GLuint i = 0;
-        while (i < nb && (*a) + i != NULL && b + i != NULL && (*a)[i] == b[i]) i++;
-        if (i == nb) {
-            *a = *a + nb;
-            *na = *na - nb;
-            return GL_TRUE;
-        }
-    }
-    return GL_FALSE;
+  }
+  return GL_FALSE;
 }
 
-static GLboolean _glewStrSame2(const GLubyte **a, GLuint *na, const GLubyte *b, GLuint nb) {
-    if (*na >= nb) {
-        GLuint i = 0;
-        while (i < nb && (*a) + i != NULL && b + i != NULL && (*a)[i] == b[i]) i++;
-        if (i == nb) {
-            *a = *a + nb;
-            *na = *na - nb;
-            return GL_TRUE;
-        }
+static GLboolean _glewStrSame2 (const GLubyte** a, GLuint* na, const GLubyte* b, GLuint nb)
+{
+  if(*na >= nb)
+  {
+    GLuint i=0;
+    while (i < nb && (*a)+i != NULL && b+i != NULL && (*a)[i] == b[i]) i++;
+    if(i == nb)
+    {
+      *a = *a + nb;
+      *na = *na - nb;
+      return GL_TRUE;
     }
-    return GL_FALSE;
+  }
+  return GL_FALSE;
 }
 
-static GLboolean _glewStrSame3(const GLubyte **a, GLuint *na, const GLubyte *b, GLuint nb) {
-    if (*na >= nb) {
-        GLuint i = 0;
-        while (i < nb && (*a) + i != NULL && b + i != NULL && (*a)[i] == b[i]) i++;
-        if (i == nb && (*na == nb || (*a)[i] == ' ' || (*a)[i] == '\n' || (*a)[i] == '\r' || (*a)[i] == '\t')) {
-            *a = *a + nb;
-            *na = *na - nb;
-            return GL_TRUE;
-        }
+static GLboolean _glewStrSame3 (const GLubyte** a, GLuint* na, const GLubyte* b, GLuint nb)
+{
+  if(*na >= nb)
+  {
+    GLuint i=0;
+    while (i < nb && (*a)+i != NULL && b+i != NULL && (*a)[i] == b[i]) i++;
+    if (i == nb && (*na == nb || (*a)[i] == ' ' || (*a)[i] == '\n' || (*a)[i] == '\r' || (*a)[i] == '\t'))
+    {
+      *a = *a + nb;
+      *na = *na - nb;
+      return GL_TRUE;
     }
-    return GL_FALSE;
+  }
+  return GL_FALSE;
 }
 
 /*
@@ -259,14 +270,16 @@ static GLboolean _glewStrSame3(const GLubyte **a, GLuint *na, const GLubyte *b, 
  * other extension names. Could use strtok() but the constant
  * string returned by glGetString might be in read-only memory.
  */
-static GLboolean _glewSearchExtension(const char *name, const GLubyte *start, const GLubyte *end) {
-    const GLubyte *p;
-    GLuint len = _glewStrLen((const GLubyte *) name);
-    p = start;
-    while (p < end) {
-        GLuint n = _glewStrCLen(p, ' ');
-        if (len == n && _glewStrSame((const GLubyte *) name, p, n)) return GL_TRUE;
-        p += n + 1;
-    }
-    return GL_FALSE;
+static GLboolean _glewSearchExtension (const char* name, const GLubyte *start, const GLubyte *end)
+{
+  const GLubyte* p;
+  GLuint len = _glewStrLen((const GLubyte*)name);
+  p = start;
+  while (p < end)
+  {
+    GLuint n = _glewStrCLen(p, ' ');
+    if (len == n && _glewStrSame((const GLubyte*)name, p, n)) return GL_TRUE;
+    p += n+1;
+  }
+  return GL_FALSE;
 }

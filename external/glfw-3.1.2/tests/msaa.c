@@ -30,7 +30,6 @@
 //========================================================================
 
 #define GLFW_INCLUDE_GLEXT
-
 #include <GLFW/glfw3.h>
 
 #include <stdio.h>
@@ -38,35 +37,43 @@
 
 #include "getopt.h"
 
-static void error_callback(int error, const char *description) {
+static void error_callback(int error, const char* description)
+{
     fprintf(stderr, "Error: %s\n", description);
 }
 
-static void framebuffer_size_callback(GLFWwindow *window, int width, int height) {
+static void framebuffer_size_callback(GLFWwindow* window, int width, int height)
+{
     glViewport(0, 0, width, height);
 }
 
-static void key_callback(GLFWwindow *window, int key, int scancode, int action, int mods) {
+static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
+{
     if (action != GLFW_PRESS)
         return;
 
-    switch (key) {
+    switch (key)
+    {
         case GLFW_KEY_SPACE:
             glfwSetTime(0.0);
             break;
     }
 }
 
-static void usage(void) {
+static void usage(void)
+{
     printf("Usage: msaa [-h] [-s SAMPLES]\n");
 }
 
-int main(int argc, char **argv) {
+int main(int argc, char** argv)
+{
     int ch, samples = 4;
-    GLFWwindow *window;
+    GLFWwindow* window;
 
-    while ((ch = getopt(argc, argv, "hs:")) != -1) {
-        switch (ch) {
+    while ((ch = getopt(argc, argv, "hs:")) != -1)
+    {
+        switch (ch)
+        {
             case 'h':
                 usage();
                 exit(EXIT_SUCCESS);
@@ -93,7 +100,8 @@ int main(int argc, char **argv) {
     glfwWindowHint(GLFW_VISIBLE, GL_FALSE);
 
     window = glfwCreateWindow(800, 400, "Aliasing Detector", NULL, NULL);
-    if (!window) {
+    if (!window)
+    {
         glfwTerminate();
         exit(EXIT_FAILURE);
     }
@@ -104,7 +112,8 @@ int main(int argc, char **argv) {
     glfwMakeContextCurrent(window);
     glfwSwapInterval(1);
 
-    if (!glfwExtensionSupported("GL_ARB_multisample")) {
+    if (!glfwExtensionSupported("GL_ARB_multisample"))
+    {
         printf("GL_ARB_multisample extension not supported\n");
 
         glfwTerminate();
@@ -123,7 +132,8 @@ int main(int argc, char **argv) {
     glOrtho(0.f, 1.f, 0.f, 0.5f, 0.f, 1.f);
     glMatrixMode(GL_MODELVIEW);
 
-    while (!glfwWindowShouldClose(window)) {
+    while (!glfwWindowShouldClose(window))
+    {
         GLfloat time = (GLfloat) glfwGetTime();
 
         glClear(GL_COLOR_BUFFER_BIT);

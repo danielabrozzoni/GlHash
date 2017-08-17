@@ -14,11 +14,11 @@
 #ifndef GLI_GLI_INCLUDED
 #define GLI_GLI_INCLUDED
 
-#define GLI_VERSION                    31
-#define GLI_VERSION_MAJOR            0
-#define GLI_VERSION_MINOR            3
-#define GLI_VERSION_PATCH            1
-#define GLI_VERSION_REVISION        0
+#define GLI_VERSION					31
+#define GLI_VERSION_MAJOR			0
+#define GLI_VERSION_MINOR			3
+#define GLI_VERSION_PATCH			1
+#define GLI_VERSION_REVISION		0
 
 #include "./core/texture2d.hpp"
 #include "./core/texture2d_array.hpp"

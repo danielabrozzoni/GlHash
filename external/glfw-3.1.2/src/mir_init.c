@@ -34,12 +34,14 @@
 //////                       GLFW internal API                      //////
 //////////////////////////////////////////////////////////////////////////
 
-int _glfwPlatformInit(void) {
+int _glfwPlatformInit(void)
+{
     int error;
 
     _glfw.mir.connection = mir_connect_sync(NULL, __PRETTY_FUNCTION__);
 
-    if (!mir_connection_is_valid(_glfw.mir.connection)) {
+    if (!mir_connection_is_valid(_glfw.mir.connection))
+    {
         _glfwInputError(GLFW_PLATFORM_ERROR,
                         "Mir: Unable to connect to server: %s",
                         mir_connection_get_error_message(_glfw.mir.connection));
@@ -48,7 +50,7 @@ int _glfwPlatformInit(void) {
     }
 
     _glfw.mir.display =
-            mir_connection_get_egl_native_display(_glfw.mir.connection);
+        mir_connection_get_egl_native_display(_glfw.mir.connection);
 
     if (!_glfwInitContextAPI())
         return GL_FALSE;
@@ -63,7 +65,8 @@ int _glfwPlatformInit(void) {
     _glfwInitEventQueue(_glfw.mir.event_queue);
 
     error = pthread_mutex_init(&_glfw.mir.event_mutex, NULL);
-    if (error) {
+    if (error)
+    {
         _glfwInputError(GLFW_PLATFORM_ERROR,
                         "Mir: Failed to create event mutex: %s",
                         strerror(error));
@@ -73,7 +76,8 @@ int _glfwPlatformInit(void) {
     return GL_TRUE;
 }
 
-void _glfwPlatformTerminate(void) {
+void _glfwPlatformTerminate(void)
+{
     _glfwTerminateContextAPI();
     _glfwTerminateJoysticks();
 
@@ -84,12 +88,13 @@ void _glfwPlatformTerminate(void) {
     mir_connection_release(_glfw.mir.connection);
 }
 
-const char *_glfwPlatformGetVersionString(void) {
+const char* _glfwPlatformGetVersionString(void)
+{
     return _GLFW_VERSION_NUMBER " Mir EGL"
 #if defined(_POSIX_TIMERS) && defined(_POSIX_MONOTONIC_CLOCK)
-            " clock_gettime"
+        " clock_gettime"
 #else
-            " gettimeofday"
+        " gettimeofday"
 #endif
 #if defined(__linux__)
         " /dev/js"
@@ -97,6 +102,6 @@ const char *_glfwPlatformGetVersionString(void) {
 #if defined(_GLFW_BUILD_DLL)
         " shared"
 #endif
-            ;
+        ;
 }
 

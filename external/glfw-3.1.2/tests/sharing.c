@@ -36,19 +36,22 @@
 #define HEIGHT 400
 #define OFFSET 50
 
-static GLFWwindow *windows[2];
+static GLFWwindow* windows[2];
 
-static void error_callback(int error, const char *description) {
+static void error_callback(int error, const char* description)
+{
     fprintf(stderr, "Error: %s\n", description);
 }
 
-static void key_callback(GLFWwindow *window, int key, int scancode, int action, int mods) {
+static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
+{
     if (action == GLFW_PRESS && key == GLFW_KEY_ESCAPE)
         glfwSetWindowShouldClose(window, GL_TRUE);
 }
 
-static GLFWwindow *open_window(const char *title, GLFWwindow *share, int posX, int posY) {
-    GLFWwindow *window;
+static GLFWwindow* open_window(const char* title, GLFWwindow* share, int posX, int posY)
+{
+    GLFWwindow* window;
 
     glfwWindowHint(GLFW_VISIBLE, GL_FALSE);
     window = glfwCreateWindow(WIDTH, HEIGHT, title, NULL, share);
@@ -65,7 +68,8 @@ static GLFWwindow *open_window(const char *title, GLFWwindow *share, int posX, i
     return window;
 }
 
-static GLuint create_texture(void) {
+static GLuint create_texture(void)
+{
     int x, y;
     char pixels[256 * 256];
     GLuint texture;
@@ -73,8 +77,9 @@ static GLuint create_texture(void) {
     glGenTextures(1, &texture);
     glBindTexture(GL_TEXTURE_2D, texture);
 
-    for (y = 0; y < 256; y++) {
-        for (x = 0; x < 256; x++)
+    for (y = 0;  y < 256;  y++)
+    {
+        for (x = 0;  x < 256;  x++)
             pixels[y * 256 + x] = rand() % 256;
     }
 
@@ -85,7 +90,8 @@ static GLuint create_texture(void) {
     return texture;
 }
 
-static void draw_quad(GLuint texture) {
+static void draw_quad(GLuint texture)
+{
     int width, height;
     glfwGetFramebufferSize(glfwGetCurrentContext(), &width, &height);
 
@@ -116,7 +122,8 @@ static void draw_quad(GLuint texture) {
     glEnd();
 }
 
-int main(int argc, char **argv) {
+int main(int argc, char** argv)
+{
     int x, y, width;
     GLuint texture;
 
@@ -126,7 +133,8 @@ int main(int argc, char **argv) {
         exit(EXIT_FAILURE);
 
     windows[0] = open_window("First", NULL, OFFSET, OFFSET);
-    if (!windows[0]) {
+    if (!windows[0])
+    {
         glfwTerminate();
         exit(EXIT_FAILURE);
     }
@@ -141,7 +149,8 @@ int main(int argc, char **argv) {
 
     // Put the second window to the right of the first one
     windows[1] = open_window("Second", windows[0], x + width + OFFSET, y);
-    if (!windows[1]) {
+    if (!windows[1])
+    {
         glfwTerminate();
         exit(EXIT_FAILURE);
     }
@@ -155,7 +164,8 @@ int main(int argc, char **argv) {
     glfwMakeContextCurrent(windows[0]);
 
     while (!glfwWindowShouldClose(windows[0]) &&
-           !glfwWindowShouldClose(windows[1])) {
+           !glfwWindowShouldClose(windows[1]))
+    {
         glfwMakeContextCurrent(windows[0]);
         draw_quad(texture);
 

@@ -38,9 +38,10 @@
 
 // IOKit-specific per-joystick data
 //
-typedef struct _GLFWjoydevice {
-    int present;
-    char name[256];
+typedef struct _GLFWjoydevice
+{
+    int             present;
+    char            name[256];
 
     IOHIDDeviceRef deviceRef;
 
@@ -48,20 +49,20 @@ typedef struct _GLFWjoydevice {
     CFMutableArrayRef buttonElements;
     CFMutableArrayRef hatElements;
 
-    float *axes;
-    unsigned char *buttons;
+    float*          axes;
+    unsigned char*  buttons;
 } _GLFWjoydevice;
 
 // IOKit-specific joystick API data
 //
-typedef struct _GLFWjoystickIOKit {
+typedef struct _GLFWjoystickIOKit
+{
     _GLFWjoydevice devices[GLFW_JOYSTICK_LAST + 1];
 
     IOHIDManagerRef managerRef;
 } _GLFWjoystickIOKit;
 
 void _glfwInitJoysticks(void);
-
 void _glfwTerminateJoysticks(void);
 
 #endif // _glfw3_iokit_joystick_h_

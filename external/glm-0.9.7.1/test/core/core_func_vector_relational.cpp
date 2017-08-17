@@ -35,37 +35,39 @@
 #include <glm/vector_relational.hpp>
 #include <glm/gtc/vec1.hpp>
 
-int test_not() {
-    int Error(0);
+int test_not()
+{
+	int Error(0);
 
-    {
-        glm::bvec1 v(false);
-        Error += glm::all(glm::not_(v)) ? 0 : 1;
-    }
+	{
+		glm::bvec1 v(false);
+		Error += glm::all(glm::not_(v)) ? 0 : 1;
+	}
 
-    {
-        glm::bvec2 v(false);
-        Error += glm::all(glm::not_(v)) ? 0 : 1;
-    }
+	{
+		glm::bvec2 v(false);
+		Error += glm::all(glm::not_(v)) ? 0 : 1;
+	}
 
-    {
-        glm::bvec3 v(false);
-        Error += glm::all(glm::not_(v)) ? 0 : 1;
-    }
+	{
+		glm::bvec3 v(false);
+		Error += glm::all(glm::not_(v)) ? 0 : 1;
+	}
+	
+	{
+		glm::bvec4 v(false);
+		Error += glm::all(glm::not_(v)) ? 0 : 1;
+	}
 
-    {
-        glm::bvec4 v(false);
-        Error += glm::all(glm::not_(v)) ? 0 : 1;
-    }
-
-    return Error;
+	return Error;
 }
 
-int main() {
-    int Error(0);
+int main()
+{
+	int Error(0);
 
-    Error += test_not();
+	Error += test_not();
 
-    return Error;
+	return Error;
 }
 

@@ -12,16 +12,17 @@
 
 #include "texture2d.hpp"
 
-namespace gli {
-    //template <size_type sizeType>
-    image2D::size_type size(
-            image2D const &Image,
-            image2D::size_type const &SizeType);
+namespace gli
+{
+	//template <size_type sizeType>
+	image2D::size_type size(
+		image2D const & Image, 
+		image2D::size_type const & SizeType);
 
-    //template <size_type sizeType>
-    texture2D::size_type size(
-            texture2D const &Texture,
-            texture2D::size_type const &SizeType);
+	//template <size_type sizeType>
+	texture2D::size_type size(
+		texture2D const & Texture, 
+		texture2D::size_type const & SizeType);
 
 }//namespace gli
 

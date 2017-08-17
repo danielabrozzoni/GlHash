@@ -30,31 +30,18 @@
 /// @author Christophe Riccio
 ///////////////////////////////////////////////////////////////////////////////////
 
-namespace glm {
-    template<typename genType>
-    GLM_FUNC_QUALIFIER genType
-    log(genType const
-    & x,
-    genType const &base
-    ) {
-    assert(x
-    != genType(0));
-    return
-    glm::log(x)
-    /
-    glm::log(base);
-}
-
-template<typename T, precision P, template<typename, precision> class vecType>
-GLM_FUNC_QUALIFIER vecType<T, P>
-log(vecType<T, P> const
-& x,
-vecType<T, P> const &base
-)
+namespace glm
 {
-return
-glm::log(x)
-/
-glm::log(base);
-}
+	template <typename genType> 
+	GLM_FUNC_QUALIFIER genType log(genType const & x, genType const & base)
+	{
+		assert(x != genType(0));
+		return glm::log(x) / glm::log(base);
+	}
+
+	template <typename T, precision P, template <typename, precision> class vecType>
+	GLM_FUNC_QUALIFIER vecType<T, P> log(vecType<T, P> const & x, vecType<T, P> const & base)
+	{
+		return glm::log(x) / glm::log(base);
+	}
 }//namespace glm

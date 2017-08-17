@@ -34,10 +34,10 @@
 
 // These constants are missing on MinGW
 #ifndef EDS_ROTATEDMODE
-#define EDS_ROTATEDMODE 0x00000004
+ #define EDS_ROTATEDMODE 0x00000004
 #endif
 #ifndef DISPLAY_DEVICE_ACTIVE
-#define DISPLAY_DEVICE_ACTIVE 0x00000001
+ #define DISPLAY_DEVICE_ACTIVE 0x00000001
 #endif
 
 
@@ -47,9 +47,10 @@
 
 // Change the current video mode
 //
-GLboolean _glfwSetVideoMode(_GLFWmonitor *monitor, const GLFWvidmode *desired) {
+GLboolean _glfwSetVideoMode(_GLFWmonitor* monitor, const GLFWvidmode* desired)
+{
     GLFWvidmode current;
-    const GLFWvidmode *best;
+    const GLFWvidmode* best;
     DEVMODEW dm;
 
     best = _glfwChooseVideoMode(monitor, desired);
@@ -59,11 +60,11 @@ GLboolean _glfwSetVideoMode(_GLFWmonitor *monitor, const GLFWvidmode *desired) {
 
     ZeroMemory(&dm, sizeof(dm));
     dm.dmSize = sizeof(DEVMODEW);
-    dm.dmFields = DM_PELSWIDTH | DM_PELSHEIGHT | DM_BITSPERPEL |
-                  DM_DISPLAYFREQUENCY;
-    dm.dmPelsWidth = best->width;
-    dm.dmPelsHeight = best->height;
-    dm.dmBitsPerPel = best->redBits + best->greenBits + best->blueBits;
+    dm.dmFields           = DM_PELSWIDTH | DM_PELSHEIGHT | DM_BITSPERPEL |
+                            DM_DISPLAYFREQUENCY;
+    dm.dmPelsWidth        = best->width;
+    dm.dmPelsHeight       = best->height;
+    dm.dmBitsPerPel       = best->redBits + best->greenBits + best->blueBits;
     dm.dmDisplayFrequency = best->refreshRate;
 
     if (dm.dmBitsPerPel < 15 || dm.dmBitsPerPel >= 24)
@@ -73,7 +74,8 @@ GLboolean _glfwSetVideoMode(_GLFWmonitor *monitor, const GLFWvidmode *desired) {
                                  &dm,
                                  NULL,
                                  CDS_FULLSCREEN,
-                                 NULL) != DISP_CHANGE_SUCCESSFUL) {
+                                 NULL) != DISP_CHANGE_SUCCESSFUL)
+    {
         _glfwInputError(GLFW_PLATFORM_ERROR, "Win32: Failed to set video mode");
         return GL_FALSE;
     }
@@ -84,8 +86,10 @@ GLboolean _glfwSetVideoMode(_GLFWmonitor *monitor, const GLFWvidmode *desired) {
 
 // Restore the previously saved (original) video mode
 //
-void _glfwRestoreVideoMode(_GLFWmonitor *monitor) {
-    if (monitor->win32.modeChanged) {
+void _glfwRestoreVideoMode(_GLFWmonitor* monitor)
+{
+    if (monitor->win32.modeChanged)
+    {
         ChangeDisplaySettingsExW(monitor->win32.adapterName,
                                  NULL, NULL, CDS_FULLSCREEN, NULL);
         monitor->win32.modeChanged = GL_FALSE;
@@ -97,14 +101,16 @@ void _glfwRestoreVideoMode(_GLFWmonitor *monitor) {
 //////                       GLFW platform API                      //////
 //////////////////////////////////////////////////////////////////////////
 
-_GLFWmonitor **_glfwPlatformGetMonitors(int *count) {
+_GLFWmonitor** _glfwPlatformGetMonitors(int* count)
+{
     int found = 0;
-    _GLFWmonitor **monitors = NULL;
+    _GLFWmonitor** monitors = NULL;
     DWORD adapterIndex, displayIndex;
 
     *count = 0;
 
-    for (adapterIndex = 0;; adapterIndex++) {
+    for (adapterIndex = 0;  ;  adapterIndex++)
+    {
         DISPLAY_DEVICEW adapter;
 
         ZeroMemory(&adapter, sizeof(DISPLAY_DEVICEW));
@@ -116,10 +122,11 @@ _GLFWmonitor **_glfwPlatformGetMonitors(int *count) {
         if (!(adapter.StateFlags & DISPLAY_DEVICE_ACTIVE))
             continue;
 
-        for (displayIndex = 0;; displayIndex++) {
+        for (displayIndex = 0;  ;  displayIndex++)
+        {
             DISPLAY_DEVICEW display;
-            _GLFWmonitor *monitor;
-            char *name;
+            _GLFWmonitor* monitor;
+            char* name;
             HDC dc;
 
             ZeroMemory(&display, sizeof(DISPLAY_DEVICEW));
@@ -129,7 +136,8 @@ _GLFWmonitor **_glfwPlatformGetMonitors(int *count) {
                 break;
 
             name = _glfwCreateUTF8FromWideString(display.DeviceString);
-            if (!name) {
+            if (!name)
+            {
                 _glfwInputError(GLFW_PLATFORM_ERROR,
                                 "Win32: Failed to convert string to UTF-8");
                 continue;
@@ -163,11 +171,12 @@ _GLFWmonitor **_glfwPlatformGetMonitors(int *count) {
                                 NULL, NULL);
 
             found++;
-            monitors = realloc(monitors, sizeof(_GLFWmonitor *) * found);
+            monitors = realloc(monitors, sizeof(_GLFWmonitor*) * found);
             monitors[found - 1] = monitor;
 
             if (adapter.StateFlags & DISPLAY_DEVICE_PRIMARY_DEVICE &&
-                displayIndex == 0) {
+                displayIndex == 0)
+            {
                 _GLFW_SWAP_POINTERS(monitors[0], monitors[found - 1]);
             }
         }
@@ -177,11 +186,13 @@ _GLFWmonitor **_glfwPlatformGetMonitors(int *count) {
     return monitors;
 }
 
-GLboolean _glfwPlatformIsSameMonitor(_GLFWmonitor *first, _GLFWmonitor *second) {
+GLboolean _glfwPlatformIsSameMonitor(_GLFWmonitor* first, _GLFWmonitor* second)
+{
     return wcscmp(first->win32.displayName, second->win32.displayName) == 0;
 }
 
-void _glfwPlatformGetMonitorPos(_GLFWmonitor *monitor, int *xpos, int *ypos) {
+void _glfwPlatformGetMonitorPos(_GLFWmonitor* monitor, int* xpos, int* ypos)
+{
     DEVMODEW settings;
     ZeroMemory(&settings, sizeof(DEVMODEW));
     settings.dmSize = sizeof(DEVMODEW);
@@ -197,13 +208,15 @@ void _glfwPlatformGetMonitorPos(_GLFWmonitor *monitor, int *xpos, int *ypos) {
         *ypos = settings.dmPosition.y;
 }
 
-GLFWvidmode *_glfwPlatformGetVideoModes(_GLFWmonitor *monitor, int *count) {
+GLFWvidmode* _glfwPlatformGetVideoModes(_GLFWmonitor* monitor, int* count)
+{
     int modeIndex = 0, size = 0;
-    GLFWvidmode *result = NULL;
+    GLFWvidmode* result = NULL;
 
     *count = 0;
 
-    for (;;) {
+    for (;;)
+    {
         int i;
         GLFWvidmode mode;
         DEVMODEW dm;
@@ -220,7 +233,7 @@ GLFWvidmode *_glfwPlatformGetVideoModes(_GLFWmonitor *monitor, int *count) {
         if (dm.dmBitsPerPel < 15)
             continue;
 
-        mode.width = dm.dmPelsWidth;
+        mode.width  = dm.dmPelsWidth;
         mode.height = dm.dmPelsHeight;
         mode.refreshRate = dm.dmDisplayFrequency;
         _glfwSplitBPP(dm.dmBitsPerPel,
@@ -228,7 +241,8 @@ GLFWvidmode *_glfwPlatformGetVideoModes(_GLFWmonitor *monitor, int *count) {
                       &mode.greenBits,
                       &mode.blueBits);
 
-        for (i = 0; i < *count; i++) {
+        for (i = 0;  i < *count;  i++)
+        {
             if (_glfwCompareVideoModes(result + i, &mode) == 0)
                 break;
         }
@@ -237,24 +251,27 @@ GLFWvidmode *_glfwPlatformGetVideoModes(_GLFWmonitor *monitor, int *count) {
         if (i < *count)
             continue;
 
-        if (monitor->win32.modesPruned) {
+        if (monitor->win32.modesPruned)
+        {
             // Skip modes not supported by the connected displays
             if (ChangeDisplaySettingsExW(monitor->win32.adapterName,
                                          &dm,
                                          NULL,
                                          CDS_TEST,
-                                         NULL) != DISP_CHANGE_SUCCESSFUL) {
+                                         NULL) != DISP_CHANGE_SUCCESSFUL)
+            {
                 continue;
             }
         }
 
-        if (*count == size) {
+        if (*count == size)
+        {
             if (*count)
                 size *= 2;
             else
                 size = 128;
 
-            result = (GLFWvidmode *) realloc(result, size * sizeof(GLFWvidmode));
+            result = (GLFWvidmode*) realloc(result, size * sizeof(GLFWvidmode));
         }
 
         (*count)++;
@@ -264,7 +281,8 @@ GLFWvidmode *_glfwPlatformGetVideoModes(_GLFWmonitor *monitor, int *count) {
     return result;
 }
 
-void _glfwPlatformGetVideoMode(_GLFWmonitor *monitor, GLFWvidmode *mode) {
+void _glfwPlatformGetVideoMode(_GLFWmonitor* monitor, GLFWvidmode* mode)
+{
     DEVMODEW dm;
 
     ZeroMemory(&dm, sizeof(DEVMODEW));
@@ -272,7 +290,7 @@ void _glfwPlatformGetVideoMode(_GLFWmonitor *monitor, GLFWvidmode *mode) {
 
     EnumDisplaySettingsW(monitor->win32.adapterName, ENUM_CURRENT_SETTINGS, &dm);
 
-    mode->width = dm.dmPelsWidth;
+    mode->width  = dm.dmPelsWidth;
     mode->height = dm.dmPelsHeight;
     mode->refreshRate = dm.dmDisplayFrequency;
     _glfwSplitBPP(dm.dmBitsPerPel,
@@ -281,7 +299,8 @@ void _glfwPlatformGetVideoMode(_GLFWmonitor *monitor, GLFWvidmode *mode) {
                   &mode->blueBits);
 }
 
-void _glfwPlatformGetGammaRamp(_GLFWmonitor *monitor, GLFWgammaramp *ramp) {
+void _glfwPlatformGetGammaRamp(_GLFWmonitor* monitor, GLFWgammaramp* ramp)
+{
     HDC dc;
     WORD values[768];
 
@@ -291,24 +310,26 @@ void _glfwPlatformGetGammaRamp(_GLFWmonitor *monitor, GLFWgammaramp *ramp) {
 
     _glfwAllocGammaArrays(ramp, 256);
 
-    memcpy(ramp->red, values + 0, 256 * sizeof(unsigned short));
+    memcpy(ramp->red,   values +   0, 256 * sizeof(unsigned short));
     memcpy(ramp->green, values + 256, 256 * sizeof(unsigned short));
-    memcpy(ramp->blue, values + 512, 256 * sizeof(unsigned short));
+    memcpy(ramp->blue,  values + 512, 256 * sizeof(unsigned short));
 }
 
-void _glfwPlatformSetGammaRamp(_GLFWmonitor *monitor, const GLFWgammaramp *ramp) {
+void _glfwPlatformSetGammaRamp(_GLFWmonitor* monitor, const GLFWgammaramp* ramp)
+{
     HDC dc;
     WORD values[768];
 
-    if (ramp->size != 256) {
+    if (ramp->size != 256)
+    {
         _glfwInputError(GLFW_PLATFORM_ERROR,
                         "Win32: Gamma ramp size must be 256");
         return;
     }
 
-    memcpy(values + 0, ramp->red, 256 * sizeof(unsigned short));
+    memcpy(values +   0, ramp->red,   256 * sizeof(unsigned short));
     memcpy(values + 256, ramp->green, 256 * sizeof(unsigned short));
-    memcpy(values + 512, ramp->blue, 256 * sizeof(unsigned short));
+    memcpy(values + 512, ramp->blue,  256 * sizeof(unsigned short));
 
     dc = CreateDCW(L"DISPLAY", monitor->win32.adapterName, NULL, NULL);
     SetDeviceGammaRamp(dc, values);
@@ -320,14 +341,16 @@ void _glfwPlatformSetGammaRamp(_GLFWmonitor *monitor, const GLFWgammaramp *ramp)
 //////                        GLFW native API                       //////
 //////////////////////////////////////////////////////////////////////////
 
-GLFWAPI const char *glfwGetWin32Adapter(GLFWmonitor *handle) {
-    _GLFWmonitor *monitor = (_GLFWmonitor *) handle;
+GLFWAPI const char* glfwGetWin32Adapter(GLFWmonitor* handle)
+{
+    _GLFWmonitor* monitor = (_GLFWmonitor*) handle;
     _GLFW_REQUIRE_INIT_OR_RETURN(NULL);
     return monitor->win32.publicAdapterName;
 }
 
-GLFWAPI const char *glfwGetWin32Monitor(GLFWmonitor *handle) {
-    _GLFWmonitor *monitor = (_GLFWmonitor *) handle;
+GLFWAPI const char* glfwGetWin32Monitor(GLFWmonitor* handle)
+{
+    _GLFWmonitor* monitor = (_GLFWmonitor*) handle;
     _GLFW_REQUIRE_INIT_OR_RETURN(NULL);
     return monitor->win32.publicDisplayName;
 }

@@ -29,9 +29,10 @@
 /// @author Christophe Riccio
 ///////////////////////////////////////////////////////////////////////////////////
 
-int main() {
-    int Failed = 0;
-
-    return Failed;
+int main()
+{
+	int Failed = 0;
+	
+	return Failed;
 }
 

@@ -12,33 +12,34 @@
 
 #include "../gli.hpp"
 
-namespace gli {
-    namespace gtx {
-        namespace fetch {
-            template<typename genType>
-            genType texelFetch(
-                    texture2D const &Texture,
-                    texture2D::dimensions_type const &Texcoord,
-                    texture2D::level_type const &Level);
+namespace gli{
+namespace gtx{
+namespace fetch
+{
+	template <typename genType>
+	genType texelFetch(
+		texture2D const & Texture, 
+		texture2D::dimensions_type const & Texcoord,
+		texture2D::level_type const & Level);
 
-            template<typename genType>
-            genType textureLod(
-                    texture2D const &Texture,
-                    texture2D::texcoord_type const &Texcoord,
-                    texture2D::level_type const &Level);
+	template <typename genType>
+	genType textureLod(
+		texture2D const & Texture, 
+		texture2D::texcoord_type const & Texcoord,
+		texture2D::level_type const & Level);
 
-            template<typename genType>
-            void texelWrite(
-                    texture2D &Texture,
-                    texture2D::dimensions_type const &Texcoord,
-                    texture2D::level_type const &Level,
-                    genType const &Color);
+	template <typename genType>
+	void texelWrite(
+		texture2D & Texture,
+		texture2D::dimensions_type const & Texcoord,
+		texture2D::level_type const & Level,
+		genType const & Color);
 
-        }//namespace fetch
-    }//namespace gtx
+}//namespace fetch
+}//namespace gtx
 }//namespace gli
 
-namespace gli { using namespace gtx::fetch; }
+namespace gli{using namespace gtx::fetch;}
 
 #include "fetch.inl"
 

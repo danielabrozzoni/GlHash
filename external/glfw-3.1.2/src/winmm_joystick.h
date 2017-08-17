@@ -33,15 +33,15 @@
 
 // WinMM-specific per-joystick data
 //
-typedef struct _GLFWjoystickWinMM {
-    float axes[6];
-    unsigned char buttons[36]; // 32 buttons plus one hat
-    char *name;
+typedef struct _GLFWjoystickWinMM
+{
+    float           axes[6];
+    unsigned char   buttons[36]; // 32 buttons plus one hat
+    char*           name;
 } _GLFWjoystickWinMM;
 
 
 void _glfwInitJoysticks(void);
-
 void _glfwTerminateJoysticks(void);
 
 #endif // _glfw3_winmm_joystick_h_

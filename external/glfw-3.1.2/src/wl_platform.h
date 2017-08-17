@@ -36,9 +36,9 @@
 #include "xkb_unicode.h"
 
 #if defined(_GLFW_EGL)
-#include "egl_context.h"
+ #include "egl_context.h"
 #else
-#error "The Wayland backend depends on EGL platform support"
+ #error "The Wayland backend depends on EGL platform support"
 #endif
 
 #define _GLFW_EGL_NATIVE_WINDOW         window->wl.native
@@ -57,78 +57,82 @@ typedef struct _GLFWvidmodeWayland _GLFWvidmodeWayland;
 
 // Wayland-specific per-window data
 //
-typedef struct _GLFWwindowWayland {
-    int width, height;
-    GLboolean visible;
-    struct wl_surface *surface;
-    struct wl_egl_window *native;
-    struct wl_shell_surface *shell_surface;
-    struct wl_callback *callback;
-    _GLFWcursor *currentCursor;
-    double cursorPosX, cursorPosY;
+typedef struct _GLFWwindowWayland
+{
+    int                         width, height;
+    GLboolean                   visible;
+    struct wl_surface*          surface;
+    struct wl_egl_window*       native;
+    struct wl_shell_surface*    shell_surface;
+    struct wl_callback*         callback;
+    _GLFWcursor*                currentCursor;
+    double                      cursorPosX, cursorPosY;
 } _GLFWwindowWayland;
 
 
 // Wayland-specific global data
 //
-typedef struct _GLFWlibraryWayland {
-    struct wl_display *display;
-    struct wl_registry *registry;
-    struct wl_compositor *compositor;
-    struct wl_shell *shell;
-    struct wl_shm *shm;
-    struct wl_seat *seat;
-    struct wl_pointer *pointer;
-    struct wl_keyboard *keyboard;
+typedef struct _GLFWlibraryWayland
+{
+    struct wl_display*          display;
+    struct wl_registry*         registry;
+    struct wl_compositor*       compositor;
+    struct wl_shell*            shell;
+    struct wl_shm*              shm;
+    struct wl_seat*             seat;
+    struct wl_pointer*          pointer;
+    struct wl_keyboard*         keyboard;
 
-    struct wl_cursor_theme *cursorTheme;
-    struct wl_cursor *defaultCursor;
-    struct wl_surface *cursorSurface;
-    uint32_t pointerSerial;
+    struct wl_cursor_theme*     cursorTheme;
+    struct wl_cursor*           defaultCursor;
+    struct wl_surface*          cursorSurface;
+    uint32_t                    pointerSerial;
 
-    _GLFWmonitor **monitors;
-    int monitorsCount;
-    int monitorsSize;
+    _GLFWmonitor**              monitors;
+    int                         monitorsCount;
+    int                         monitorsSize;
 
     struct {
-        struct xkb_context *context;
-        struct xkb_keymap *keymap;
-        struct xkb_state *state;
-        xkb_mod_mask_t control_mask;
-        xkb_mod_mask_t alt_mask;
-        xkb_mod_mask_t shift_mask;
-        xkb_mod_mask_t super_mask;
-        unsigned int modifiers;
+        struct xkb_context*     context;
+        struct xkb_keymap*      keymap;
+        struct xkb_state*       state;
+        xkb_mod_mask_t          control_mask;
+        xkb_mod_mask_t          alt_mask;
+        xkb_mod_mask_t          shift_mask;
+        xkb_mod_mask_t          super_mask;
+        unsigned int            modifiers;
     } xkb;
 
-    _GLFWwindow *pointerFocus;
-    _GLFWwindow *keyboardFocus;
+    _GLFWwindow*                pointerFocus;
+    _GLFWwindow*                keyboardFocus;
 
 } _GLFWlibraryWayland;
 
 
 // Wayland-specific per-monitor data
 //
-typedef struct _GLFWmonitorWayland {
-    struct wl_output *output;
+typedef struct _GLFWmonitorWayland
+{
+    struct wl_output*           output;
 
-    _GLFWvidmodeWayland *modes;
-    int modesCount;
-    int modesSize;
-    GLboolean done;
+    _GLFWvidmodeWayland*        modes;
+    int                         modesCount;
+    int                         modesSize;
+    GLboolean                   done;
 
-    int x;
-    int y;
+    int                         x;
+    int                         y;
 
 } _GLFWmonitorWayland;
 
 
 // Wayland-specific per-cursor data
 //
-typedef struct _GLFWcursorWayland {
-    struct wl_buffer *buffer;
-    int width, height;
-    int xhot, yhot;
+typedef struct _GLFWcursorWayland
+{
+    struct wl_buffer*           buffer;
+    int                         width, height;
+    int                         xhot, yhot;
 } _GLFWcursorWayland;
 
 

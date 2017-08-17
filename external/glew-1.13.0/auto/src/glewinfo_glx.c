@@ -2,4 +2,5 @@
 
 #else /* _UNIX */
 
-static void glxewInfo() {
+static void glxewInfo ()
+{

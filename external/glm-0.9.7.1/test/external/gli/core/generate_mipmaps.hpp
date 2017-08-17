@@ -12,10 +12,11 @@
 
 #include "texture2d.hpp"
 
-namespace gli {
-    texture2D generateMipmaps(
-            texture2D const &Texture,
-            texture2D::level_type const &BaseLevel);
+namespace gli
+{
+	texture2D generateMipmaps(
+		texture2D const & Texture, 
+		texture2D::level_type const & BaseLevel);
 
 }//namespace gli
 

@@ -10,16 +10,17 @@
 #ifndef GLI_GTX_COMPRESSION_INCLUDED
 #define GLI_GTX_COMPRESSION_INCLUDED
 
-namespace gli {
-    namespace gtx {
-        namespace compression {
+namespace gli{
+namespace gtx{
+namespace compression
+{
 
 
-        }//namespace compression
-    }//namespace gtx
+}//namespace compression
+}//namespace gtx
 }//namespace gli
 
-namespace gli { using namespace gtx::compression; }
+namespace gli{using namespace gtx::compression;}
 
 #include "compression.inl"
 

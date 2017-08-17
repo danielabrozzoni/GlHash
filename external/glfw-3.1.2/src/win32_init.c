@@ -60,46 +60,51 @@ BOOL WINAPI DllMain(HINSTANCE instance, DWORD reason, LPVOID reserved)
 
 // Load necessary libraries (DLLs)
 //
-static GLboolean initLibraries(void) {
+static GLboolean initLibraries(void)
+{
     _glfw.win32.winmm.instance = LoadLibraryW(L"winmm.dll");
-    if (!_glfw.win32.winmm.instance) {
+    if (!_glfw.win32.winmm.instance)
+    {
         _glfwInputError(GLFW_PLATFORM_ERROR,
                         "Win32: Failed to load winmm.dll");
         return GL_FALSE;
     }
 
     _glfw.win32.winmm.joyGetDevCaps = (JOYGETDEVCAPS_T)
-            GetProcAddress(_glfw.win32.winmm.instance, "joyGetDevCapsW");
+        GetProcAddress(_glfw.win32.winmm.instance, "joyGetDevCapsW");
     _glfw.win32.winmm.joyGetPos = (JOYGETPOS_T)
-            GetProcAddress(_glfw.win32.winmm.instance, "joyGetPos");
+        GetProcAddress(_glfw.win32.winmm.instance, "joyGetPos");
     _glfw.win32.winmm.joyGetPosEx = (JOYGETPOSEX_T)
-            GetProcAddress(_glfw.win32.winmm.instance, "joyGetPosEx");
+        GetProcAddress(_glfw.win32.winmm.instance, "joyGetPosEx");
     _glfw.win32.winmm.timeGetTime = (TIMEGETTIME_T)
-            GetProcAddress(_glfw.win32.winmm.instance, "timeGetTime");
+        GetProcAddress(_glfw.win32.winmm.instance, "timeGetTime");
 
     if (!_glfw.win32.winmm.joyGetDevCaps ||
         !_glfw.win32.winmm.joyGetPos ||
         !_glfw.win32.winmm.joyGetPosEx ||
-        !_glfw.win32.winmm.timeGetTime) {
+        !_glfw.win32.winmm.timeGetTime)
+    {
         _glfwInputError(GLFW_PLATFORM_ERROR,
                         "Win32: Failed to load winmm functions");
         return GL_FALSE;
     }
 
     _glfw.win32.user32.instance = LoadLibraryW(L"user32.dll");
-    if (_glfw.win32.user32.instance) {
+    if (_glfw.win32.user32.instance)
+    {
         _glfw.win32.user32.SetProcessDPIAware = (SETPROCESSDPIAWARE_T)
-                GetProcAddress(_glfw.win32.user32.instance, "SetProcessDPIAware");
+            GetProcAddress(_glfw.win32.user32.instance, "SetProcessDPIAware");
         _glfw.win32.user32.ChangeWindowMessageFilterEx = (CHANGEWINDOWMESSAGEFILTEREX_T)
-                GetProcAddress(_glfw.win32.user32.instance, "ChangeWindowMessageFilterEx");
+            GetProcAddress(_glfw.win32.user32.instance, "ChangeWindowMessageFilterEx");
     }
 
     _glfw.win32.dwmapi.instance = LoadLibraryW(L"dwmapi.dll");
-    if (_glfw.win32.dwmapi.instance) {
+    if (_glfw.win32.dwmapi.instance)
+    {
         _glfw.win32.dwmapi.DwmIsCompositionEnabled = (DWMISCOMPOSITIONENABLED_T)
-                GetProcAddress(_glfw.win32.dwmapi.instance, "DwmIsCompositionEnabled");
+            GetProcAddress(_glfw.win32.dwmapi.instance, "DwmIsCompositionEnabled");
         _glfw.win32.dwmapi.DwmFlush = (DWMFLUSH_T)
-                GetProcAddress(_glfw.win32.dwmapi.instance, "DwmFlush");
+            GetProcAddress(_glfw.win32.dwmapi.instance, "DwmFlush");
     }
 
     return GL_TRUE;
@@ -107,7 +112,8 @@ static GLboolean initLibraries(void) {
 
 // Unload used libraries (DLLs)
 //
-static void terminateLibraries(void) {
+static void terminateLibraries(void)
+{
     if (_glfw.win32.winmm.instance)
         FreeLibrary(_glfw.win32.winmm.instance);
 
@@ -120,7 +126,8 @@ static void terminateLibraries(void) {
 
 // Create key code translation tables
 //
-static void createKeyTables(void) {
+static void createKeyTables(void)
+{
     memset(_glfw.win32.publicKeys, -1, sizeof(_glfw.win32.publicKeys));
 
     _glfw.win32.publicKeys[0x00B] = GLFW_KEY_0;
@@ -252,7 +259,8 @@ static void createKeyTables(void) {
 
 // Returns whether desktop compositing is enabled
 //
-BOOL _glfwIsCompositionEnabled(void) {
+BOOL _glfwIsCompositionEnabled(void)
+{
     BOOL enabled;
 
     if (!_glfw_DwmIsCompositionEnabled)
@@ -266,8 +274,9 @@ BOOL _glfwIsCompositionEnabled(void) {
 
 // Returns a wide string version of the specified UTF-8 string
 //
-WCHAR *_glfwCreateWideStringFromUTF8(const char *source) {
-    WCHAR *target;
+WCHAR* _glfwCreateWideStringFromUTF8(const char* source)
+{
+    WCHAR* target;
     int length;
 
     length = MultiByteToWideChar(CP_UTF8, 0, source, -1, NULL, 0);
@@ -276,7 +285,8 @@ WCHAR *_glfwCreateWideStringFromUTF8(const char *source) {
 
     target = calloc(length, sizeof(WCHAR));
 
-    if (!MultiByteToWideChar(CP_UTF8, 0, source, -1, target, length)) {
+    if (!MultiByteToWideChar(CP_UTF8, 0, source, -1, target, length))
+    {
         free(target);
         return NULL;
     }
@@ -286,8 +296,9 @@ WCHAR *_glfwCreateWideStringFromUTF8(const char *source) {
 
 // Returns a UTF-8 string version of the specified wide string
 //
-char *_glfwCreateUTF8FromWideString(const WCHAR *source) {
-    char *target;
+char* _glfwCreateUTF8FromWideString(const WCHAR* source)
+{
+    char* target;
     int length;
 
     length = WideCharToMultiByte(CP_UTF8, 0, source, -1, NULL, 0, NULL, NULL);
@@ -296,7 +307,8 @@ char *_glfwCreateUTF8FromWideString(const WCHAR *source) {
 
     target = calloc(length, sizeof(char));
 
-    if (!WideCharToMultiByte(CP_UTF8, 0, source, -1, target, length, NULL, NULL)) {
+    if (!WideCharToMultiByte(CP_UTF8, 0, source, -1, target, length, NULL, NULL))
+    {
         free(target);
         return NULL;
     }
@@ -309,7 +321,8 @@ char *_glfwCreateUTF8FromWideString(const WCHAR *source) {
 //////                       GLFW platform API                      //////
 //////////////////////////////////////////////////////////////////////////
 
-int _glfwPlatformInit(void) {
+int _glfwPlatformInit(void)
+{
     // To make SetForegroundWindow work as we want, we need to fiddle
     // with the FOREGROUNDLOCKTIMEOUT system setting (we do this as early
     // as possible in the hope of still being the foreground process)
@@ -338,7 +351,8 @@ int _glfwPlatformInit(void) {
     return GL_TRUE;
 }
 
-void _glfwPlatformTerminate(void) {
+void _glfwPlatformTerminate(void)
+{
     _glfwUnregisterWindowClass();
 
     // Restore previous foreground lock timeout system setting
@@ -353,7 +367,8 @@ void _glfwPlatformTerminate(void) {
     terminateLibraries();
 }
 
-const char *_glfwPlatformGetVersionString(void) {
+const char* _glfwPlatformGetVersionString(void)
+{
     return _GLFW_VERSION_NUMBER " Win32"
 #if defined(_GLFW_WGL)
         " WGL"
@@ -371,6 +386,6 @@ const char *_glfwPlatformGetVersionString(void) {
 #if defined(_GLFW_BUILD_DLL)
         " DLL"
 #endif
-            ;
+        ;
 }
 

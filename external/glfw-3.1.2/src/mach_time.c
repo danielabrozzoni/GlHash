@@ -31,7 +31,8 @@
 
 // Return raw time
 //
-static uint64_t getRawTime(void) {
+static uint64_t getRawTime(void)
+{
     return mach_absolute_time();
 }
 
@@ -42,7 +43,8 @@ static uint64_t getRawTime(void) {
 
 // Initialise timer
 //
-void _glfwInitTimer(void) {
+void _glfwInitTimer(void)
+{
     mach_timebase_info_data_t info;
     mach_timebase_info(&info);
 
@@ -55,13 +57,15 @@ void _glfwInitTimer(void) {
 //////                       GLFW platform API                      //////
 //////////////////////////////////////////////////////////////////////////
 
-double _glfwPlatformGetTime(void) {
+double _glfwPlatformGetTime(void)
+{
     return (double) (getRawTime() - _glfw.ns_time.base) *
-           _glfw.ns_time.resolution;
+        _glfw.ns_time.resolution;
 }
 
-void _glfwPlatformSetTime(double time) {
+void _glfwPlatformSetTime(double time)
+{
     _glfw.ns_time.base = getRawTime() -
-                         (uint64_t) (time / _glfw.ns_time.resolution);
+        (uint64_t) (time / _glfw.ns_time.resolution);
 }
 

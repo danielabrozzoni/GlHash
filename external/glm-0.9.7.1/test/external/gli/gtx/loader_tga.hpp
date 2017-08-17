@@ -14,21 +14,22 @@
 #include <string>
 #include <fstream>
 
-namespace gli {
-    namespace gtx {
-        namespace loader_tga {
-            texture2D loadTGA(
-                    std::string const &Filename);
+namespace gli{
+namespace gtx{
+namespace loader_tga
+{
+	texture2D loadTGA(
+		std::string const & Filename);
 
-            void saveTGA(
-                    texture2D const &Image,
-                    std::string const &Filename);
+	void saveTGA(
+		texture2D const & Image, 
+		std::string const & Filename);
 
-        }//namespace loader_tga
-    }//namespace gtx
+}//namespace loader_tga
+}//namespace gtx
 }//namespace gli
 
-namespace gli { using namespace gtx::loader_tga; }
+namespace gli{using namespace gtx::loader_tga;}
 
 #include "loader_tga.inl"
 

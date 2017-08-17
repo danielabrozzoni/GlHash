@@ -12,61 +12,60 @@
 
 #include "image2d.hpp"
 
-namespace gli {
-    enum comp {
-        X = 0,
-        R = 0,
-        S = 0,
-        Y = 1,
-        G = 1,
-        T = 1,
-        Z = 2,
-        B = 2,
-        P = 2,
-        W = 3,
-        A = 3,
-        Q = 3
-    };
+namespace gli
+{
+	enum comp
+	{
+		X = 0,
+		R = 0,
+		S = 0,
+		Y = 1,
+		G = 1,
+		T = 1,
+		Z = 2,
+		B = 2,
+		P = 2,
+		W = 3,
+		A = 3,
+		Q = 3
+	};
 
-    //template <template <typename> class mem>
-    class texture2D {
-    public:
-        typedef image2D::dimensions_type dimensions_type;
-        typedef image2D::texcoord_type texcoord_type;
-        typedef image2D::size_type size_type;
-        typedef image2D::value_type value_type;
-        typedef image2D::format_type format_type;
-        typedef image2D::data_type data_type;
-        typedef std::size_t level_type;
+	//template <template <typename> class mem>
+	class texture2D
+	{
+	public:
+		typedef image2D::dimensions_type dimensions_type;
+		typedef image2D::texcoord_type texcoord_type;
+		typedef image2D::size_type size_type;
+		typedef image2D::value_type value_type;
+		typedef image2D::format_type format_type;
+		typedef image2D::data_type data_type;
+		typedef std::size_t level_type;
 
-    public:
-        texture2D();
+	public:
+		texture2D();
 
-        explicit texture2D(level_type const &Levels);
-        //texture2D(image const & Mipmap, bool GenerateMipmaps = false);
+		explicit texture2D(level_type const & Levels);
+		//texture2D(image const & Mipmap, bool GenerateMipmaps = false);
 
-        ~texture2D();
+		~texture2D();
 
-        image2D &operator[](
-                level_type const &Level);
+		image2D & operator[] (
+			level_type const & Level);
+		image2D const & operator[] (
+			level_type const & Level) const;
 
-        image2D const &operator[](
-                level_type const &Level) const;
+		bool empty() const;
+		format_type format() const;
+		level_type levels() const;
+		void resize(level_type const & Levels);
 
-        bool empty() const;
+		template <typename genType>
+		void swizzle(gli::comp X, gli::comp Y, gli::comp Z, gli::comp W);
 
-        format_type format() const;
-
-        level_type levels() const;
-
-        void resize(level_type const &Levels);
-
-        template<typename genType>
-        void swizzle(gli::comp X, gli::comp Y, gli::comp Z, gli::comp W);
-
-    private:
-        std::vector<image2D> Images;
-    };
+	private:
+		std::vector<image2D> Images;
+	};
 
 //namespace wip
 //{

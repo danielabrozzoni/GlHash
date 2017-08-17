@@ -33,17 +33,16 @@
 
 // Win32-specific global TLS data
 //
-typedef struct _GLFWtlsWin32 {
-    GLboolean allocated;
-    DWORD context;
+typedef struct _GLFWtlsWin32
+{
+    GLboolean       allocated;
+    DWORD           context;
 
 } _GLFWtlsWin32;
 
 
 int _glfwCreateContextTLS(void);
-
 void _glfwDestroyContextTLS(void);
-
-void _glfwSetContextTLS(_GLFWwindow *context);
+void _glfwSetContextTLS(_GLFWwindow* context);
 
 #endif // _glfw3_win32_tls_h_

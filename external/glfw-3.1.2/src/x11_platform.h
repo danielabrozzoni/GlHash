@@ -47,13 +47,13 @@
 #include <X11/extensions/Xinerama.h>
 
 #if defined(_GLFW_HAS_XINPUT)
-// The XInput2 extension provides improved input events
-#include <X11/extensions/XInput2.h>
+ // The XInput2 extension provides improved input events
+ #include <X11/extensions/XInput2.h>
 #endif
 
 #if defined(_GLFW_HAS_XF86VM)
-// The Xf86VidMode extension provides fallback gamma control
-#include <X11/extensions/xf86vmode.h>
+ // The Xf86VidMode extension provides fallback gamma control
+ #include <X11/extensions/xf86vmode.h>
 #endif
 
 #include "posix_tls.h"
@@ -62,15 +62,15 @@
 #include "xkb_unicode.h"
 
 #if defined(_GLFW_GLX)
-#define _GLFW_X11_CONTEXT_VISUAL window->glx.visual
-#include "glx_context.h"
+ #define _GLFW_X11_CONTEXT_VISUAL window->glx.visual
+ #include "glx_context.h"
 #elif defined(_GLFW_EGL)
-#define _GLFW_X11_CONTEXT_VISUAL window->egl.visual
-#define _GLFW_EGL_NATIVE_WINDOW  window->x11.handle
-#define _GLFW_EGL_NATIVE_DISPLAY _glfw.x11.display
-#include "egl_context.h"
+ #define _GLFW_X11_CONTEXT_VISUAL window->egl.visual
+ #define _GLFW_EGL_NATIVE_WINDOW  window->x11.handle
+ #define _GLFW_EGL_NATIVE_DISPLAY _glfw.x11.display
+ #include "egl_context.h"
 #else
-#error "No supported context creation API selected"
+ #error "No supported context creation API selected"
 #endif
 
 #define _GLFW_PLATFORM_WINDOW_STATE         _GLFWwindowX11  x11
@@ -81,24 +81,25 @@
 
 // X11-specific per-window data
 //
-typedef struct _GLFWwindowX11 {
-    Colormap colormap;
-    Window handle;
-    XIC ic;
+typedef struct _GLFWwindowX11
+{
+    Colormap        colormap;
+    Window          handle;
+    XIC             ic;
 
     // Cached position and size used to filter out duplicate events
-    int width, height;
-    int xpos, ypos;
+    int             width, height;
+    int             xpos, ypos;
 
     // The last received cursor position, regardless of source
-    double cursorPosX, cursorPosY;
+    double          cursorPosX, cursorPosY;
     // The last position the cursor was warped to by GLFW
-    int warpPosX, warpPosY;
+    int             warpPosX, warpPosY;
 
     // The information from the last KeyPress event
     struct {
         unsigned int keycode;
-        Time time;
+        Time         time;
     } last;
 
 } _GLFWwindowX11;
@@ -106,101 +107,102 @@ typedef struct _GLFWwindowX11 {
 
 // X11-specific global data
 //
-typedef struct _GLFWlibraryX11 {
-    Display *display;
-    int screen;
-    Window root;
+typedef struct _GLFWlibraryX11
+{
+    Display*        display;
+    int             screen;
+    Window          root;
 
     // Invisible cursor for hidden cursor mode
-    Cursor cursor;
+    Cursor          cursor;
     // Context for mapping window XIDs to _GLFWwindow pointers
-    XContext context;
+    XContext        context;
     // XIM input method
-    XIM im;
+    XIM             im;
     // Most recent error code received by X error handler
-    int errorCode;
+    int             errorCode;
     // Clipboard string (while the selection is owned)
-    char *clipboardString;
+    char*           clipboardString;
     // X11 keycode to GLFW key LUT
-    short int publicKeys[256];
+    short int       publicKeys[256];
 
     // Window manager atoms
-    Atom WM_PROTOCOLS;
-    Atom WM_STATE;
-    Atom WM_DELETE_WINDOW;
-    Atom NET_WM_NAME;
-    Atom NET_WM_ICON_NAME;
-    Atom NET_WM_PID;
-    Atom NET_WM_PING;
-    Atom NET_WM_STATE;
-    Atom NET_WM_STATE_ABOVE;
-    Atom NET_WM_STATE_FULLSCREEN;
-    Atom NET_WM_BYPASS_COMPOSITOR;
-    Atom NET_WM_FULLSCREEN_MONITORS;
-    Atom NET_ACTIVE_WINDOW;
-    Atom NET_FRAME_EXTENTS;
-    Atom NET_REQUEST_FRAME_EXTENTS;
-    Atom MOTIF_WM_HINTS;
+    Atom            WM_PROTOCOLS;
+    Atom            WM_STATE;
+    Atom            WM_DELETE_WINDOW;
+    Atom            NET_WM_NAME;
+    Atom            NET_WM_ICON_NAME;
+    Atom            NET_WM_PID;
+    Atom            NET_WM_PING;
+    Atom            NET_WM_STATE;
+    Atom            NET_WM_STATE_ABOVE;
+    Atom            NET_WM_STATE_FULLSCREEN;
+    Atom            NET_WM_BYPASS_COMPOSITOR;
+    Atom            NET_WM_FULLSCREEN_MONITORS;
+    Atom            NET_ACTIVE_WINDOW;
+    Atom            NET_FRAME_EXTENTS;
+    Atom            NET_REQUEST_FRAME_EXTENTS;
+    Atom            MOTIF_WM_HINTS;
 
     // Xdnd (drag and drop) atoms
-    Atom XdndAware;
-    Atom XdndEnter;
-    Atom XdndPosition;
-    Atom XdndStatus;
-    Atom XdndActionCopy;
-    Atom XdndDrop;
-    Atom XdndLeave;
-    Atom XdndFinished;
-    Atom XdndSelection;
+    Atom            XdndAware;
+    Atom            XdndEnter;
+    Atom            XdndPosition;
+    Atom            XdndStatus;
+    Atom            XdndActionCopy;
+    Atom            XdndDrop;
+    Atom            XdndLeave;
+    Atom            XdndFinished;
+    Atom            XdndSelection;
 
     // Selection (clipboard) atoms
-    Atom TARGETS;
-    Atom MULTIPLE;
-    Atom CLIPBOARD;
-    Atom CLIPBOARD_MANAGER;
-    Atom SAVE_TARGETS;
-    Atom NULL_;
-    Atom UTF8_STRING;
-    Atom COMPOUND_STRING;
-    Atom ATOM_PAIR;
-    Atom GLFW_SELECTION;
+    Atom            TARGETS;
+    Atom            MULTIPLE;
+    Atom            CLIPBOARD;
+    Atom            CLIPBOARD_MANAGER;
+    Atom            SAVE_TARGETS;
+    Atom            NULL_;
+    Atom            UTF8_STRING;
+    Atom            COMPOUND_STRING;
+    Atom            ATOM_PAIR;
+    Atom            GLFW_SELECTION;
 
     struct {
-        GLboolean available;
-        int eventBase;
-        int errorBase;
-        int major;
-        int minor;
-        GLboolean gammaBroken;
-        GLboolean monitorBroken;
+        GLboolean   available;
+        int         eventBase;
+        int         errorBase;
+        int         major;
+        int         minor;
+        GLboolean   gammaBroken;
+        GLboolean   monitorBroken;
     } randr;
 
     struct {
-        GLboolean available;
-        GLboolean detectable;
-        int majorOpcode;
-        int eventBase;
-        int errorBase;
-        int major;
-        int minor;
+        GLboolean   available;
+        GLboolean   detectable;
+        int         majorOpcode;
+        int         eventBase;
+        int         errorBase;
+        int         major;
+        int         minor;
     } xkb;
 
     struct {
-        int count;
-        int timeout;
-        int interval;
-        int blanking;
-        int exposure;
+        int         count;
+        int         timeout;
+        int         interval;
+        int         blanking;
+        int         exposure;
     } saver;
 
     struct {
-        Window source;
+        Window      source;
     } xdnd;
 
     struct {
-        GLboolean available;
-        int major;
-        int minor;
+        GLboolean   available;
+        int         major;
+        int         minor;
     } xinerama;
 
 #if defined(_GLFW_HAS_XINPUT)
@@ -227,41 +229,40 @@ typedef struct _GLFWlibraryX11 {
 
 // X11-specific per-monitor data
 //
-typedef struct _GLFWmonitorX11 {
-    RROutput output;
-    RRCrtc crtc;
-    RRMode oldMode;
+typedef struct _GLFWmonitorX11
+{
+    RROutput        output;
+    RRCrtc          crtc;
+    RRMode          oldMode;
 
     // Index of corresponding Xinerama screen,
     // for EWMH full screen window placement
-    int index;
+    int             index;
 
 } _GLFWmonitorX11;
 
 
 // X11-specific per-cursor data
 //
-typedef struct _GLFWcursorX11 {
+typedef struct _GLFWcursorX11
+{
     Cursor handle;
 
 } _GLFWcursorX11;
 
 
-GLboolean _glfwSetVideoMode(_GLFWmonitor *monitor, const GLFWvidmode *desired);
+GLboolean _glfwSetVideoMode(_GLFWmonitor* monitor, const GLFWvidmode* desired);
+void _glfwRestoreVideoMode(_GLFWmonitor* monitor);
 
-void _glfwRestoreVideoMode(_GLFWmonitor *monitor);
-
-Cursor _glfwCreateCursor(const GLFWimage *image, int xhot, int yhot);
+Cursor _glfwCreateCursor(const GLFWimage* image, int xhot, int yhot);
 
 unsigned long _glfwGetWindowProperty(Window window,
                                      Atom property,
                                      Atom type,
-                                     unsigned char **value);
+                                     unsigned char** value);
 
 void _glfwGrabXErrorHandler(void);
-
 void _glfwReleaseXErrorHandler(void);
-
-void _glfwInputXError(int error, const char *message);
+void _glfwInputXError(int error, const char* message);
 
 #endif // _glfw3_x11_platform_h_

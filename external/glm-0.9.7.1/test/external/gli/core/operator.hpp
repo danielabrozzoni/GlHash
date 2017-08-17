@@ -12,14 +12,14 @@
 
 #include "texture2d.hpp"
 
-namespace gli {
-    namespace detail {
+namespace gli{
+namespace detail
+{
 
-    }//namespace detail
+}//namespace detail
 
-    texture2D operator+(texture2D const &TextureA, texture2D const &TextureB);
-
-    texture2D operator-(texture2D const &TextureA, texture2D const &TextureB);
+	texture2D operator+(texture2D const & TextureA, texture2D const & TextureB);
+	texture2D operator-(texture2D const & TextureA, texture2D const & TextureB);
 
 }//namespace gli
 

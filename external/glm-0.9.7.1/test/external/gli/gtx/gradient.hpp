@@ -12,25 +12,26 @@
 
 #include "../gli.hpp"
 
-namespace gli {
-    namespace gtx {
-        namespace gradient {
-            texture2D radial(
-                    texture2D::dimensions_type const &Size,
-                    texture2D::texcoord_type const &Center,
-                    float const &Radius,
-                    texture2D::texcoord_type const &Focal);
+namespace gli{
+namespace gtx{
+namespace gradient
+{
+	texture2D radial(
+		texture2D::dimensions_type const & Size, 
+		texture2D::texcoord_type const & Center,
+		float const & Radius,
+		texture2D::texcoord_type const & Focal);
 
-            texture2D linear(
-                    texture2D::dimensions_type const &Size,
-                    texture2D::texcoord_type const &Point0,
-                    texture2D::texcoord_type const &Point1);
+	texture2D linear(
+		texture2D::dimensions_type const & Size, 
+		texture2D::texcoord_type const & Point0, 
+		texture2D::texcoord_type const & Point1);
 
-        }//namespace gradient
-    }//namespace gtx
+}//namespace gradient
+}//namespace gtx
 }//namespace gli
 
-namespace gli { using namespace gtx::gradient; }
+namespace gli{using namespace gtx::gradient;}
 
 #include "gradient.inl"
 

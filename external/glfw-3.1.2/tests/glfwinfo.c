@@ -53,29 +53,30 @@
 #define BEHAVIOR_NAME_NONE  "none"
 #define BEHAVIOR_NAME_FLUSH "flush"
 
-static void usage(void) {
+static void usage(void)
+{
     printf("Usage: glfwinfo [OPTION]...\n");
     printf("Options:\n");
     printf("  -a, --client-api=API      the client API to use ("
-                   API_NAME_OPENGL " or "
-                   API_NAME_OPENGL_ES ")\n");
+                                        API_NAME_OPENGL " or "
+                                        API_NAME_OPENGL_ES ")\n");
     printf("  -b, --behavior=BEHAVIOR   the release behavior to use ("
-                   BEHAVIOR_NAME_NONE " or "
-                   BEHAVIOR_NAME_FLUSH ")\n");
+                                        BEHAVIOR_NAME_NONE " or "
+                                        BEHAVIOR_NAME_FLUSH ")\n");
     printf("  -d, --debug               request a debug context\n");
     printf("  -f, --forward             require a forward-compatible context\n");
     printf("  -h, --help                show this help\n");
     printf("  -l, --list-extensions     list all client API extensions\n");
     printf("  -m, --major=MAJOR         the major number of the required "
-                   "client API version\n");
+                                        "client API version\n");
     printf("  -n, --minor=MINOR         the minor number of the required "
-                   "client API version\n");
+                                        "client API version\n");
     printf("  -p, --profile=PROFILE     the OpenGL profile to use ("
-                   PROFILE_NAME_CORE " or "
-                   PROFILE_NAME_COMPAT ")\n");
+                                        PROFILE_NAME_CORE " or "
+                                        PROFILE_NAME_COMPAT ")\n");
     printf("  -s, --robustness=STRATEGY the robustness strategy to use ("
-                   STRATEGY_NAME_NONE " or "
-                   STRATEGY_NAME_LOSE ")\n");
+                                        STRATEGY_NAME_NONE " or "
+                                        STRATEGY_NAME_LOSE ")\n");
     printf("  -v, --version             print version information\n");
     printf("      --red-bits=N          the number of red bits to request\n");
     printf("      --green-bits=N        the number of green bits to request\n");
@@ -94,11 +95,13 @@ static void usage(void) {
     printf("      --singlebuffer        request single-buffering\n");
 }
 
-static void error_callback(int error, const char *description) {
+static void error_callback(int error, const char* description)
+{
     fprintf(stderr, "Error: %s\n", description);
 }
 
-static const char *get_api_name(int api) {
+static const char* get_api_name(int api)
+{
     if (api == GLFW_OPENGL_API)
         return "OpenGL";
     else if (api == GLFW_OPENGL_ES_API)
@@ -107,7 +110,8 @@ static const char *get_api_name(int api) {
     return "Unknown API";
 }
 
-static const char *get_profile_name_gl(GLint mask) {
+static const char* get_profile_name_gl(GLint mask)
+{
     if (mask & GL_CONTEXT_COMPATIBILITY_PROFILE_BIT)
         return PROFILE_NAME_COMPAT;
     if (mask & GL_CONTEXT_CORE_PROFILE_BIT)
@@ -116,7 +120,8 @@ static const char *get_profile_name_gl(GLint mask) {
     return "unknown";
 }
 
-static const char *get_profile_name_glfw(int profile) {
+static const char* get_profile_name_glfw(int profile)
+{
     if (profile == GLFW_OPENGL_COMPAT_PROFILE)
         return PROFILE_NAME_COMPAT;
     if (profile == GLFW_OPENGL_CORE_PROFILE)
@@ -125,7 +130,8 @@ static const char *get_profile_name_glfw(int profile) {
     return "unknown";
 }
 
-static const char *get_strategy_name_gl(GLint strategy) {
+static const char* get_strategy_name_gl(GLint strategy)
+{
     if (strategy == GL_LOSE_CONTEXT_ON_RESET_ARB)
         return STRATEGY_NAME_LOSE;
     if (strategy == GL_NO_RESET_NOTIFICATION_ARB)
@@ -134,7 +140,8 @@ static const char *get_strategy_name_gl(GLint strategy) {
     return "unknown";
 }
 
-static const char *get_strategy_name_glfw(int strategy) {
+static const char* get_strategy_name_glfw(int strategy)
+{
     if (strategy == GLFW_LOSE_CONTEXT_ON_RESET)
         return STRATEGY_NAME_LOSE;
     if (strategy == GLFW_NO_RESET_NOTIFICATION)
@@ -143,28 +150,34 @@ static const char *get_strategy_name_glfw(int strategy) {
     return "unknown";
 }
 
-static void list_extensions(int api, int major, int minor) {
+static void list_extensions(int api, int major, int minor)
+{
     int i;
     GLint count;
-    const GLubyte *extensions;
+    const GLubyte* extensions;
 
     printf("%s context supported extensions:\n", get_api_name(api));
 
-    if (api == GLFW_OPENGL_API && major > 2) {
+    if (api == GLFW_OPENGL_API && major > 2)
+    {
         PFNGLGETSTRINGIPROC glGetStringi =
-                (PFNGLGETSTRINGIPROC) glfwGetProcAddress("glGetStringi");
-        if (!glGetStringi) {
+            (PFNGLGETSTRINGIPROC) glfwGetProcAddress("glGetStringi");
+        if (!glGetStringi)
+        {
             glfwTerminate();
             exit(EXIT_FAILURE);
         }
 
         glGetIntegerv(GL_NUM_EXTENSIONS, &count);
 
-        for (i = 0; i < count; i++)
-            puts((const char *) glGetStringi(GL_EXTENSIONS, i));
-    } else {
+        for (i = 0;  i < count;  i++)
+            puts((const char*) glGetStringi(GL_EXTENSIONS, i));
+    }
+    else
+    {
         extensions = glGetString(GL_EXTENSIONS);
-        while (*extensions != '\0') {
+        while (*extensions != '\0')
+        {
             if (*extensions == ' ')
                 putchar('\n');
             else
@@ -177,11 +190,13 @@ static void list_extensions(int api, int major, int minor) {
     putchar('\n');
 }
 
-static GLboolean valid_version(void) {
+static GLboolean valid_version(void)
+{
     int major, minor, revision;
     glfwGetVersion(&major, &minor, &revision);
 
-    if (major != GLFW_VERSION_MAJOR) {
+    if (major != GLFW_VERSION_MAJOR)
+    {
         printf("*** ERROR: GLFW major version mismatch! ***\n");
         return GL_FALSE;
     }
@@ -192,7 +207,8 @@ static GLboolean valid_version(void) {
     return GL_TRUE;
 }
 
-static void print_version(void) {
+static void print_version(void)
+{
     int major, minor, revision;
     glfwGetVersion(&major, &minor, &revision);
 
@@ -204,49 +220,48 @@ static void print_version(void) {
     printf("GLFW library version string: \"%s\"\n", glfwGetVersionString());
 }
 
-int main(int argc, char **argv) {
+int main(int argc, char** argv)
+{
     int ch, api, major, minor, revision, profile;
     GLint redbits, greenbits, bluebits, alphabits, depthbits, stencilbits;
     GLboolean list = GL_FALSE;
-    GLFWwindow *window;
+    GLFWwindow* window;
 
-    enum {
-        API, BEHAVIOR, DEBUG, FORWARD, HELP, EXTENSIONS,
-        MAJOR, MINOR, PROFILE, ROBUSTNESS, VERSION,
-        REDBITS, GREENBITS, BLUEBITS, ALPHABITS, DEPTHBITS, STENCILBITS,
-        ACCUMREDBITS, ACCUMGREENBITS, ACCUMBLUEBITS, ACCUMALPHABITS,
-        AUXBUFFERS, SAMPLES, STEREO, SRGB, SINGLEBUFFER
-    };
+    enum { API, BEHAVIOR, DEBUG, FORWARD, HELP, EXTENSIONS,
+           MAJOR, MINOR, PROFILE, ROBUSTNESS, VERSION,
+           REDBITS, GREENBITS, BLUEBITS, ALPHABITS, DEPTHBITS, STENCILBITS,
+           ACCUMREDBITS, ACCUMGREENBITS, ACCUMBLUEBITS, ACCUMALPHABITS,
+           AUXBUFFERS, SAMPLES, STEREO, SRGB, SINGLEBUFFER };
     const struct option options[] =
-            {
-                    {"behavior",         1, NULL, BEHAVIOR},
-                    {"client-api",       1, NULL, API},
-                    {"debug",            0, NULL, DEBUG},
-                    {"forward",          0, NULL, FORWARD},
-                    {"help",             0, NULL, HELP},
-                    {"list-extensions",  0, NULL, EXTENSIONS},
-                    {"major",            1, NULL, MAJOR},
-                    {"minor",            1, NULL, MINOR},
-                    {"profile",          1, NULL, PROFILE},
-                    {"robustness",       1, NULL, ROBUSTNESS},
-                    {"version",          0, NULL, VERSION},
-                    {"red-bits",         1, NULL, REDBITS},
-                    {"green-bits",       1, NULL, GREENBITS},
-                    {"blue-bits",        1, NULL, BLUEBITS},
-                    {"alpha-bits",       1, NULL, ALPHABITS},
-                    {"depth-bits",       1, NULL, DEPTHBITS},
-                    {"stencil-bits",     1, NULL, STENCILBITS},
-                    {"accum-red-bits",   1, NULL, ACCUMREDBITS},
-                    {"accum-green-bits", 1, NULL, ACCUMGREENBITS},
-                    {"accum-blue-bits",  1, NULL, ACCUMBLUEBITS},
-                    {"accum-alpha-bits", 1, NULL, ACCUMALPHABITS},
-                    {"aux-buffers",      1, NULL, AUXBUFFERS},
-                    {"samples",          1, NULL, SAMPLES},
-                    {"stereo",           0, NULL, STEREO},
-                    {"srgb",             0, NULL, SRGB},
-                    {"singlebuffer",     0, NULL, SINGLEBUFFER},
-                    {NULL,               0, NULL, 0}
-            };
+    {
+        { "behavior",         1, NULL, BEHAVIOR },
+        { "client-api",       1, NULL, API },
+        { "debug",            0, NULL, DEBUG },
+        { "forward",          0, NULL, FORWARD },
+        { "help",             0, NULL, HELP },
+        { "list-extensions",  0, NULL, EXTENSIONS },
+        { "major",            1, NULL, MAJOR },
+        { "minor",            1, NULL, MINOR },
+        { "profile",          1, NULL, PROFILE },
+        { "robustness",       1, NULL, ROBUSTNESS },
+        { "version",          0, NULL, VERSION },
+        { "red-bits",         1, NULL, REDBITS },
+        { "green-bits",       1, NULL, GREENBITS },
+        { "blue-bits",        1, NULL, BLUEBITS },
+        { "alpha-bits",       1, NULL, ALPHABITS },
+        { "depth-bits",       1, NULL, DEPTHBITS },
+        { "stencil-bits",     1, NULL, STENCILBITS },
+        { "accum-red-bits",   1, NULL, ACCUMREDBITS },
+        { "accum-green-bits", 1, NULL, ACCUMGREENBITS },
+        { "accum-blue-bits",  1, NULL, ACCUMBLUEBITS },
+        { "accum-alpha-bits", 1, NULL, ACCUMALPHABITS },
+        { "aux-buffers",      1, NULL, AUXBUFFERS },
+        { "samples",          1, NULL, SAMPLES },
+        { "stereo",           0, NULL, STEREO },
+        { "srgb",             0, NULL, SRGB },
+        { "singlebuffer",     0, NULL, SINGLEBUFFER },
+        { NULL, 0, NULL, 0 }
+    };
 
     // Initialize GLFW and create window
 
@@ -258,28 +273,36 @@ int main(int argc, char **argv) {
     if (!glfwInit())
         exit(EXIT_FAILURE);
 
-    while ((ch = getopt_long(argc, argv, "a:b:dfhlm:n:p:s:v", options, NULL)) != -1) {
-        switch (ch) {
+    while ((ch = getopt_long(argc, argv, "a:b:dfhlm:n:p:s:v", options, NULL)) != -1)
+    {
+        switch (ch)
+        {
             case 'a':
             case API:
                 if (strcasecmp(optarg, API_NAME_OPENGL) == 0)
                     glfwWindowHint(GLFW_CLIENT_API, GLFW_OPENGL_API);
                 else if (strcasecmp(optarg, API_NAME_OPENGL_ES) == 0)
                     glfwWindowHint(GLFW_CLIENT_API, GLFW_OPENGL_ES_API);
-                else {
+                else
+                {
                     usage();
                     exit(EXIT_FAILURE);
                 }
                 break;
             case 'b':
             case BEHAVIOR:
-                if (strcasecmp(optarg, BEHAVIOR_NAME_NONE) == 0) {
+                if (strcasecmp(optarg, BEHAVIOR_NAME_NONE) == 0)
+                {
                     glfwWindowHint(GLFW_CONTEXT_RELEASE_BEHAVIOR,
                                    GLFW_RELEASE_BEHAVIOR_NONE);
-                } else if (strcasecmp(optarg, BEHAVIOR_NAME_FLUSH) == 0) {
+                }
+                else if (strcasecmp(optarg, BEHAVIOR_NAME_FLUSH) == 0)
+                {
                     glfwWindowHint(GLFW_CONTEXT_RELEASE_BEHAVIOR,
                                    GLFW_RELEASE_BEHAVIOR_FLUSH);
-                } else {
+                }
+                else
+                {
                     usage();
                     exit(EXIT_FAILURE);
                 }
@@ -310,26 +333,36 @@ int main(int argc, char **argv) {
                 break;
             case 'p':
             case PROFILE:
-                if (strcasecmp(optarg, PROFILE_NAME_CORE) == 0) {
+                if (strcasecmp(optarg, PROFILE_NAME_CORE) == 0)
+                {
                     glfwWindowHint(GLFW_OPENGL_PROFILE,
                                    GLFW_OPENGL_CORE_PROFILE);
-                } else if (strcasecmp(optarg, PROFILE_NAME_COMPAT) == 0) {
+                }
+                else if (strcasecmp(optarg, PROFILE_NAME_COMPAT) == 0)
+                {
                     glfwWindowHint(GLFW_OPENGL_PROFILE,
                                    GLFW_OPENGL_COMPAT_PROFILE);
-                } else {
+                }
+                else
+                {
                     usage();
                     exit(EXIT_FAILURE);
                 }
                 break;
             case 's':
             case ROBUSTNESS:
-                if (strcasecmp(optarg, STRATEGY_NAME_NONE) == 0) {
+                if (strcasecmp(optarg, STRATEGY_NAME_NONE) == 0)
+                {
                     glfwWindowHint(GLFW_CONTEXT_ROBUSTNESS,
                                    GLFW_NO_RESET_NOTIFICATION);
-                } else if (strcasecmp(optarg, STRATEGY_NAME_LOSE) == 0) {
+                }
+                else if (strcasecmp(optarg, STRATEGY_NAME_LOSE) == 0)
+                {
                     glfwWindowHint(GLFW_CONTEXT_ROBUSTNESS,
                                    GLFW_LOSE_CONTEXT_ON_RESET);
-                } else {
+                }
+                else
+                {
                     usage();
                     exit(EXIT_FAILURE);
                 }
@@ -430,7 +463,8 @@ int main(int argc, char **argv) {
     glfwWindowHint(GLFW_VISIBLE, GL_FALSE);
 
     window = glfwCreateWindow(200, 200, "Version", NULL, NULL);
-    if (!window) {
+    if (!window)
+    {
         glfwTerminate();
         exit(EXIT_FAILURE);
     }
@@ -455,8 +489,10 @@ int main(int argc, char **argv) {
 
     // Report client API context properties
 
-    if (api == GLFW_OPENGL_API) {
-        if (major >= 3) {
+    if (api == GLFW_OPENGL_API)
+    {
+        if (major >= 3)
+        {
             GLint flags;
 
             glGetIntegerv(GL_CONTEXT_FLAGS, &flags);
@@ -481,7 +517,8 @@ int main(int argc, char **argv) {
             putchar('\n');
         }
 
-        if (major >= 4 || (major == 3 && minor >= 2)) {
+        if (major >= 4 || (major == 3 && minor >= 2))
+        {
             GLint mask;
             glGetIntegerv(GL_CONTEXT_PROFILE_MASK, &mask);
 
@@ -495,7 +532,8 @@ int main(int argc, char **argv) {
                    get_profile_name_glfw(profile));
         }
 
-        if (glfwExtensionSupported("GL_ARB_robustness")) {
+        if (glfwExtensionSupported("GL_ARB_robustness"))
+        {
             const int robustness = glfwGetWindowAttrib(window, GLFW_CONTEXT_ROBUSTNESS);
             GLint strategy;
             glGetIntegerv(GL_RESET_NOTIFICATION_STRATEGY_ARB, &strategy);
@@ -518,7 +556,8 @@ int main(int argc, char **argv) {
            get_api_name(api),
            glGetString(GL_VENDOR));
 
-    if (major >= 2) {
+    if (major >= 2)
+    {
         printf("%s context shading language version: \"%s\"\n",
                get_api_name(api),
                glGetString(GL_SHADING_LANGUAGE_VERSION));
@@ -526,12 +565,14 @@ int main(int argc, char **argv) {
 
     printf("Framebuffer:\n");
 
-    if (api == GLFW_OPENGL_API && profile == GLFW_OPENGL_CORE_PROFILE) {
+    if (api == GLFW_OPENGL_API && profile == GLFW_OPENGL_CORE_PROFILE)
+    {
         PFNGLGETFRAMEBUFFERATTACHMENTPARAMETERIVPROC
-                glGetFramebufferAttachmentParameteriv =
-                (PFNGLGETFRAMEBUFFERATTACHMENTPARAMETERIVPROC)
-                        glfwGetProcAddress("glGetFramebufferAttachmentParameteriv");
-        if (!glGetFramebufferAttachmentParameteriv) {
+            glGetFramebufferAttachmentParameteriv =
+            (PFNGLGETFRAMEBUFFERATTACHMENTPARAMETERIVPROC)
+            glfwGetProcAddress("glGetFramebufferAttachmentParameteriv");
+        if (!glGetFramebufferAttachmentParameteriv)
+        {
             glfwTerminate();
             exit(EXIT_FAILURE);
         }
@@ -560,7 +601,9 @@ int main(int argc, char **argv) {
                                               GL_STENCIL,
                                               GL_FRAMEBUFFER_ATTACHMENT_STENCIL_SIZE,
                                               &stencilbits);
-    } else {
+    }
+    else
+    {
         glGetIntegerv(GL_RED_BITS, &redbits);
         glGetIntegerv(GL_GREEN_BITS, &greenbits);
         glGetIntegerv(GL_BLUE_BITS, &bluebits);
@@ -574,7 +617,8 @@ int main(int argc, char **argv) {
 
     if (api == GLFW_OPENGL_ES_API ||
         glfwExtensionSupported("GL_ARB_multisample") ||
-        major > 1 || minor >= 3) {
+        major > 1 || minor >= 3)
+    {
         GLint samples, samplebuffers;
         glGetIntegerv(GL_SAMPLES, &samples);
         glGetIntegerv(GL_SAMPLE_BUFFERS, &samplebuffers);
@@ -582,7 +626,8 @@ int main(int argc, char **argv) {
         printf(" samples: %u sample buffers: %u\n", samples, samplebuffers);
     }
 
-    if (api == GLFW_OPENGL_API && profile != GLFW_OPENGL_CORE_PROFILE) {
+    if (api == GLFW_OPENGL_API && profile != GLFW_OPENGL_CORE_PROFILE)
+    {
         GLint accumredbits, accumgreenbits, accumbluebits, accumalphabits;
         GLint auxbuffers;
 

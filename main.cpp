@@ -26,11 +26,13 @@ using namespace glm;
 #define Window_Height 100
 #define Max_Lenght_String 256
 
-struct Pixel
-{
-    unsigned char r, g, b;
-};
-
+/**
+ * \todo
+ *      Delete this todo
+ *      Non so dirlo in inglese skstm sarebbe carino trovare un modo per avere quei #define in tutti i file,
+ *      lo so k mi kapyte grz
+ *      Plz delete this asap
+ */
 
 int main(void) {
 
@@ -185,6 +187,15 @@ int main(void) {
 
     glm::mat4 MVP = Projection * View * Model; // Remember, matrix multiplication is the other way around
 
+    //This is a struct that contains rgb of background's pixels
+    Pixel Backgroundpixels[Window_Height*Window_Width];
+
+    /**
+     *  \todo
+     *      Colors/188.bmp is an invalid path lol
+     */
+
+    readBMP("Colors/188.bmp", Backgroundpixels);
     do {
 
         // Clear the screen
@@ -235,7 +246,7 @@ int main(void) {
     while (glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS &&
            glfwWindowShouldClose(window) == 0);
 
-    ReadBuffer(buf[25] & 0b00000011, "output.txt", 0);
+    ReadBuffer(buf[25] & 0b00000011, "output.txt", 0, Backgroundpixels);
 
     // Cleanup VBO and shader
     glDeleteBuffers(1, &vertexbuffer);

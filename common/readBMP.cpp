@@ -3,11 +3,21 @@
 //
 #include <common/readBMP.h>
 
-Pixel *readBMP(char* filename)
+
+void readBMP(char* filename, Pixel Backgroundpixels[])
 {
-    Pixel pixels[Window_Height*Window_Width];
     int i;
     FILE* f = fopen(filename, "rb");
+
+    /**
+     *  \todo
+     *      Decide what to do if filename is an invalid path, exit(0) is a good idea?
+     */
+
+
+    if(f == NULL)
+        return;
+
     unsigned char info[54];
     fread(info, sizeof(unsigned char), 54, f); // read the 54-byte header
 
@@ -22,11 +32,9 @@ Pixel *readBMP(char* filename)
 
     for(i = 0; i < size; i += 3)
     {
-        pixels[i].r = data[i+2];
-        pixels[i].g = data[i+1];
-        pixels[i].b = data[i];
+        Backgroundpixels[i].r = data[i+2];
+        Backgroundpixels[i].g = data[i+1];
+        Backgroundpixels[i].b = data[i];
     }
-
-    return pixels;
 }
 

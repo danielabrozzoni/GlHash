@@ -2,6 +2,7 @@
 // Created by Alekos Filini on 17/08/2017.
 //
 
+
 #include "glhash.h"
 
 float mapBitsToFloat(unsigned char byte, size_t nbits, size_t offset, float min, float max) {
@@ -126,6 +127,12 @@ GLfloat *getCoordinates(BYTE *input) {
     size_t valuesRead = 0;
 
     auto *g_vertex_buffer_data = (GLfloat *) malloc(sizeof(GLfloat) * valuesCount);
+
+
+    /**
+     *  \todo
+     *      Clean this code :c
+     */
 
     for (size_t i = 1; valuesRead < valuesCount; valuesRead += 4, i++) {
         g_vertex_buffer_data[valuesRead] = mapBitsToFloat(input[i], 2, 6, -1.0f, 1.0f) + offset[valuesRead];

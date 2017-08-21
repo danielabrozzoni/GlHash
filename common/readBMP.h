@@ -7,13 +7,9 @@
 #define Window_Width 133
 #define Window_Height 100
 
+#include <common/ReadBuffer.h>
 #include <stdio.h>
 
-struct Pixel
-{
-    unsigned char r, g, b;
-};
-
-Pixel *readBMP(char* filename);
+void readBMP(char* filename, Pixel bg[]);
 
 #endif //GLHASH_READBMP_H

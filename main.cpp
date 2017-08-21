@@ -19,11 +19,18 @@ using namespace glm;
 #include <common/sha256.h>
 #include <cstring>
 #include <common/glhash.h>
-#include "common/ReadBuffer.h"
+#include <common/ReadBuffer.h>
+#include <common/readBMP.h>
 
 #define Window_Width 133
 #define Window_Height 100
 #define Max_Lenght_String 256
+
+struct Pixel
+{
+    unsigned char r, g, b;
+};
+
 
 int main(void) {
 
@@ -134,6 +141,7 @@ int main(void) {
             0.820f, 0.883f, 0.371f,
             0.982f, 0.099f, 0.879f
     };
+
 
     BYTE buf[SHA256_BLOCK_SIZE];
 

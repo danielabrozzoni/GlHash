@@ -10,7 +10,7 @@
 using namespace std;
 vector< unsigned char > pixels( w * h * HowMuchParam * 2);
 
-void WriteFile(char filename[])
+void WriteFile(char *filename)
 {
     FILE *out;
     out = freopen(filename, "w", stdout);
@@ -24,7 +24,7 @@ void WriteFile(char filename[])
 }
 
 
-vector<unsigned char> ReadBuffer(int option, char filename[], bool write)
+vector<unsigned char> ReadBuffer(int option, char *filename, bool write)
 {
     int cont;
     switch(option)

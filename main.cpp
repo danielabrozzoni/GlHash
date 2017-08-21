@@ -136,7 +136,6 @@ int main(void) {
     };
 
     BYTE buf[SHA256_BLOCK_SIZE];
-    //input = "A quick brown fox jumps over the lazy dog";
 
     SHA256_CTX ctx{};
     sha256_init(&ctx);

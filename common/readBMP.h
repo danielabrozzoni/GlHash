@@ -7,7 +7,7 @@
 #define Window_Width 133
 #define Window_Height 100
 
-#include <common/ReadBuffer.h>
+#include <common/definitions.h>
 #include <stdio.h>
 
 void readBMP(char* filename, Pixel bg[]);

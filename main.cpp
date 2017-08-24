@@ -15,6 +15,7 @@ GLFWwindow *window;
 
 using namespace glm;
 
+#include <common/definitions.h>
 #include <common/shader.hpp>
 #include <common/sha256.h>
 #include <cstring>
@@ -22,17 +23,6 @@ using namespace glm;
 #include <common/ReadBuffer.h>
 #include <common/readBMP.h>
 
-#define Window_Width 133
-#define Window_Height 100
-#define Max_Lenght_String 256
-
-/**
- * \todo
- *      Delete this todo
- *      Non so dirlo in inglese skstm sarebbe carino trovare un modo per avere quei #define in tutti i file,
- *      lo so k mi kapyte grz
- *      Plz delete this asap
- */
 
 int main(void) {
 
@@ -65,7 +55,7 @@ int main(void) {
     glfwMakeContextCurrent(window);
 
     // Initialize GLEW
-    glewExperimental = true; // Needed for core profile
+    glewExperimental = (GLboolean) true; // Needed for core profile
     if (glewInit() != GLEW_OK) {
         fprintf(stderr, "Failed to initialize GLEW\n");
         getchar();
@@ -90,7 +80,7 @@ int main(void) {
                                    "shaders/ColorFragmentShader.fragmentshader");
 
     // Get a handle for our "MVP" uniform
-    GLuint MatrixID = glGetUniformLocation(programID, "MVP");
+    GLint MatrixID = glGetUniformLocation(programID, "MVP");
 
     // Projection matrix : 45? Field of View, 4:3 ratio, display range : 0.1 unit <-> 100 units
     glm::mat4 Projection = glm::perspective(glm::radians(45.0f), 4.0f / 3.0f, 0.1f, 100.0f);
@@ -195,7 +185,7 @@ int main(void) {
      *      Colors/188.bmp is an invalid path lol
      */
 
-    readBMP("Colors/188.bmp", Backgroundpixels);
+    readBMP((char *) "Colors/188.bmp", Backgroundpixels);
     do {
 
         // Clear the screen
@@ -246,7 +236,7 @@ int main(void) {
     while (glfwGetKey(window, GLFW_KEY_ESCAPE) != GLFW_PRESS &&
            glfwWindowShouldClose(window) == 0);
 
-    ReadBuffer(buf[25] & 0b00000011, "output.txt", 0, Backgroundpixels);
+    ReadBuffer(buf[25] & 0b00000011, (char *) "output.txt", 0, Backgroundpixels);
 
     // Cleanup VBO and shader
     glDeleteBuffers(1, &vertexbuffer);

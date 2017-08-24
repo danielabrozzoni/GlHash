@@ -17,8 +17,8 @@ void WriteFile(char *filename)
     for(int i = 0; i < Window_Width* Window_Height * HowMuchParam; i+=HowMuchParam)
     {
         for(int j = 0; j < HowMuchParam; j++)
-            cout << (int) pixels[i+j] << " ";
-        cout << endl;
+            printf("%d ", (int) pixels[i+j]);
+        printf("\n");
     }
 }
 

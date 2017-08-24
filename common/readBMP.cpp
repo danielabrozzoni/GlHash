@@ -27,7 +27,7 @@ void readBMP(char* filename, Pixel Backgroundpixels[])
 
     int size = 3 * width * height;
     unsigned char* data = new unsigned char[size]; // allocate 3 bytes per pixel
-    fread(data, sizeof(unsigned char), size, f); // read the rest of the data at once
+    fread(data, sizeof(unsigned char), (size_t) size, f); // read the rest of the data at once
     fclose(f);
 
     for(i = 0; i < size; i += 3)
